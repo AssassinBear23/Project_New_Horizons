@@ -11,7 +11,7 @@ public class PlayerDeath : MonoBehaviour
 
         if (/*pos.x < 0 || pos.x > 1 ||*/ pos.y < -0.05f || pos.y > 1.05f) GoDie();
 
-        Debug.Log("Inertia:" + rb.linearVelocity);
+        //Debug.Log("Inertia:" + rb.linearVelocity);
     }
     private void GoDie()
     {

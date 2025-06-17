@@ -1,11 +1,15 @@
 using UnityEngine;
-public class PlayerControls : MonoBehaviour
+public class Controls : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 100;
 
     // Internal
     private float direction;
     private bool holding = false;
+    private void Start()
+    {
+        Input.simulateMouseWithTouches = true;
+    }
     private void FixedUpdate()
     {
         //Debug.Log("Holding: " + holding + "\nDirection: " + direction);

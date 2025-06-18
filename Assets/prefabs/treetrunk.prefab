@@ -693,6 +693,7 @@ GameObject:
   - component: {fileID: 5088669238449685003}
   - component: {fileID: 3506481426866035267}
   - component: {fileID: 8640375358326276097}
+  - component: {fileID: 1343747873505519685}
   m_Layer: 0
   m_Name: treetrunk
   m_TagString: Untagged
@@ -814,6 +815,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 2, z: 0.75}
   m_Center: {x: 0.00000005960465, y: 0, z: -0.00000008940698}
+--- !u!114 &1343747873505519685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564434767243659198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0577b93fac4e550418bb4b2dcd8b5620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yInterval: 0
+  sameYMinAngleDist: 0
+  sameYMaxAngleDist: 0
+  differentYMinAngleDist: 0
+  differentYMaxAngleDist: 0
 --- !u!1 &7829480481996360388
 GameObject:
   m_ObjectHideFlags: 0

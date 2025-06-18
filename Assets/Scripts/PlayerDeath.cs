@@ -27,7 +27,7 @@ public class PlayerDeath : MonoBehaviour
         float backDot = Vector3.Dot(normal, -target.forward);
 
 
-        float threshold = 0.9f; // Adjust for tolerance due to floating point inaccuracies
+        float threshold = 0.75f; // Adjust for tolerance due to floating point inaccuracies
 
         if (frontDot > threshold)
         {

@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  mouseThreshold: 0.1
 --- !u!1 &778639854
 GameObject:
   m_ObjectHideFlags: 0

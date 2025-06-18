@@ -1,12 +1,13 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 public class Controls : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 100;
+    [SerializeField] private float stunTimer = 0.2f;
+    [SerializeField, Range(0f,1f)] private float mouseThreshold = 0.1f;
     public static Controls instance;
     // Internal
-    private float direction;
-    private bool holding = false;
+    private float m_direction;
     private bool isEnabled = true;
     private void Awake()
     {
@@ -19,41 +20,36 @@ public class Controls : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!isEnabled) return;
-
-        if (holding) transform.localEulerAngles =
+        transform.localEulerAngles =
             new Vector3(
             transform.localEulerAngles.x,
-            transform.localEulerAngles.y + moveSpeed * direction,
+            transform.localEulerAngles.y + moveSpeed * m_direction,
             transform.localEulerAngles.z);
     }
     private void Update()
     {
-        holding = false;
-        if (Input.GetMouseButton(0)) holding = true;
-
-        switch (Input.mousePositionDelta.x)
+        if (Input.GetMouseButton(0) && isEnabled)
         {
-            case < 0:
-                direction = 1;
-                break;
-            case > 0:
-                direction = -1;
-                break;
-            case 0:
-                direction = 0;
-                break;
+            if (Input.mousePositionDelta.x < -mouseThreshold)
+            {
+                m_direction = Mathf.Clamp01(Mathf.Abs(Input.mousePositionDelta.x));
+            }
+
+            else if (Input.mousePositionDelta.x > mouseThreshold)
+            {
+                m_direction = Mathf.Clamp(-Input.mousePositionDelta.x, -1, 0);
+            }
+
+            else m_direction = 0;
         }
+        else 
+            m_direction = 0;
     }
     public IEnumerator PlayerBounce(float direction)
     {
         isEnabled = false;
-        if (holding) transform.localEulerAngles =
-            new Vector3(
-            transform.localEulerAngles.x,
-            transform.localEulerAngles.y + moveSpeed * direction,
-            transform.localEulerAngles.z);
-        yield return new WaitForSeconds(0.05f);
+        m_direction = direction * 1.5f;
+        yield return new WaitForSeconds(stunTimer);
         isEnabled = true;
     }
 }

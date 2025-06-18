@@ -45,8 +45,8 @@ public class TreeController : MonoBehaviour
 
         else if (other.tag == "Spawner")
         {
-            Vector3 pos = parent.transform.position;
-            pos.y -= 15f;
+            Vector3 pos = transform.position;
+            pos.y -= 10f;
             TreeController spawned = Instantiate(prefab, pos, Quaternion.identity, parent.transform);
             spawned.movementSpeed = movementSpeed;
             spawned.parent = parent;

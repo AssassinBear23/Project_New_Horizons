@@ -789,7 +789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 0.01
   speedIncreaseType: 0
-  speedIncrease: 0.001
+  speedIncrease: 0.00001
   speedMultiplier: 1.01
   parent: {fileID: 0}
   prefab: {fileID: 3506481426866035267}

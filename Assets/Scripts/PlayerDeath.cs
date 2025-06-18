@@ -15,7 +15,7 @@ public class PlayerDeath : MonoBehaviour
     }
     private void GoDie()
     {
-        Debug.Log("Deadge");
+        //Debug.Log("Deadge");
         onDeadge?.Invoke();
     }
     private void OnCollisionEnter(Collision collision)
@@ -25,7 +25,6 @@ public class PlayerDeath : MonoBehaviour
 
         float frontDot = Vector3.Dot(normal, target.forward);
         float backDot = Vector3.Dot(normal, -target.forward);
-
 
         float threshold = 0.75f; // Adjust for tolerance due to floating point inaccuracies
 

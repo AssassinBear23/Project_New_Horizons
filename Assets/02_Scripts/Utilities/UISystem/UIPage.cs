@@ -18,7 +18,7 @@ public class UIPage : MonoBehaviour
     /// This is the page that the player/user came from. If set to null, it means that this page is the first page in the UI flow.
     /// </summary>
     [Tooltip("The page that the player/user came from. If set to null, it means that this page is the first page in the UI flow.")]
-    public UIPage? OriginalCallerPage { get; private set; }
+    [field: SerializeField] public UIPage? OriginalCallerPage { get; private set; }
 
     /// <summary>
     /// Sets the selected UI selectable to the default defined by this UIPage

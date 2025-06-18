@@ -3,13 +3,14 @@ using UnityEngine.Events;
 using System.Collections;
 public class PlayerDeath : MonoBehaviour
 {
+    [SerializeField] private float offScreenOffSet = 0.1f;
     public UnityEvent onDeadge;
     public Rigidbody rb;
     private void Update()
     {
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
 
-        if (/*pos.x < 0 || pos.x > 1 ||*/ pos.y < -0.05f || pos.y > 1.05f) GoDie();
+        if (/*pos.x < 0 || pos.x > 1 ||*/ pos.y < -offScreenOffSet || pos.y > 1+offScreenOffSet) GoDie();
 
         //Debug.Log("Inertia:" + rb.linearVelocity);
     }

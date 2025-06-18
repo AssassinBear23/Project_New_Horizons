@@ -12,6 +12,10 @@ public class TreeController : MonoBehaviour
     [Header("References")]
     public GameObject parent;
     [SerializeField] private TreeController prefab;
+    private void Start()
+    {
+        GameManager.instance.AddTreeSegment(this);
+    }
     private void FixedUpdate()
     {
         UpdatePosition();
@@ -40,6 +44,7 @@ public class TreeController : MonoBehaviour
     {
         if (other.tag == "Destroyer")
         {
+            GameManager.instance.RemoveTreeSegment(this);
             Destroy(gameObject);
         }
 

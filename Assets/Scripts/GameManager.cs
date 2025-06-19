@@ -2,12 +2,20 @@ using UnityEngine;
 using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private List<TreeController> treeSegments = new List<TreeController>();
+    public List<TreeController> treeSegments = new List<TreeController>();
     public static GameManager instance;
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+    }
+    public void StartGamePlay()
+    {
+        Controls.instance.enabled = true;
+        foreach(TreeController treeSegment in treeSegments)
+        {
+            treeSegment.enabled = true;
+        }
     }
     public void StopGameplay()
     {
@@ -19,10 +27,10 @@ public class GameManager : MonoBehaviour
     }
     public void AddTreeSegment(TreeController treeSegment)
     {
-        treeSegments.Add(treeSegment);
+        if (!treeSegments.Contains(treeSegment)) treeSegments.Add(treeSegment);
     }
     public void RemoveTreeSegment(TreeController treeSegment)
     {
-        treeSegments.Remove(treeSegment);
+        if (treeSegments.Contains(treeSegment)) treeSegments.Remove(treeSegment);
     }
 }

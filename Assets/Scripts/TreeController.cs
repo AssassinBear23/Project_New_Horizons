@@ -10,7 +10,7 @@ public class TreeController : MonoBehaviour
     [SerializeField, Min(1)] private float speedMultiplier = 1.01f;
     
     [Header("References")]
-    public GameObject parent;
+    [SerializeField] private GameObject parent;
     [SerializeField] private TreeController prefab;
     private void Start()
     {

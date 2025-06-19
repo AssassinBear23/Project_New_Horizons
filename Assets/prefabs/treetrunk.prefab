@@ -793,7 +793,7 @@ MonoBehaviour:
   speedIncrease: 0.00001
   speedMultiplier: 1.01
   parent: {fileID: 0}
-  prefab: {fileID: 3506481426866035267}
+  prefab: {fileID: 3506481426866035267, guid: 7bd2980fd07b7e64bbe5d5464ae5cb2e, type: 3}
 --- !u!65 &8640375358326276097
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -832,6 +832,10 @@ MonoBehaviour:
   sameYMaxAngleDist: 0
   differentYMinAngleDist: 0
   differentYMaxAngleDist: 0
+  yOffset: 0
+  branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
+  hasBranches: 0
+  lastBranch: {fileID: 0}
 --- !u!1 &7829480481996360388
 GameObject:
   m_ObjectHideFlags: 0

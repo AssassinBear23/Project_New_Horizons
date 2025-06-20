@@ -12,8 +12,10 @@ public class TreeController : MonoBehaviour
     [SerializeField, Min(1)] private float speedMultiplier = 1.01f;
     
     [Header("References")]
-    public GameObject parent;
-    [SerializeField] private TreeController prefab;
+    public GameObject _Parent;
+    [SerializeField] private PrefabReference prefab;
+
+    private bool hasSpawned = false;
 
     private void Start()
     {

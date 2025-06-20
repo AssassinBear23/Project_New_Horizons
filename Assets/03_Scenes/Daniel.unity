@@ -433,7 +433,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 892916254}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StopGameplay
         m_Mode: 1
@@ -911,7 +911,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 892916255}
-  - component: {fileID: 892916254}
+  - component: {fileID: 892916256}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -919,20 +919,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &892916254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892916253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 998fdc7177b74ac4b9d0b06af0007c10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  treeSegments:
-  - {fileID: 7744964014249597987}
 --- !u!4 &892916255
 Transform:
   m_ObjectHideFlags: 0
@@ -948,6 +934,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &892916256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892916253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53ae904f91b8ee45972e12c991c88e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AllowTogglePause>k__BackingField: 0
+  <IsPaused>k__BackingField: 0
+  m_treeSegments:
+  - {fileID: 7744964014249597987}
+  m_playerObject: {fileID: 294126188}
+  m_showFPSIndicator: 0
+  m_fpsIndicator: {fileID: 0}
+  m_fpsUpdateIntervalTime: 1
+  onSetupFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1228412804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1554,9 +1563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573dac44f26422a4a9de24eed8aac681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  stunTimer: 0.2
-  mouseThreshold: 0.1
+  m_inputManager: {fileID: 0}
+  m_moveSpeed: 100
+  m_stunTimer: 0.2
 --- !u!1 &2124401636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,6 +1800,7 @@ MonoBehaviour:
   branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
   hasBranches: 1
   lastBranch: {fileID: 242065699}
+  lastBranches: []
 --- !u!54 &6616392562802230886
 Rigidbody:
   m_ObjectHideFlags: 0

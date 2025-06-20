@@ -188,7 +188,7 @@ namespace Managers
         /// <param name="treeSegment">The tree segment to add.</param>
         public void AddTreeSegment(TreeController treeSegment)
         {
-            m_treeSegments.Add(treeSegment);
+            if (!m_treeSegments.Contains(treeSegment)) m_treeSegments.Add(treeSegment);
         }
 
         /// <summary>
@@ -197,7 +197,16 @@ namespace Managers
         /// <param name="treeSegment">The tree segment to remove.</param>
         public void RemoveTreeSegment(TreeController treeSegment)
         {
-            m_treeSegments.Remove(treeSegment);
+            if (m_treeSegments.Contains(treeSegment)) m_treeSegments.Remove(treeSegment);
+        }
+
+        /// <summary>
+        /// Returns a list of all the branches on the last layer of the last placed & finished tree segment
+        /// </summary>
+        /// <returns></returns>
+        public List<Transform> GetLastBranchList()
+        {
+            return m_treeSegments[m_treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>().lastBranches;
         }
     }
 }

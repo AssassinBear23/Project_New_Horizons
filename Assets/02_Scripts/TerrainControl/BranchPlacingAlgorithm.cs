@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Managers;
+
 public class BranchPlacingAlgorithm : MonoBehaviour
 {
     [Header("Values")]
@@ -30,7 +32,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [SerializeField] private bool hasBranches = false;
 
     // Internal
-    public Transform lastBranch;
+    [SerializeField] private Transform lastBranch;
     public List<Transform> lastBranches = new List<Transform>();
     void Start()
     {
@@ -151,12 +153,10 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     }
     private void GetLastBranchFromPreviousTreeSegment()
     {
-        BranchPlacingAlgorithm last = GameManager.instance.treeSegments[GameManager.instance.treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>();
-        lastBranch = last.lastBranch;
-
-        foreach(Transform branch in last.lastBranches)
+        foreach(Transform branch in GameManager.Instance.GetLastBranchList())
         {
             lastBranches.Add(branch);
         }
+        lastBranch = lastBranches[lastBranches.Count - 1];
     }
 }

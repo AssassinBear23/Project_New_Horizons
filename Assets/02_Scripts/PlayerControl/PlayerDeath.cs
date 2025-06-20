@@ -16,7 +16,7 @@ public class PlayerDeath : MonoBehaviour
     }
     private void GoDie()
     {
-        onDeaded?.Invoke();
+        onDeadge?.Invoke();
     }
     private void OnCollisionEnter(Collision collision)
     {

@@ -39,26 +39,15 @@ namespace Managers
         [SerializeField] InputManager m_inputManager;
         // The game manager instance in the scene
         [SerializeField] GameManager m_gm;
-
         #endregion Variables
 
         #region Methods
         #region SetupMethods
-
-        /// <summary>
-        /// Default Unity Method called when the script is enabled.
-        /// </summary>
-        private void OnEnable()
-        {
-            SetupUIManager();
-        }
-
         /// <summary>
         /// Default Unity Method called when the script is first loaded.
         /// </summary>
         private void Start()
         {
-            SetupInputManager();
             SetupEventSystem();
             UpdateElements();
         }
@@ -106,12 +95,14 @@ namespace Managers
         /// <summary>
         /// Sets up the UIManager singleton m_gm in <see cref="GameManager.UIManager"/>.
         /// </summary>
-        void SetupUIManager()
+        public void SetupUIManager()
         {
             if (GameManager.Instance != null && GameManager.Instance.UIManager == null)
             {
                 GameManager.Instance.UIManager = this;
             }
+
+            SetupInputManager();
         }
         #endregion Setup Methods
         #region FunctionalMethods

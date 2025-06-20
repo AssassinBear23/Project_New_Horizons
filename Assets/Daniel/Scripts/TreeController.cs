@@ -12,6 +12,8 @@ public class TreeController : MonoBehaviour
     [Header("References")]
     [SerializeField] public GameObject _Parent;
     [SerializeField] public PrefabReference prefab;
+
+    private bool hasSpawned = false;
     private void Start()
     {
         GameManager.instance.AddTreeSegment(this);
@@ -48,13 +50,14 @@ public class TreeController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        else if (other.tag == "Spawner")
+        else if (other.tag == "Spawner" && !hasSpawned)
         {
             Vector3 pos = transform.position;
             pos.y -= 10f;
             TreeController spawned = Instantiate(prefab.prefab, pos, Quaternion.identity, _Parent.transform);
             spawned.movementSpeed = movementSpeed;
             spawned._Parent = _Parent;
+            hasSpawned = true;
         }
     }
 }

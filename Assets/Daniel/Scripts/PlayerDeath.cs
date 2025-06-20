@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private float offScreenOffSet = 0.1f;
+    [SerializeField] private float bounciness = 0.5f;
     public UnityEvent onDeadge;
     public Rigidbody rb;
     private void Update()
@@ -26,8 +27,9 @@ public class PlayerDeath : MonoBehaviour
 
         float frontDot = Vector3.Dot(normal, target.forward);
         float backDot = Vector3.Dot(normal, -target.forward);
+        float topDot = Vector3.Dot(normal, transform.up);
 
-        float threshold = 0.75f; // Adjust for tolerance due to floating point inaccuracies
+        float threshold = 0.8f; // Adjust for tolerance due to floating point inaccuracies
 
         if (frontDot > threshold)
         {
@@ -38,6 +40,11 @@ public class PlayerDeath : MonoBehaviour
         {
             Debug.Log("Left");
             StartCoroutine(Controls.instance.PlayerBounce(-1));
+        }
+        else if (topDot > threshold)
+        {
+            Debug.Log("Top");
+            rb.AddForce(transform.up * rb.linearVelocity.y * bounciness);
         }
     }
 }

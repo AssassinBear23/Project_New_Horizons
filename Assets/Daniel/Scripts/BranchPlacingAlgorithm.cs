@@ -7,6 +7,8 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [Tooltip("The Y Distance between branch layers")]
     [SerializeField] private float yInterval;
 
+    [SerializeField] private int maxAmountOfBranches = 4;
+
     [Tooltip("The minimum angle between two branches on the same branch layer")]
     [SerializeField, Range(0,360)] private int sameYMinAngleDist;
 
@@ -41,7 +43,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
         GetLastBranchFromPreviousTreeSegment();
 
-        float yPos = transform.position.y + transform.localScale.y;
+        float yPos = lastBranch.position.y - yInterval;
 
         List<Transform> branchesOnThisLayer = new List<Transform>();
         List<Transform> branchesOnPreviousLayer = new List<Transform>();
@@ -50,8 +52,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         while (yPos > transform.localPosition.y - transform.localScale.y)
         {
             counter++;
-            float amountOfBranches = random.Next(1, Mathf.FloorToInt(360 / sameYMinAngleDist));
-            Debug.Log(amountOfBranches);
+            float amountOfBranches = random.Next(1, maxAmountOfBranches + 1);
             Transform parent = new GameObject("BranchLayer"+counter).transform;
             parent.parent = transform;
 
@@ -95,10 +96,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
                     }
 
                     if (isTooClose)
-                    {
-                        Debug.Log("Rotation illegal at layer " + parent.name);
                         break;
-                    }
                 }
 
                 // Create Branch

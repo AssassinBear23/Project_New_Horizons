@@ -31,6 +31,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
     // Internal
     public Transform lastBranch;
+    public List<Transform> lastBranches = new List<Transform>();
     void Start()
     {
         if (hasBranches) return;
@@ -40,7 +41,6 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         float yPos = lastBranch.position.y - yInterval;
 
         List<Transform> branchesOnThisLayer = new List<Transform>();
-        List<Transform> branchesOnPreviousLayer = new List<Transform>();
 
         int counter = 0;
         while (yPos > transform.localPosition.y - transform.localScale.y)
@@ -73,7 +73,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
                         }
                     }
 
-                    foreach(Transform treeBranch in branchesOnPreviousLayer)
+                    foreach(Transform treeBranch in lastBranches)
                     {
                         float angle = 0;
                         if (treeBranch.localEulerAngles.y < randomRotation)
@@ -108,11 +108,11 @@ public class BranchPlacingAlgorithm : MonoBehaviour
                 lastBranch = branch;
             }
 
-            branchesOnPreviousLayer.Clear();
+            lastBranches.Clear();
             
             foreach(Transform transform_ in branchesOnThisLayer)
             {
-                branchesOnPreviousLayer.Add(transform_);
+                lastBranches.Add(transform_);
             }
 
             branchesOnThisLayer.Clear();
@@ -153,5 +153,10 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     {
         BranchPlacingAlgorithm last = GameManager.instance.treeSegments[GameManager.instance.treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>();
         lastBranch = last.lastBranch;
+
+        foreach(Transform branch in last.lastBranches)
+        {
+            lastBranches.Add(branch);
+        }
     }
 }

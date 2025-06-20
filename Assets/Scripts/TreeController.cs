@@ -10,8 +10,8 @@ public class TreeController : MonoBehaviour
     [SerializeField, Min(1)] private float speedMultiplier = 1.01f;
     
     [Header("References")]
-    [SerializeField] private GameObject parent;
-    [SerializeField] private TreeController prefab;
+    [SerializeField] public GameObject _Parent;
+    [SerializeField] public PrefabReference prefab;
     private void Start()
     {
         GameManager.instance.AddTreeSegment(this);
@@ -52,9 +52,9 @@ public class TreeController : MonoBehaviour
         {
             Vector3 pos = transform.position;
             pos.y -= 10f;
-            TreeController spawned = Instantiate(prefab, pos, Quaternion.identity, parent.transform);
+            TreeController spawned = Instantiate(prefab.prefab, pos, Quaternion.identity, _Parent.transform);
             spawned.movementSpeed = movementSpeed;
-            spawned.parent = parent;
+            spawned._Parent = _Parent;
         }
     }
 }

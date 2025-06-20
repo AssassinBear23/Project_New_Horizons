@@ -30,7 +30,6 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
     // Internal
     System.Random random;
-    private List<Transform> branches = new List<Transform>();
     public Transform lastBranch;
     private void Awake()
     {
@@ -45,10 +44,16 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         float yPos = transform.position.y + transform.localScale.y;
 
         List<Transform> branchesOnThisLayer = new List<Transform>();
+        List<Transform> branchesOnPreviousLayer = new List<Transform>();
 
+        int counter = 0;
         while (yPos > transform.localPosition.y - transform.localScale.y)
         {
+            counter++;
             float amountOfBranches = random.Next(1, Mathf.FloorToInt(360 / sameYMinAngleDist));
+            Debug.Log(amountOfBranches);
+            Transform parent = new GameObject("BranchLayer"+counter).transform;
+            parent.parent = transform;
 
             for (int i = 0; i <= amountOfBranches; i++)
             {
@@ -56,14 +61,44 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
                 if (i > 0)
                 {
-                    float angle = 0;
-                    if (branchesOnThisLayer[0].localEulerAngles.y < randomRotation)
-                        angle = branchesOnThisLayer[0].localEulerAngles.y + 360 - randomRotation;
+                    bool isTooClose = false;
+                    foreach(Transform treeBranch in branchesOnThisLayer)
+                    {
+                        float angle = 0;
+                        if (treeBranch.localEulerAngles.y < randomRotation)
+                            angle = treeBranch.localEulerAngles.y + 360 - randomRotation;
 
-                    else
-                        angle = branchesOnThisLayer[0].localEulerAngles.y - randomRotation;
+                        else
+                            angle = treeBranch.localEulerAngles.y - randomRotation;
 
-                    if (angle < sameYMinAngleDist) break;
+                        if (angle < sameYMinAngleDist)
+                        {
+                            isTooClose = true;
+                            break;
+                        }
+                    }
+
+                    foreach(Transform treeBranch in branchesOnPreviousLayer)
+                    {
+                        float angle = 0;
+                        if (treeBranch.localEulerAngles.y < randomRotation)
+                            angle = treeBranch.localEulerAngles.y + 360 - randomRotation;
+
+                        else
+                            angle = treeBranch.localEulerAngles.y - randomRotation;
+
+                        if (angle < differentYMinAngleDist)
+                        {
+                            isTooClose = true;
+                            break;
+                        }
+                    }
+
+                    if (isTooClose)
+                    {
+                        Debug.Log("Rotation illegal at layer " + parent.name);
+                        break;
+                    }
                 }
 
                 // Create Branch
@@ -71,14 +106,22 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
                 // Apply random rotation and position
                 branch.localEulerAngles = new Vector3(branch.localEulerAngles.x, randomRotation, branch.localEulerAngles.z);
-                branch.position = new Vector3(transform.position.x, yPos, transform.position.z);
-                branch.parent = transform;
+                branch.localPosition = new Vector3(transform.position.x, yPos, transform.position.z);
+                branch.parent = parent;
 
                 // Add to necessary lists
                 branchesOnThisLayer.Add(branch);
-                branches.Add(branch);
                 lastBranch = branch;
             }
+
+            branchesOnPreviousLayer.Clear();
+            
+            foreach(Transform transform_ in branchesOnThisLayer)
+            {
+                branchesOnPreviousLayer.Add(transform_);
+            }
+
+            branchesOnThisLayer.Clear();
 
             yPos -= yInterval;
         }

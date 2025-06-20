@@ -1,4 +1,6 @@
+using Managers;
 using UnityEngine;
+
 public enum IncreaseTypes { Linearly, Exponentially }
 public class TreeController : MonoBehaviour
 {
@@ -10,14 +12,15 @@ public class TreeController : MonoBehaviour
     [SerializeField, Min(1)] private float speedMultiplier = 1.01f;
     
     [Header("References")]
-    [SerializeField] public GameObject _Parent;
-    [SerializeField] public PrefabReference prefab;
+    public GameObject parent;
+    [SerializeField] private TreeController prefab;
 
-    private bool hasSpawned = false;
     private void Start()
     {
-        GameManager.instance.AddTreeSegment(this);
+        GameManager.Instance.AddTreeSegment(this);
+        enabled = false; // Disable the script until gameplay starts
     }
+
     private void FixedUpdate()
     {
         UpdatePosition();
@@ -46,7 +49,7 @@ public class TreeController : MonoBehaviour
     {
         if (other.tag == "Destroyer")
         {
-            GameManager.instance.RemoveTreeSegment(this);
+            GameManager.Instance.RemoveTreeSegment(this);
             Destroy(gameObject);
         }
 

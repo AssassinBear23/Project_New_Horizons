@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using Managers;
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private float offScreenOffSet = 0.1f;
@@ -12,13 +13,10 @@ public class PlayerDeath : MonoBehaviour
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
 
         if (/*pos.x < 0 || pos.x > 1 ||*/ pos.y < -offScreenOffSet || pos.y > 1+offScreenOffSet) GoDie();
-
-        //Debug.Log("Inertia:" + rb.linearVelocity);
     }
     private void GoDie()
     {
-        //Debug.Log("Deadge");
-        onDeadge?.Invoke();
+        onDeaded?.Invoke();
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -34,12 +32,12 @@ public class PlayerDeath : MonoBehaviour
         if (frontDot > threshold)
         {
             Debug.Log("Right");
-            StartCoroutine(Controls.instance.PlayerBounce(1));
+            StartCoroutine(GameManager.Instance.PlayerControls.PlayerBounce(1));
         }
         else if (backDot > threshold)
         {
             Debug.Log("Left");
-            StartCoroutine(Controls.instance.PlayerBounce(-1));
+            StartCoroutine(GameManager.Instance.PlayerControls.PlayerBounce(-1));
         }
         else if (topDot > threshold)
         {

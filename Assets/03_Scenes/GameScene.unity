@@ -340,11 +340,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1314249866}
         m_TargetAssemblyTypeName: Managers.UIManager, Assembly-CSharp
-        m_MethodName: GoToPage
-        m_Mode: 3
+        m_MethodName: GoToOriginPage
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 869028338}
+          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -686,7 +686,31 @@ MonoBehaviour:
   offScreenOffSet: 0.1
   onDeaded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1270594122}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: StopGameplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1314249866}
+        m_TargetAssemblyTypeName: Managers.UIManager, Assembly-CSharp
+        m_MethodName: GoToPage
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 367863719}
+          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rb: {fileID: 294126189}
 --- !u!1 &365064777
 GameObject:
@@ -771,13 +795,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 869028338}
+        m_TargetAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
+        m_MethodName: SetOriginalCallerPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1314249866}
         m_TargetAssemblyTypeName: Managers.UIManager, Assembly-CSharp
         m_MethodName: GoToPage
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 869028338}
-          m_ObjectArgumentAssemblyTypeName: UIPage, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1003,7 +1039,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1364505097}
-          m_ObjectArgumentAssemblyTypeName: UIPage, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1011,7 +1047,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1270594122}
         m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
-        m_MethodName: StartGamePlay
+        m_MethodName: ToggleAllowPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1020,6 +1056,42 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1270594122}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: ToggleGameplayState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Managers.InputManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1880506945}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: set_neverAutoSwitchControlSchemes
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: PhoneGyro
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &371896189
 MonoBehaviour:
@@ -1283,10 +1355,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1270594121}
-        m_TargetAssemblyTypeName: Managers.UIManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 3
+      - m_Target: {fileID: 1270594122}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: StartGamePlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1270594122}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: StartGamePlay
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2606,7 +2690,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 983119402}
-          m_ObjectArgumentAssemblyTypeName: UIPage, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3179,6 +3263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53ae904f91b8ee45972e12c991c88e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AllowTogglePause>k__BackingField: 0
+  <IsPaused>k__BackingField: 1
   m_treeSegments: []
   m_playerObject: {fileID: 294126188}
   m_showFPSIndicator: 1
@@ -3410,7 +3496,8 @@ MonoBehaviour:
   - {fileID: 869028338}
   - {fileID: 1102102288}
   - {fileID: 367863719}
-  pausePageIndex: 4
+  m_pausePageIndex: {fileID: 1102102288}
+  m_gameplayUI: {fileID: 1364505097}
   eventSystem: {fileID: 0}
   m_inputManager: {fileID: 1880506944}
   m_gm: {fileID: 1270594122}
@@ -3846,6 +3933,7 @@ GameObject:
   - component: {fileID: 1622552129}
   - component: {fileID: 1622552128}
   - component: {fileID: 1622552127}
+  - component: {fileID: 1622552130}
   m_Layer: 0
   m_Name: Quit
   m_TagString: Untagged
@@ -3917,8 +4005,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1270594122}
-        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1622552130}
+        m_TargetAssemblyTypeName: UI.Elements.Buttons.QuitGameButton, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -3967,6 +4055,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622552125}
   m_CullTransparentMesh: 1
+--- !u!114 &1622552130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622552125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e81dacaf7360e04682d552f28266d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1795926866
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,7 +4292,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 983119402}
-          m_ObjectArgumentAssemblyTypeName: UIPage, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4269,6 +4369,33 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerInput: {fileID: 1880506945}
   m_smoothingFactor: 0.2
+  m_pausePressed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1270594122}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: ToggleGameplayState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1880506945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4345,7 +4472,7 @@ MonoBehaviour:
     m_ActionId: 75d5ecec-322e-4583-ae6c-8fc32c5b5012
     m_ActionName: Player/Click
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Phone
+  m_DefaultControlScheme: PhoneGyro
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -4507,7 +4634,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4719,7 +4846,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputManager: {fileID: 0}
-  m_mouseThreshold: 0.1
   m_moveSpeed: 100
   m_stunTimer: 0.2
 --- !u!1 &2014647844
@@ -4860,7 +4986,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 983119402}
-          m_ObjectArgumentAssemblyTypeName: UIPage, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 

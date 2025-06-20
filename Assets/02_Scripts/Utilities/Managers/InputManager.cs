@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -65,6 +67,9 @@ namespace Managers
         /// Gets the current rotation movement value.
         /// </summary>
         public float RotationMovement { get; private set; }
+
+        [Header("Events")]
+        [SerializeField] private UnityEvent m_pausePressed;
         #endregion
 
         #region Setup Methods
@@ -77,7 +82,6 @@ namespace Managers
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
 
                 if (GameManager.Instance == null)
                     return;
@@ -94,9 +98,24 @@ namespace Managers
         /// Switches the current control scheme to the specified scheme name.
         /// </summary>
         /// <param name="controlSchemeName">The name of the control scheme to switch to.</param>
-        public void SwitchControlScheme(string controlSchemeName)
+        public void SwitchControlScheme(int wantedDevice)
         {
-            playerInput.SwitchCurrentControlScheme(controlSchemeName, null, null);
+            switch (wantedDevice)
+            {
+                case 0:
+                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Keyboard>());
+                    break;
+                case 1:
+                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Touchscreen>());
+                    break;
+                case 2:
+                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Sensor>());
+                    break;
+                default:
+                    Debug.LogWarning("Unknown control scheme requested, switching to Keyboard&Mouse.");
+                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Keyboard>());
+                    break;
+            }
         }
 
         /// <summary>
@@ -110,12 +129,11 @@ namespace Managers
         #endregion Setup Methods
 
         #region Input Handling
-        /// <summary>
-        /// Unity FixedUpdate callback. Reads accelerometer input, applies smoothing, and updates tilt amount.
-        /// </summary>
-        private void FixedUpdate()
+        public void OnMove(InputValue input)
         {
-            Vector2 inputValue = m_moveAction.ReadValue<Vector2>();
+            if (!IsInputEnabled)
+                return;
+            Vector2 inputValue = input.Get<Vector2>();
             RotationMovement = InputCleanUp(inputValue);
         }
 
@@ -129,19 +147,29 @@ namespace Managers
             switch (playerInput.currentControlScheme)
             {
                 case "Keyboard&Mouse":
+                    Debug.Log("In keyboard and mouse");
                     return inputValue.x; // Use X-axis for keyboard and mouse input
                 case "Phone":
+                    Debug.Log("In phone");
                     return inputValue.x;
                 case "PhoneGyro":
                     // Exponential moving average filter
                     m_filteredAccel = Vector3.Lerp(m_filteredAccel, m_accelerometerAmount, m_smoothingFactor);
                     m_tiltAmount = GetTilt(m_filteredAccel, true);
+                    Debug.Log($"Phone Gyro: {m_tiltAmount.Item1}");
                     return m_tiltAmount.Item1;
                 default:
                     return inputValue.x;
             }
         }
 
+        /// <summary>
+        /// Sets the minimum deadzone value for the movement inputs.
+        /// </summary>
+        /// <param name="toSetMin">
+        /// The minimum deadzone value to set. 
+        /// Value must be between 0 and 1. Values outside this range will be clamped.
+        /// </param>
         public void SetMinDeadZone(float toSetMin)
         {
             if (toSetMin < 0f || toSetMin > 1f)
@@ -232,4 +260,12 @@ namespace Managers
         }
         #endregion
     }
+}
+
+[Serializable]
+public enum PossibleDevices
+{
+    KeyboardAndMouse,
+    Phone,
+    Accelerometer
 }

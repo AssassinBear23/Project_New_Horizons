@@ -233,7 +233,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ebb489b0-f121-4812-8030-94d453e3f461"",
-                    ""path"": ""<VirtualMouse>/delta"",
+                    ""path"": ""<Touchscreen>/delta"",
                     ""interactions"": """",
                     ""processors"": ""StickDeadzone(min=0.125,max=0.925)"",
                     ""groups"": "";Keyboard&Mouse;Touch;Gamepad;Joystick;Phone"",
@@ -258,7 +258,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""path"": ""<Touchscreen>/primaryTouch/tap"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Phone;PhoneGyro"",
+                    ""groups"": "";Phone;PhoneGyro;Keyboard&Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c9486b9-b119-4ab1-99f4-f1c8b42b0834"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

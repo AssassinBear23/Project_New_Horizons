@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using RangeAttribute = UnityEngine.RangeAttribute;
 public class BranchPlacingAlgorithm : MonoBehaviour
 {
     [Header("Values")]
@@ -31,12 +30,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [SerializeField] private bool hasBranches = false;
 
     // Internal
-    System.Random random;
     public Transform lastBranch;
-    private void Awake()
-    {
-        random = new System.Random(System.Environment.TickCount);
-    }
     void Start()
     {
         if (hasBranches) return;
@@ -52,7 +46,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         while (yPos > transform.localPosition.y - transform.localScale.y)
         {
             counter++;
-            float amountOfBranches = random.Next(1, maxAmountOfBranches + 1);
+            float amountOfBranches = Random.Range(1, maxAmountOfBranches + 1);
             Transform parent = new GameObject("BranchLayer"+counter).transform;
             parent.parent = transform;
 
@@ -103,8 +97,10 @@ public class BranchPlacingAlgorithm : MonoBehaviour
                 Transform branch = Instantiate(branchPrefab, lastBranch.position, lastBranch.rotation);
 
                 // Apply random rotation and position
+                float pos = yPos + Random.Range(-yOffset, yOffset);
+
                 branch.localEulerAngles = new Vector3(branch.localEulerAngles.x, randomRotation, branch.localEulerAngles.z);
-                branch.localPosition = new Vector3(transform.position.x, yPos, transform.position.z);
+                branch.localPosition = new Vector3(transform.position.x, pos, transform.position.z);
                 branch.parent = parent;
 
                 // Add to necessary lists
@@ -129,15 +125,27 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         Vector3 startRotation = lastBranch.localEulerAngles;
         float randomRotation = 0;
 
+        int leftOrRight = Random.Range(0, 2);
+
         if (i == 0)
-            randomRotation = random.Next((int)startRotation.y + differentYMinAngleDist,
-                (int)Mathf.Min(startRotation.y + 360 - differentYMinAngleDist, startRotation.y + differentYMaxAngleDist));
+            if (leftOrRight == 1)
+                randomRotation = Random.Range((int)startRotation.y + differentYMinAngleDist,
+                    (int)Mathf.Min(startRotation.y + 360 - differentYMinAngleDist, startRotation.y + differentYMaxAngleDist));
+            else
+                randomRotation = Random.Range((int)startRotation.y - differentYMinAngleDist,
+                    (int)Mathf.Min(startRotation.y - 360 + differentYMinAngleDist, startRotation.y - differentYMaxAngleDist));
 
         else
-            randomRotation = random.Next((int)startRotation.y + sameYMinAngleDist,
-                (int)Mathf.Min(startRotation.y + 360 - sameYMinAngleDist, startRotation.y + sameYMaxAngleDist));
+            if (leftOrRight == 1)
+                randomRotation = Random.Range((int)startRotation.y + sameYMinAngleDist,
+                    (int)Mathf.Min(startRotation.y + 360 - sameYMinAngleDist, startRotation.y + sameYMaxAngleDist));
+
+            else
+                randomRotation = Random.Range((int)startRotation.y - sameYMinAngleDist,
+                    (int)Mathf.Min(startRotation.y - 360 + sameYMinAngleDist, startRotation.y - sameYMaxAngleDist));
 
         while (randomRotation > 360) randomRotation -= 360;
+        while (randomRotation < 0) randomRotation += 360;
 
         return randomRotation;
     }

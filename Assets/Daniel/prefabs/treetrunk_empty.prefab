@@ -141,13 +141,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0577b93fac4e550418bb4b2dcd8b5620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yInterval: 1.75
+  yInterval: 1.65
   maxAmountOfBranches: 4
   sameYMinAngleDist: 35
   sameYMaxAngleDist: 180
   differentYMinAngleDist: 35
   differentYMaxAngleDist: 180
-  yOffset: 0
+  yOffset: 0.3
   branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
   hasBranches: 0
   lastBranch: {fileID: 0}

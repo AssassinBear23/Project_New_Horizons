@@ -8,11 +8,15 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private float bounciness = 0.5f;
     public UnityEvent onDeadge;
     public Rigidbody rb;
+
+    /// <summary>
+    /// Every frame, check if the player is off screen, if so, they die and the game ends
+    /// </summary>
     private void Update()
     {
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
 
-        if (/*pos.x < 0 || pos.x > 1 ||*/ pos.y < -offScreenOffSet || pos.y > 1+offScreenOffSet) GoDie();
+        if (pos.y < -offScreenOffSet || pos.y > 1+offScreenOffSet) GoDie();
     }
     private void GoDie()
     {

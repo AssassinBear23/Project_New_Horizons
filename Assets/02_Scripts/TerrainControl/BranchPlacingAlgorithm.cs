@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using Managers;
 
+/// <summary>
+/// Places branches on the empty tree segment randomly using a small algorithm
+/// </summary>
 public class BranchPlacingAlgorithm : MonoBehaviour
 {
     [Header("Values")]
@@ -54,7 +57,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
             for (int i = 0; i <= amountOfBranches; i++)
             {
-                float randomRotation = GetRandomRotation(i);
+                float randomRotation = GetRandomRotation(i==0);
 
                 if (i > 0)
                 {
@@ -122,22 +125,32 @@ public class BranchPlacingAlgorithm : MonoBehaviour
             yPos -= yInterval;
         }
     }
-    private float GetRandomRotation(int i)
+    /// <summary>
+    /// Returns a float that represents the rotation on the Y-axis in localEuler space, based on branches on the previous and current layer
+    /// </summary>
+    /// <param name="isFirstBranchOnLayer"></param>
+    /// <returns></returns>
+    private float GetRandomRotation(bool isFirstBranchOnLayer)
     {
         Vector3 startRotation = lastBranch.localEulerAngles;
         float randomRotation = 0;
 
         int leftOrRight = Random.Range(0, 2);
 
-        if (i == 0)
+        // Make sure there is always a reachable branch from the previous layer to this one
+        if (isFirstBranchOnLayer)
+        {
             if (leftOrRight == 1)
                 randomRotation = Random.Range((int)startRotation.y + differentYMinAngleDist,
                     (int)Mathf.Min(startRotation.y + 360 - differentYMinAngleDist, startRotation.y + differentYMaxAngleDist));
             else
                 randomRotation = Random.Range((int)startRotation.y - differentYMinAngleDist,
                     (int)Mathf.Min(startRotation.y - 360 + differentYMinAngleDist, startRotation.y - differentYMaxAngleDist));
+        }
 
+        // Prevent branches from being too close
         else
+        {
             if (leftOrRight == 1)
                 randomRotation = Random.Range((int)startRotation.y + sameYMinAngleDist,
                     (int)Mathf.Min(startRotation.y + 360 - sameYMinAngleDist, startRotation.y + sameYMaxAngleDist));
@@ -145,12 +158,17 @@ public class BranchPlacingAlgorithm : MonoBehaviour
             else
                 randomRotation = Random.Range((int)startRotation.y - sameYMinAngleDist,
                     (int)Mathf.Min(startRotation.y - 360 + sameYMinAngleDist, startRotation.y - sameYMaxAngleDist));
-
+        }
+            
+        // Prevent floating point errors by keeping the rotation between 0 and 360
         while (randomRotation > 360) randomRotation -= 360;
         while (randomRotation < 0) randomRotation += 360;
 
         return randomRotation;
     }
+    /// <summary>
+    /// Sets the lastBranch variable in this script to the last branch of the previously generated tree segment
+    /// </summary>
     private void GetLastBranchFromPreviousTreeSegment()
     {
         foreach(Transform branch in GameManager.Instance.GetLastBranchList())

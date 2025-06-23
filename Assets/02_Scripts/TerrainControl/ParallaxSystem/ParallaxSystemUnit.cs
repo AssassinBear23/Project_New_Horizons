@@ -17,6 +17,8 @@ public class ParallaxSystemUnit : MonoBehaviour
     [Tooltip("Position that a background needs to be at to be considered fully in-scope and spawn the next prefab\nVisualized with gizmo's with green box.")]
     [SerializeField] private Vector3 inScopePosition = new(0, -20, 0);
 
+    private float prefabSizeY = 0f;
+
     private void Awake()
     {
         if (backgroundTransforms.Count == 0)
@@ -26,6 +28,29 @@ public class ParallaxSystemUnit : MonoBehaviour
             {
                 AddBackground(child);
             }
+        }
+
+        prefabSizeY = GetPrefabSize().y;
+    }
+
+    private Vector3 GetPrefabSize()
+    {
+        if (backgroundPrefab != null)
+        {
+            if (backgroundPrefab.TryGetComponent<Renderer>(out var renderer))
+            {
+                return renderer.bounds.size;
+            }
+            else
+            {
+                Debug.LogWarning("Background prefab does not have a Renderer component.", this);
+                return Vector3.zero;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Background prefab is not assigned.", this);
+            return Vector3.zero;
         }
     }
 
@@ -58,7 +83,7 @@ public class ParallaxSystemUnit : MonoBehaviour
     /// <returns>The calculated position as a <see cref="Vector3"/></returns>
     private Vector3 GetSpawnPosition()
     {
-        return parentTerrain.position;
+        return backgroundTransforms[^1].position - new Vector3(0, prefabSizeY, 0);
     }
 
     /// <summary>

@@ -2389,11 +2389,14 @@ MonoBehaviour:
   differentYMinAngleDist: 0
   differentYMaxAngleDist: 0
   yOffset: 0
+  chanceToSpawnBird: 0
   branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
+  birdPrefab: {fileID: 0}
   hasBranches: 1
   lastBranch: {fileID: 1275751719}
   lastBranches:
   - {fileID: 1275751719}
+  lastWasBird: 0
 --- !u!65 &976638484
 BoxCollider:
   m_ObjectHideFlags: 0

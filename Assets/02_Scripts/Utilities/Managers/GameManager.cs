@@ -55,7 +55,6 @@ namespace Managers
         [Header("Events")]
         [SerializeField] private UnityEvent onSetupFinished;
         #endregion
-
         private void Awake()
         {
             // Set the fps target to the current screen's refresh rate
@@ -154,7 +153,7 @@ namespace Managers
         /// <summary>
         /// Stops the gameplay by disabling player controls and all tree segments.
         /// </summary>
-        private void StopGameplay()
+        public void StopGameplay()
         {
             PlayerControls.enabled = false;
             foreach (TreeController treeSegment in m_treeSegments)
@@ -204,9 +203,12 @@ namespace Managers
         /// Returns a list of all the branches on the last layer of the last placed & finished tree segment
         /// </summary>
         /// <returns></returns>
-        public List<Transform> GetLastBranchList()
+        public (List<Transform>, bool) GetLastBranchList()
         {
-            return m_treeSegments[m_treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>().lastBranches;
+            BranchPlacingAlgorithm reference = m_treeSegments[m_treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>();
+            List<Transform> transforms = reference.lastBranches;
+            bool isBird = reference.lastWasBird;
+            return (transforms, isBird);
         }
     }
 }

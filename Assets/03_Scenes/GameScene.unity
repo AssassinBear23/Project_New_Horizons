@@ -761,7 +761,31 @@ MonoBehaviour:
   bounciness: 0.5
   onDeadge:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1270594122}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: StopGameplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 367863715}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   rb: {fileID: 294126189}
 --- !u!1 &365064777
 GameObject:
@@ -797,10 +821,10 @@ RectTransform:
   - {fileID: 1154775849}
   m_Father: {fileID: 1331734552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 150}
-  m_SizeDelta: {x: 648, y: 162}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -933}
+  m_SizeDelta: {x: 648, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &365064779
 MonoBehaviour:
@@ -1035,10 +1059,10 @@ RectTransform:
   - {fileID: 987147099}
   m_Father: {fileID: 1331734552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 450}
-  m_SizeDelta: {x: 648, y: 162}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -716}
+  m_SizeDelta: {x: 648, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &371896188
 MonoBehaviour:
@@ -1120,18 +1144,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Managers.InputManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1880506945}
         m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
         m_MethodName: set_neverAutoSwitchControlSchemes
@@ -1142,6 +1154,30 @@ MonoBehaviour:
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: PhoneGyro
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2002851078}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 841012884}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &371896189
@@ -1762,7 +1798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &841012885
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1793,7 +1829,7 @@ Transform:
   m_GameObject: {fileID: 841012884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 5, y: 0.1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2353,10 +2389,14 @@ MonoBehaviour:
   differentYMinAngleDist: 0
   differentYMaxAngleDist: 0
   yOffset: 0
+  chanceToSpawnBird: 0
   branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
+  birdPrefab: {fileID: 0}
   hasBranches: 1
   lastBranch: {fileID: 1275751719}
-  lastBranches: []
+  lastBranches:
+  - {fileID: 1275751719}
+  lastWasBird: 0
 --- !u!65 &976638484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2846,10 +2886,10 @@ RectTransform:
   - {fileID: 1123920092}
   m_Father: {fileID: 1331734552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -150}
-  m_SizeDelta: {x: 648, y: 162}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -1153}
+  m_SizeDelta: {x: 648, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1074633643
 MonoBehaviour:
@@ -4328,10 +4368,10 @@ RectTransform:
   - {fileID: 3186102}
   m_Father: {fileID: 1331734552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -450}
-  m_SizeDelta: {x: 648, y: 162}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -1361}
+  m_SizeDelta: {x: 648, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622552127
 MonoBehaviour:
@@ -4888,7 +4928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerInput: {fileID: 1880506945}
-  m_smoothingFactor: 0.2
+  m_smoothingFactor: 0.714
   m_pausePressed:
     m_PersistentCalls:
       m_Calls:
@@ -4992,7 +5032,7 @@ MonoBehaviour:
     m_ActionId: 75d5ecec-322e-4583-ae6c-8fc32c5b5012
     m_ActionName: Player/Click
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: PhoneGyro
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -5162,7 +5202,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -5433,13 +5473,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002851076}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 573dac44f26422a4a9de24eed8aac681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputManager: {fileID: 0}
-  m_moveSpeed: 100
+  m_moveSpeed: 6
   m_stunTimer: 0.2
 --- !u!1 &2014647844
 GameObject:

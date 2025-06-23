@@ -1,7 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Managers;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
+/// <summary>
+/// Places branches on the empty tree segment randomly using a small algorithm
+/// </summary>
 public class BranchPlacingAlgorithm : MonoBehaviour
 {
     [Header("Values")]
@@ -25,8 +29,11 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [Tooltip("The Y offset of tree branches to make it feel more natural")]
     [SerializeField] private float yOffset;
 
+    [SerializeField, Range(0f,1f)] private float chanceToSpawnBird;
+
     [Header("References")]
     [SerializeField] private Transform branchPrefab;
+    [SerializeField] private Transform birdPrefab;
 
     [Header("DO NOT CHANGE")]
     [SerializeField] private bool hasBranches = false;
@@ -34,12 +41,21 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     // Internal
     [SerializeField] private Transform lastBranch;
     public List<Transform> lastBranches = new List<Transform>();
+
+    public bool lastWasBird = false;
     void Start()
     {
         if (hasBranches) return;
 
         GetLastBranchFromPreviousTreeSegment();
 
+        CreateLayers();
+    }
+    /// <summary>
+    /// Creates all the layers of branches/birds on this tree segment
+    /// </summary>
+    private void CreateLayers()
+    {
         float yPos = lastBranch.position.y - yInterval;
 
         List<Transform> branchesOnThisLayer = new List<Transform>();
@@ -47,97 +63,165 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         int counter = 0;
         while (yPos > transform.localPosition.y - transform.localScale.y)
         {
-            counter++;
-            float amountOfBranches = Random.Range(1, maxAmountOfBranches + 1);
-            Transform parent = new GameObject("BranchLayer"+counter).transform;
+            Transform parent = new GameObject("BranchLayer" + counter).transform;
             parent.parent = transform;
+            counter++;
 
-            for (int i = 0; i <= amountOfBranches; i++)
+            // 2 birds can't spawn under each other, chance to spawn a bird
+            if (!lastWasBird && Random.Range(0f, 1f) <= chanceToSpawnBird)
             {
-                float randomRotation = GetRandomRotation(i);
-
-                if (i > 0)
-                {
-                    bool isTooClose = false;
-                    foreach(Transform treeBranch in branchesOnThisLayer)
-                    {
-                        float angle = 0;
-                        if (treeBranch.localEulerAngles.y < randomRotation)
-                            angle = treeBranch.localEulerAngles.y + 360 - randomRotation;
-
-                        else
-                            angle = treeBranch.localEulerAngles.y - randomRotation;
-
-                        if (angle < sameYMinAngleDist)
-                        {
-                            isTooClose = true;
-                            break;
-                        }
-                    }
-
-                    foreach(Transform treeBranch in lastBranches)
-                    {
-                        float angle = 0;
-                        if (treeBranch.localEulerAngles.y < randomRotation)
-                            angle = treeBranch.localEulerAngles.y + 360 - randomRotation;
-
-                        else
-                            angle = treeBranch.localEulerAngles.y - randomRotation;
-
-                        if (angle < differentYMinAngleDist)
-                        {
-                            isTooClose = true;
-                            break;
-                        }
-                    }
-
-                    if (isTooClose)
-                        break;
-                }
-
-                // Create Branch
-                Transform branch = Instantiate(branchPrefab, lastBranch.position, lastBranch.rotation);
-
-                // Apply random rotation and position
-                float pos = yPos + Random.Range(-yOffset, yOffset);
-
-                branch.localEulerAngles = new Vector3(branch.localEulerAngles.x, randomRotation, branch.localEulerAngles.z);
-                branch.localPosition = new Vector3(transform.position.x, pos, transform.position.z);
-                branch.parent = parent;
+                Transform bird = CreateBird(yPos, parent);
 
                 // Add to necessary lists
-                branchesOnThisLayer.Add(branch);
-                lastBranch = branch;
+                branchesOnThisLayer.Add(bird);
+                lastBranch = bird;
+                lastWasBird = true;
             }
 
-            lastBranches.Clear();
-            
-            foreach(Transform transform_ in branchesOnThisLayer)
+            // If chance to spawn bird was not hit, make branch layer instead
+            else
             {
-                lastBranches.Add(transform_);
+                foreach (Transform t in CreateBranches(branchesOnThisLayer, yPos, parent))
+                {
+                    branchesOnThisLayer.Add(t);
+                }
+
+                lastBranches.Clear();
+
+                foreach (Transform transform_ in branchesOnThisLayer)
+                {
+                    lastBranches.Add(transform_);
+                }
+
+                lastWasBird = false;
             }
+
+            
 
             branchesOnThisLayer.Clear();
 
             yPos -= yInterval;
         }
     }
-    private float GetRandomRotation(int i)
+    /// <summary>
+    /// Instantiates a random amount of branches
+    /// </summary>
+    /// <param name="branchesOnThisLayer"></param>
+    /// <returns>a list of transforms of all branches created</returns>
+    private List<Transform> CreateBranches(List<Transform> _BranchesOnThisLayer, float _YPos, Transform _Parent)
+    {
+        List<Transform> list = new List<Transform>();
+
+        float amountOfBranches = Random.Range(1, maxAmountOfBranches + 1);
+        
+        for (int i = 0; i <= amountOfBranches; i++)
+        {
+            float randomRotation = GetRandomRotation(i == 0);
+
+            if (i > 0)
+            {
+                bool isTooClose = false;
+                foreach (Transform treeBranch in _BranchesOnThisLayer)
+                {
+                    float angle = 0;
+                    if (treeBranch.localEulerAngles.y < randomRotation)
+                        angle = treeBranch.localEulerAngles.y + 360 - randomRotation;
+
+                    else
+                        angle = treeBranch.localEulerAngles.y - randomRotation;
+
+                    if (angle < sameYMinAngleDist)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                foreach (Transform treeBranch in lastBranches)
+                {
+                    float angle = 0;
+                    if (treeBranch.localEulerAngles.y < randomRotation)
+                        angle = treeBranch.localEulerAngles.y + 360 - randomRotation;
+
+                    else
+                        angle = treeBranch.localEulerAngles.y - randomRotation;
+
+                    if (angle < differentYMinAngleDist)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                if (isTooClose)
+                    break;
+            }
+
+            // Create Branch
+            Transform branch = Instantiate(branchPrefab, lastBranch.position, lastBranch.rotation);
+
+            // Apply random rotation and position
+            float pos = _YPos + Random.Range(-yOffset, yOffset);
+
+            branch.localEulerAngles = new Vector3(branch.localEulerAngles.x, randomRotation, branch.localEulerAngles.z);
+            branch.localPosition = new Vector3(transform.position.x, pos, transform.position.z);
+            branch.parent = _Parent;
+
+            // Add to necessary lists
+            list.Add(branch);
+            lastBranch = branch;
+        }
+
+        return list;
+    }
+    /// <summary>
+    /// Instantiates a bird
+    /// </summary>
+    /// <returns>the transform of the bird that is instantiated</returns>
+    private Transform CreateBird(float _YPos, Transform _Parent)
+    {
+        Transform bird = Instantiate(birdPrefab, lastBranch.position, lastBranch.rotation);
+
+        // Apply random rotation and position
+        float pos = _YPos + Random.Range(-yOffset, yOffset);
+
+        bird.localEulerAngles = new Vector3(bird.localEulerAngles.x, 0, bird.localEulerAngles.z);
+        bird.localPosition = new Vector3(transform.position.x, pos, transform.position.z);
+        bird.parent = _Parent;
+
+        lastBranch = bird;
+
+        lastBranches.Clear();
+        lastBranches.Add(bird);
+
+        return bird;
+    }
+    /// <summary>
+    /// Returns a float that represents the rotation on the Y-axis in localEuler space, based on branches on the previous and current layer
+    /// </summary>
+    /// <param name="isFirstBranchOnLayer"></param>
+    /// <returns></returns>
+    private float GetRandomRotation(bool isFirstBranchOnLayer)
     {
         Vector3 startRotation = lastBranch.localEulerAngles;
         float randomRotation = 0;
 
         int leftOrRight = Random.Range(0, 2);
 
-        if (i == 0)
+        // Make sure there is always a reachable branch from the previous layer to this one
+        if (isFirstBranchOnLayer)
+        {
             if (leftOrRight == 1)
                 randomRotation = Random.Range((int)startRotation.y + differentYMinAngleDist,
                     (int)Mathf.Min(startRotation.y + 360 - differentYMinAngleDist, startRotation.y + differentYMaxAngleDist));
             else
                 randomRotation = Random.Range((int)startRotation.y - differentYMinAngleDist,
                     (int)Mathf.Min(startRotation.y - 360 + differentYMinAngleDist, startRotation.y - differentYMaxAngleDist));
+        }
 
+        // Prevent branches from being too close
         else
+        {
             if (leftOrRight == 1)
                 randomRotation = Random.Range((int)startRotation.y + sameYMinAngleDist,
                     (int)Mathf.Min(startRotation.y + 360 - sameYMinAngleDist, startRotation.y + sameYMaxAngleDist));
@@ -145,18 +229,22 @@ public class BranchPlacingAlgorithm : MonoBehaviour
             else
                 randomRotation = Random.Range((int)startRotation.y - sameYMinAngleDist,
                     (int)Mathf.Min(startRotation.y - 360 + sameYMinAngleDist, startRotation.y - sameYMaxAngleDist));
-
+        }
+            
+        // Prevent floating point errors by keeping the rotation between 0 and 360
         while (randomRotation > 360) randomRotation -= 360;
         while (randomRotation < 0) randomRotation += 360;
 
         return randomRotation;
     }
+    /// <summary>
+    /// Sets the lastBranch variable in this script to the last branch of the previously generated tree segment
+    /// </summary>
     private void GetLastBranchFromPreviousTreeSegment()
     {
-        foreach(Transform branch in GameManager.Instance.GetLastBranchList())
-        {
-            lastBranches.Add(branch);
-        }
+        var branches = GameManager.Instance.GetLastBranchList();
+        lastBranches = branches.Item1;
         lastBranch = lastBranches[lastBranches.Count - 1];
+        lastWasBird = branches.Item2;
     }
 }

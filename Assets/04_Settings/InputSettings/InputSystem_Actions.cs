@@ -233,7 +233,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ebb489b0-f121-4812-8030-94d453e3f461"",
-                    ""path"": ""<Touchscreen>/delta"",
+                    ""path"": ""<VirtualMouse>/delta"",
                     ""interactions"": """",
                     ""processors"": ""StickDeadzone(min=0.125,max=0.925)"",
                     ""groups"": "";Keyboard&Mouse;Touch;Gamepad;Joystick;Phone"",

@@ -59,7 +59,7 @@ namespace Managers
         private void Awake()
         {
             // Set the fps target to the current screen's refresh rate
-            Application.targetFrameRate = QualitySettings.vSyncCount >= 1 ? 60 : (int)Screen.currentResolution.refreshRateRatio.value * 2;
+            Application.targetFrameRate = QualitySettings.vSyncCount >= 1 ? (int)Screen.currentResolution.refreshRateRatio.value * QualitySettings.vSyncCount : (int)Screen.currentResolution.refreshRateRatio.value * 2;
 
             GetFpsIndicator();
 

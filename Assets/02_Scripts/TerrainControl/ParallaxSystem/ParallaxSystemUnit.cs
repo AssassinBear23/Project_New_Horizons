@@ -1,0 +1,138 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ParallaxSystemUnit : MonoBehaviour
+{
+    [Tooltip("List of Transforms that are part of this background level.")]
+    [SerializeField] private List<Transform> backgroundTransforms = new();
+    [Tooltip("Speed of the parallax effect.\nHigher values mean faster movement of the background relative to the tree.")]
+    [SerializeField] private float parallaxSpeed = 0.5f;
+    [SerializeField] private Transform parentTerrain;
+    [SerializeField] private Transform backgroundPrefab;
+
+    [Header("Spawn and Destroy Positions")]
+    [Tooltip("Position that a background needs to be at to be considered out of scope and destroyed\nVisualized with gizmo's with red box.")]
+    [SerializeField] private Vector3 outOfScopePosition = new(0, 20, 0);
+    [Tooltip("Position that a background needs to be at to be considered fully in-scope and spawn the next prefab\nVisualized with gizmo's with green box.")]
+    [SerializeField] private Vector3 inScopePosition = new(0, -20, 0);
+
+    private void Awake()
+    {
+        if (backgroundTransforms.Count == 0)
+        {
+            Debug.Log("No background transforms assigned. Adding all children to list.", this);
+            foreach (Transform child in transform)
+            {
+                AddBackground(child);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        for (int i = 0; i < backgroundTransforms.Count; i++)
+        {
+            UpdateRotation(i);
+            CheckVisibility(i);
+        }
+    }
+
+    /// <summary>
+    /// Method that compares the current position of the transform at the given index in the <see cref="backgroundTransforms">backgroundTransforms</see>
+    /// list to see if it is still within the designated scope passed through the inspector using <see cref="outOfScopePosition">outOfScopePosition</see> and <see cref="inScopePosition">inScopePosition</see>.
+    /// </summary>
+    /// <param name="transformIndexPosition">The index of the transform in the <see cref="backgroundTransforms">backgroundTransforms</see> list.</param>
+    private void CheckVisibility(int transformIndexPosition)
+    {
+        Transform backgroundTransform = backgroundTransforms[transformIndexPosition];
+        if (transformIndexPosition == 0 && backgroundTransform.position.y > outOfScopePosition.y)
+            RemoveBackground(backgroundTransform);
+        else if (transformIndexPosition == backgroundTransforms.Count - 1 && backgroundTransform.position.y < inScopePosition.y)
+            InstantiateNewBackground(GetSpawnPosition());
+    }
+
+    /// <summary>
+    /// Method that returns the position where a new background prefab should be spawned.
+    /// </summary>
+    /// <returns>The calculated position as a <see cref="Vector3"/></returns>
+    private Vector3 GetSpawnPosition()
+    {
+        return parentTerrain.position;
+    }
+
+    /// <summary>
+    /// Updates the rotation of a background transform around the parent terrain based on the <see cref="parallaxSpeed">parallaxSpeed</see> variable.
+    /// </summary>
+    /// <param name="transformIndexPosition">The index of the transform in the <see cref="backgroundTransforms">backgroundTransforms</see> list.</param>
+    private void UpdateRotation(int transformIndexPosition)
+    {
+        Transform backgroundTransform = backgroundTransforms[transformIndexPosition];
+        backgroundTransform.RotateAround(
+            parentTerrain.position,
+            Vector3.up,
+            parallaxSpeed * Time.deltaTime
+        );
+    }
+
+    /// <summary>
+    /// Add the specified background transform to the list of backgrounds if it is not already present.
+    /// </summary>
+    /// <param name="toAddBackground">The transform to add to the list.</param>
+    private void AddBackground(Transform toAddBackground)
+    {
+        if (toAddBackground != null && !backgroundTransforms.Contains(toAddBackground))
+        {
+            backgroundTransforms.Add(toAddBackground);
+        }
+    }
+
+    /// <summary>
+    /// Instantiates a new background prefab at the specified spawn position and adds it to the list of backgrounds.
+    /// </summary>
+    /// <param name="spawnPosition">The position to instantiate the transform at.</param>
+    public void InstantiateNewBackground(Vector3 spawnPosition)
+    {
+        Transform instantiatedObject = Instantiate(backgroundPrefab, spawnPosition, Quaternion.identity, transform);
+        AddBackground(instantiatedObject);
+    }
+
+    /// <summary>
+    /// Remove the specified background transform from the list and destroy its GameObject.
+    /// </summary>
+    /// <param name="toRemoveBackground">The transform of the background element to remove.</param>
+    public void RemoveBackground(Transform toRemoveBackground)
+    {
+        if (toRemoveBackground != null && backgroundTransforms.Contains(toRemoveBackground))
+        {
+            backgroundTransforms.Remove(toRemoveBackground);
+            Destroy(toRemoveBackground.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// Checks if the necessary components are assigned and logs warnings if not.
+    /// </summary>
+    private void OnValidate()
+    {
+        if (backgroundPrefab == null)
+        {
+            Debug.LogWarning("Background prefab is not assigned in ParallaxSystemUnit.", this);
+        }
+        if (parentTerrain == null)
+        {
+            Debug.LogWarning("Parent terrain is not assigned in ParallaxSystemUnit.", this);
+        }
+    }
+
+    /// <summary>
+    /// Visualizes the out-of-scope and in-scope positions in the scene view using Gizmos if the object is selected.
+    /// </summary>
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position + outOfScopePosition, new Vector3(10, .1f, 10));
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position + inScopePosition, new Vector3(10, .1f, 10));
+    }
+}

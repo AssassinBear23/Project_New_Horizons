@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ParallaxSystemUnit : MonoBehaviour
@@ -113,8 +113,16 @@ public class ParallaxSystemUnit : MonoBehaviour
     /// <summary>
     /// Checks if the necessary components are assigned and logs warnings if not.
     /// </summary>
+    /// <remarks>
+    /// Exits early if the script is on a prefab asset.<br/>
+    /// This method is called automatically by Unity when values are changed in the Inspector.
+    /// </remarks>
     private void OnValidate()
     {
+#if UNITY_EDITOR
+        if (PrefabUtility.IsPartOfPrefabAsset(gameObject))
+            return;
+#endif
         if (backgroundPrefab == null)
         {
             Debug.LogWarning("Background prefab is not assigned in ParallaxSystemUnit.", this);

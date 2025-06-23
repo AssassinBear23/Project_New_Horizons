@@ -39,7 +39,6 @@ public class TreeController : MonoBehaviour
         GameManager.Instance.AddTreeSegment(this);
         if (GameManager.Instance.IsPaused) enabled = false; // Disable the script until gameplay starts
     }
-
     private void FixedUpdate()
     {
         UpdatePosition();

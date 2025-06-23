@@ -148,9 +148,13 @@ MonoBehaviour:
   differentYMinAngleDist: 35
   differentYMaxAngleDist: 180
   yOffset: 0.3
-  branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
-  hasBranches: 0
+  chanceToSpawnBird: 0.3
   lastBranch: {fileID: 0}
+  lastBranches: []
+  branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
+  birdPrefab: {fileID: 1086735497159312334, guid: 5bb6ff88f3b8eb24d9180d860ee58e7e, type: 3}
+  hasBranches: 0
+  lastWasBird: 0
 --- !u!54 &7556834914418585023
 Rigidbody:
   m_ObjectHideFlags: 0

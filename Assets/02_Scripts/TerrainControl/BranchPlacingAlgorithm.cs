@@ -32,15 +32,14 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [SerializeField, Range(0f,1f)] private float chanceToSpawnBird;
 
     [Header("References")]
+    [SerializeField] private Transform lastBranch;
+    public List<Transform> lastBranches = new List<Transform>();
     [SerializeField] private Transform branchPrefab;
     [SerializeField] private Transform birdPrefab;
 
     [Header("DO NOT CHANGE")]
     [SerializeField] private bool hasBranches = false;
-
-    // Internal
-    [SerializeField] private Transform lastBranch;
-    public List<Transform> lastBranches = new List<Transform>();
+    
 
     public bool lastWasBird = false;
     void Start()

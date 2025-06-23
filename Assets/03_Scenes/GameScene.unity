@@ -2390,12 +2390,12 @@ MonoBehaviour:
   differentYMaxAngleDist: 0
   yOffset: 0
   chanceToSpawnBird: 0
-  branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
-  birdPrefab: {fileID: 0}
-  hasBranches: 1
   lastBranch: {fileID: 1275751719}
   lastBranches:
   - {fileID: 1275751719}
+  branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
+  birdPrefab: {fileID: 1086735497159312334, guid: 5bb6ff88f3b8eb24d9180d860ee58e7e, type: 3}
+  hasBranches: 1
   lastWasBird: 0
 --- !u!65 &976638484
 BoxCollider:

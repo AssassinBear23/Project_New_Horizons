@@ -54,7 +54,7 @@ public class ParallaxSystemUnit : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         for (int i = 0; i < backgroundTransforms.Count; i++)
         {

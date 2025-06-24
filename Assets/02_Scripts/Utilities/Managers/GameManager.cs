@@ -13,10 +13,13 @@ namespace Managers
     /// </summary>
     public class GameManager : MonoBehaviour
     {
+        #region references
         /// <summary>
         /// Singleton instance of the <see cref="GameManager"/>.
         /// </summary>
         public static GameManager Instance { get; private set; }
+
+        public TreeManager TreeManager { get; set; }
 
         /// <summary>
         /// Gets or sets the input manager for the game.
@@ -28,6 +31,7 @@ namespace Managers
         /// </summary>
         public UIManager UIManager { get; set; }
 
+        #endregion references
         #region Variables
         [field: Header("Game state")]
         /// <summary>
@@ -38,8 +42,6 @@ namespace Managers
         [field: SerializeField] public bool IsPaused { get; private set; } = true;
 
         [Header("Internal")]
-        [SerializeField] private List<TreeController> m_treeSegments = new List<TreeController>();
-
         /// <summary>
         /// Gets or sets the player controls component.
         /// </summary>
@@ -49,6 +51,17 @@ namespace Managers
 
         [Header("Debugging")]
         [SerializeField] private bool m_showFPSIndicator = false;
+        public bool ShowFpsIndicator
+        {
+            get => showFpsIndicator;
+            set
+            {
+                m_showFPSIndicator = value;
+                if (m_fpsIndicator == null)
+                    GetFpsIndicator();
+                m_fpsIndicator.gameObject.SetActive(m_showFPSIndicator);
+            }
+        }
         [SerializeField] private TMP_Text m_fpsIndicator;
         [SerializeField, Range(0, 2f)] private float m_fpsUpdateIntervalTime = 1f;
 
@@ -85,6 +98,7 @@ namespace Managers
         private float m_timeCounter = 0f;
         private float m_lastFramerate = 0f;
         private int m_frameCount = 0;
+        private bool showFpsIndicator;
 
         private void Update()
         {
@@ -136,18 +150,9 @@ namespace Managers
         /// <exception cref="Exception">Thrown if no tree segments are available to start gameplay.</exception>
         private void StartGameplay()
         {
-            if (m_treeSegments.Count == 0)
-                throw new Exception("No tree segments available to start gameplay.");
-
             PlayerControls.enabled = true;
             m_playerObject.SetActive(true);
-
-            int count = 0;
-            foreach (TreeController treeSegment in m_treeSegments)
-            {
-                count++;
-                treeSegment.enabled = true;
-            }
+            TreeManager.IsEnabled = true;
         }
 
         /// <summary>
@@ -156,10 +161,7 @@ namespace Managers
         public void StopGameplay()
         {
             PlayerControls.enabled = false;
-            foreach (TreeController treeSegment in m_treeSegments)
-            {
-                treeSegment.enabled = false;
-            }
+            TreeManager.IsEnabled = false;
         }
 
         public void ToggleGameplayState()
@@ -172,43 +174,13 @@ namespace Managers
                 StartGameplay();
                 IsPaused = false;
             }
-            else if(!IsPaused)
+            else if (!IsPaused)
             {
                 StopGameplay();
                 IsPaused = true;
             }
 
             UIManager.TogglePause();
-        }
-
-        /// <summary>
-        /// Adds a tree segment to the managed list.
-        /// </summary>
-        /// <param name="treeSegment">The tree segment to add.</param>
-        public void AddTreeSegment(TreeController treeSegment)
-        {
-            if (!m_treeSegments.Contains(treeSegment)) m_treeSegments.Add(treeSegment);
-        }
-
-        /// <summary>
-        /// Removes a tree segment from the managed list.
-        /// </summary>
-        /// <param name="treeSegment">The tree segment to remove.</param>
-        public void RemoveTreeSegment(TreeController treeSegment)
-        {
-            if (m_treeSegments.Contains(treeSegment)) m_treeSegments.Remove(treeSegment);
-        }
-
-        /// <summary>
-        /// Returns a list of all the branches on the last layer of the last placed & finished tree segment
-        /// </summary>
-        /// <returns></returns>
-        public (List<Transform>, bool) GetLastBranchList()
-        {
-            BranchPlacingAlgorithm reference = m_treeSegments[m_treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>();
-            List<Transform> transforms = reference.lastBranches;
-            bool isBird = reference.lastWasBird;
-            return (transforms, isBird);
         }
     }
 }

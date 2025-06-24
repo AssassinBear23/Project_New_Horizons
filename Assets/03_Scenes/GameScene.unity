@@ -2808,10 +2808,10 @@ GameObject:
   - component: {fileID: 976638481}
   - component: {fileID: 976638487}
   - component: {fileID: 976638486}
-  - component: {fileID: 976638485}
   - component: {fileID: 976638484}
-  - component: {fileID: 976638483}
   - component: {fileID: 976638482}
+  - component: {fileID: 976638483}
+  - component: {fileID: 976638488}
   m_Layer: 0
   m_Name: treetrunk
   m_TagString: Untagged
@@ -2916,24 +2916,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 2, z: 0.75}
   m_Center: {x: 0.00000005960465, y: 0, z: -0.00000008940698}
---- !u!114 &976638485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976638480}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2315b8b0da7364747979cb9844df94ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0.01
-  speedIncreaseType: 0
-  speedIncrease: 0.00001
-  speedMultiplier: 1.01
-  _Parent: {fileID: 2002851076}
-  prefab: {fileID: 11400000, guid: 775cb5cb652496f4d873a9c574bfae67, type: 2}
 --- !u!23 &976638486
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2987,6 +2969,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976638480}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &976638488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976638480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504550c4fdf55c541beaddac2618b754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &983119401
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,12 +4096,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AllowTogglePause>k__BackingField: 0
   <IsPaused>k__BackingField: 1
-  m_treeSegments:
-  - {fileID: 976638485}
   m_playerObject: {fileID: 294126188}
   m_showFPSIndicator: 1
   m_fpsIndicator: {fileID: 1074422450}
-  m_fpsUpdateIntervalTime: 1
+  m_fpsUpdateIntervalTime: 0.5
   onSetupFinished:
     m_PersistentCalls:
       m_Calls:
@@ -4138,6 +4130,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2002851078}
         m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
         m_MethodName: SetupPlayerControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2002851079}
+        m_TargetAssemblyTypeName: TreeManager, Assembly-CSharp
+        m_MethodName: SetupTreeManager
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6200,6 +6204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2002851077}
   - component: {fileID: 2002851078}
+  - component: {fileID: 2002851079}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -6239,6 +6244,25 @@ MonoBehaviour:
   m_inputManager: {fileID: 0}
   m_moveSpeed: 6
   m_stunTimer: 0.2
+--- !u!114 &2002851079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002851076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d226ed1e7861c4d897be86d814ac48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedIncreaseType: 0
+  speedIncrease: 0.001
+  speedMultiplier: 1.01
+  m_treeSegments:
+  - {fileID: 976638488}
+  _Parent: {fileID: 2002851076}
+  prefab: {fileID: 11400000, guid: 775cb5cb652496f4d873a9c574bfae67, type: 2}
 --- !u!1 &2014647844
 GameObject:
   m_ObjectHideFlags: 0
@@ -6512,7 +6536,7 @@ PrefabInstance:
     - target: {fileID: 7712583746225365824, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 
-      objectReference: {fileID: 976638481}
+      objectReference: {fileID: 2002851077}
     - target: {fileID: 7712583746225365824, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: backgroundPrefab
       value: 
@@ -6528,7 +6552,7 @@ PrefabInstance:
     - target: {fileID: 8444278975378285755, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 
-      objectReference: {fileID: 976638481}
+      objectReference: {fileID: 2002851077}
     - target: {fileID: 8444278975378285755, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: backgroundPrefab
       value: 
@@ -6536,7 +6560,7 @@ PrefabInstance:
     - target: {fileID: 8888606733263203551, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 
-      objectReference: {fileID: 976638481}
+      objectReference: {fileID: 2002851077}
     - target: {fileID: 8888606733263203551, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: backgroundPrefab
       value: 
@@ -6544,7 +6568,7 @@ PrefabInstance:
     - target: {fileID: 9187566449185398054, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 
-      objectReference: {fileID: 976638481}
+      objectReference: {fileID: 2002851077}
     - target: {fileID: 9187566449185398054, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: backgroundPrefab
       value: 

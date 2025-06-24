@@ -64,4 +64,18 @@ public class PlayerControls : MonoBehaviour
         yield return new WaitForSeconds(m_stunTimer);
         m_isEnabled = true;
     }
+    /// <summary>
+    /// Enables player Input
+    /// </summary>
+    public void EnableInput()
+    {
+        m_isEnabled = true;
+    }
+    /// <summary>
+    /// Disables player input
+    /// </summary>
+    public void DisableInput()
+    {
+        m_isEnabled = false;
+    }
 }

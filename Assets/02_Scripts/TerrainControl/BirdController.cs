@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 public enum Directions { Clockwise, Counterclockwise }
 public enum OnBirdTouchEvent { MovesToTopOfScreen, KillsPlayer}
 public class BirdController : MonoBehaviour
@@ -29,6 +30,7 @@ public class BirdController : MonoBehaviour
             {
                 case OnBirdTouchEvent.MovesToTopOfScreen:
                     Debug.LogWarning("Not Yet Implemented dumbass");
+                    StartCoroutine(CarryToTop());
                     break;
                 case OnBirdTouchEvent.KillsPlayer:
                     Debug.Log("Killing Player");
@@ -37,5 +39,20 @@ public class BirdController : MonoBehaviour
                     break;
             }
         }
+    }
+    private bool finishedMovingAway = false;
+    private bool finishedMovingUp = false;
+    private bool finishedMovingTowards = false;
+    private IEnumerator CarryToTop()
+    {
+        finishedMovingAway = false;
+        finishedMovingTowards = false;
+        finishedMovingUp = false;
+
+        Managers.GameManager.Instance.PlayerControls.DisableInput();
+
+        yield return new WaitUntil(() => finishedMovingAway);
+
+        Managers.GameManager.Instance.PlayerControls.EnableInput();
     }
 }

@@ -50,18 +50,7 @@ namespace Managers
         [SerializeField] private GameObject m_playerObject;
 
         [Header("Debugging")]
-        [SerializeField] private bool m_showFPSIndicator = false;
-        public bool ShowFpsIndicator
-        {
-            get => showFpsIndicator;
-            set
-            {
-                m_showFPSIndicator = value;
-                if (m_fpsIndicator == null)
-                    GetFpsIndicator();
-                m_fpsIndicator.gameObject.SetActive(m_showFPSIndicator);
-            }
-        }
+        [SerializeField] private bool m_showFpsIndicator = false;
         [SerializeField] private TMP_Text m_fpsIndicator;
         [SerializeField, Range(0, 2f)] private float m_fpsUpdateIntervalTime = 1f;
 
@@ -98,11 +87,10 @@ namespace Managers
         private float m_timeCounter = 0f;
         private float m_lastFramerate = 0f;
         private int m_frameCount = 0;
-        private bool showFpsIndicator;
 
         private void Update()
         {
-            if (m_showFPSIndicator)
+            if (m_showFpsIndicator)
                 UpdateFpsIndicator();
         }
 

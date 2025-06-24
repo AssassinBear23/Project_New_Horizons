@@ -4097,7 +4097,7 @@ MonoBehaviour:
   <AllowTogglePause>k__BackingField: 0
   <IsPaused>k__BackingField: 1
   m_playerObject: {fileID: 294126188}
-  m_showFPSIndicator: 1
+  showFpsIndicator: 1
   m_fpsIndicator: {fileID: 1074422450}
   m_fpsUpdateIntervalTime: 0.5
   onSetupFinished:

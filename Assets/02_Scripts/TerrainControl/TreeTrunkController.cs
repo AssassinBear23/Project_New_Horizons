@@ -23,14 +23,14 @@ public class TreeTrunkController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Removes and destroys tree segment when reaching the destroyer object
-        if (other.tag == "Destroyer")
+        if (other.CompareTag("Destroyer"))
         {
             m_Tm.RemoveTreeSegment(this);
             Destroy(gameObject);
         }
 
         // Spawns a new tree segment under this one when it touches the spawner object
-        else if (other.tag == "Spawner")
+        else if (other.CompareTag("Spawner"))
         {
             m_Tm.SpawnNewTreeSegment(this);
         }

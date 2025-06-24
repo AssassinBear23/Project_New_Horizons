@@ -98,7 +98,7 @@ public class TreeManager : MonoBehaviour
     /// <returns></returns>
     public (List<Transform>, bool) GetLastBranchList()
     {
-        BranchPlacingAlgorithm reference = m_treeSegments[m_treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>();
+        BranchPlacingAlgorithm reference = m_treeSegments[^2].GetComponent<BranchPlacingAlgorithm>();
         List<Transform> transforms = reference.lastBranches;
         bool isBird = reference.lastWasBird;
         return (transforms, isBird);

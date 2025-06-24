@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ParallaxSystemUnit : MonoBehaviour
 {
+    [Header("Variables and References")]
     [Tooltip("List of Transforms that are part of this background level.")]
     [SerializeField] private List<Transform> backgroundTransforms = new();
     [Tooltip("Speed of the parallax effect.\nHigher values mean faster movement of the background relative to the tree.")]
@@ -33,6 +34,29 @@ public class ParallaxSystemUnit : MonoBehaviour
         prefabSizeY = GetPrefabSize().y;
     }
 
+    /// <summary>
+    /// Updates the position of the backgrounds elements based on the specified speed.
+    /// The position is updated in a vertical manner, simulating a parallax effect.
+    /// <para>
+    /// Will apply the parallax multiplier to the speed,
+    /// changing the speed that they move at to get a parallax effect in the vertical axis as well.
+    /// </para>
+    /// </summary>
+    /// <param name="speed">The speed that the player/tree is moving at.</param>
+    public void UpdateTransformPositions(float speed)
+    {
+        foreach (Transform backgroundTransform in backgroundTransforms)
+        {
+            Vector3 newPosition = backgroundTransform.position;
+            newPosition.y += speed * parallaxSpeed * Time.deltaTime;
+            backgroundTransform.position = newPosition;
+        }
+    }
+
+    /// <summary>
+    /// Gets the size of the assigned prefab's bounds, representing the size in global space.
+    /// </summary>
+    /// <returns>A Vector3 representing the size of the prefab</returns>
     private Vector3 GetPrefabSize()
     {
         if (backgroundPrefab != null)
@@ -54,13 +78,28 @@ public class ParallaxSystemUnit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the state of background elements at fixed intervals.
+    /// </summary>
+    /// <remarks>
+    /// This method is called automatically by the Unity engine during the physics update cycle.
+    /// </remarks>
     private void FixedUpdate()
     {
         for (int i = 0; i < backgroundTransforms.Count; i++)
-        {
             UpdateRotation(i);
+    }
+
+    /// <summary>
+    /// Checks the visibility of background elements and spawns or removes them as necessary.
+    /// </summary>
+    /// <remarks>
+    /// This method is called automatically by the Unity engine every frame.
+    /// </remarks>
+    private void Update()
+    {
+        for (int i = 0; i < backgroundTransforms.Count; i++)
             CheckVisibility(i);
-        }
     }
 
     /// <summary>

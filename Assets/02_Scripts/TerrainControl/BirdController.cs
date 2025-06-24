@@ -14,18 +14,16 @@ public class BirdController : MonoBehaviour
         if (!isEnabled) return;
 
         float direction = (moveDirection == Directions.Clockwise) ? 1 : -1;
-        transform.localEulerAngles = new Vector3(
-            transform.localEulerAngles.x,
-            transform.localEulerAngles.y + movementSpeed * direction,
-            transform.localEulerAngles.z);
+        transform.parent.localEulerAngles = new Vector3(
+            transform.parent.localEulerAngles.x,
+            transform.parent.localEulerAngles.y + movementSpeed * direction,
+            transform.parent.localEulerAngles.z);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Player" && isEnabled)
         {
-            Debug.Log("Player hit bird");
-
             switch(onBirdTouchEvent)
             {
                 case OnBirdTouchEvent.MovesToTopOfScreen:
@@ -50,8 +48,9 @@ public class BirdController : MonoBehaviour
         finishedMovingUp = false;
 
         Managers.GameManager.Instance.PlayerControls.DisableInput();
-
-        yield return new WaitUntil(() => finishedMovingAway);
+        yield return null;
+        
+        //yield return new WaitUntil(() => finishedMovingAway);
 
         Managers.GameManager.Instance.PlayerControls.EnableInput();
     }

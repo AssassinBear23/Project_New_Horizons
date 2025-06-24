@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Managers;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
-
 /// <summary>
 /// Places branches on the empty tree segment randomly using a small algorithm
 /// </summary>

@@ -46,10 +46,7 @@ public class TreeController : MonoBehaviour
     }
     private void UpdatePosition()
     {
-        transform.position = new Vector3(
-            transform.position.x,
-            transform.position.y + movementSpeed,
-            transform.position.z);
+        transform.position += new Vector3(0, movementSpeed, 0);
     }
     private void IncreaseSpeed()
     {

@@ -44,11 +44,7 @@ public class PlayerControls : MonoBehaviour
         m_direction = ClampMovementSpeed(m_inputManager.RotationMovement);
 
         if (m_isEnabled)
-            transform.localEulerAngles =
-                new Vector3(
-                transform.localEulerAngles.x,
-                transform.localEulerAngles.y + m_moveSpeed * m_direction,
-                transform.localEulerAngles.z);
+            transform.localEulerAngles += new Vector3(0, m_moveSpeed * m_direction, 0);
     }
 
     /// <summary>

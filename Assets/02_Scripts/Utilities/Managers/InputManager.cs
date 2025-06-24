@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -29,7 +28,7 @@ namespace Managers
         [SerializeField] private PlayerInput playerInput;
 
         // Input Actions
-        private InputAction m_moveAction;
+        [SerializeField] private InputAction m_moveAction;
 
         // Control values
         /// <summary>
@@ -68,6 +67,31 @@ namespace Managers
         /// </summary>
         public float RotationMovement { get; private set; }
 
+        [Header("Sensitivity Settings")]
+        [SerializeField] private float m_sensitivity = 1f;
+        [SerializeField] private float m_minSensitivity = 0.1f;
+        [SerializeField] private float m_maxSensitivity = 10f;
+        /// <summary>
+        /// The sensitivity of the movement inputs. Clamped between <see cref="m_minSensitivity">m_minSensitivity</see> and <see cref="m_maxSensitivity">m_maxSensitivity</see>.
+        /// </summary>
+        public float Sensitivity
+        {
+            private get => m_sensitivity;
+
+            set
+            {
+                if (value < m_minSensitivity || value > m_maxSensitivity)
+                {
+                    Debug.LogWarning($"Sensitivity value must be between {m_minSensitivity} and {m_maxSensitivity}. Clamping to valid range.");
+                    m_sensitivity = Mathf.Clamp(value, m_minSensitivity, m_maxSensitivity);
+                }
+                else
+                {
+                    m_sensitivity = value;
+                }
+            }
+        }
+
         [Header("Events")]
         [SerializeField] private UnityEvent m_pausePressed;
         #endregion
@@ -91,30 +115,6 @@ namespace Managers
             else
             {
                 Destroy(gameObject);
-            }
-        }
-
-        /// <summary>
-        /// Switches the current control scheme to the specified scheme name.
-        /// </summary>
-        /// <param name="controlSchemeName">The name of the control scheme to switch to.</param>
-        public void SwitchControlScheme(int wantedDevice)
-        {
-            switch (wantedDevice)
-            {
-                case 0:
-                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Keyboard>());
-                    break;
-                case 1:
-                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Touchscreen>());
-                    break;
-                case 2:
-                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Sensor>());
-                    break;
-                default:
-                    Debug.LogWarning("Unknown control scheme requested, switching to Keyboard&Mouse.");
-                    playerInput.SwitchCurrentControlScheme(playerInput.GetDevice<Keyboard>());
-                    break;
             }
         }
 
@@ -148,18 +148,18 @@ namespace Managers
             {
                 case "Keyboard&Mouse":
                     Debug.Log("In keyboard and mouse");
-                    return inputValue.x; // Use X-axis for keyboard and mouse input
+                    return inputValue.x * m_sensitivity;
                 case "Phone":
                     Debug.Log("In phone");
-                    return inputValue.x;
+                    return inputValue.x * m_sensitivity;
                 case "PhoneGyro":
                     // Exponential moving average filter
                     m_filteredAccel = Vector3.Lerp(m_filteredAccel, m_accelerometerAmount, m_smoothingFactor);
                     m_tiltAmount = GetTilt(m_filteredAccel, true);
                     Debug.Log($"Phone Gyro: {m_tiltAmount.Item1}");
-                    return m_tiltAmount.Item1;
+                    return m_tiltAmount.Item1 * m_sensitivity;
                 default:
-                    return inputValue.x;
+                    return inputValue.x * m_sensitivity;
             }
         }
 
@@ -260,12 +260,4 @@ namespace Managers
         }
         #endregion
     }
-}
-
-[Serializable]
-public enum PossibleDevices
-{
-    KeyboardAndMouse,
-    Phone,
-    Accelerometer
 }

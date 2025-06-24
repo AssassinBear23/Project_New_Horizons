@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1096a509347d84cba0ae1907674e22, type: 3}
   m_Name: TreeTrunkPrefab
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3506481426866035267, guid: 7bd2980fd07b7e64bbe5d5464ae5cb2e, type: 3}
+  prefab: {fileID: 7564434767243659198, guid: 7bd2980fd07b7e64bbe5d5464ae5cb2e, type: 3}

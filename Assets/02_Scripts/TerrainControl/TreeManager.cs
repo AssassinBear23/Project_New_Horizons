@@ -1,5 +1,4 @@
 using Managers;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +13,6 @@ public class TreeManager : MonoBehaviour
     /// The speed at which the terrain moves upwards
     /// </summary>
     public float MovementSpeed { get; private set; } = 5;
-    public bool IsEnabled { get; set; } = false;
 
     /// <summary>
     /// The way in which the speed is increased over time
@@ -30,15 +28,36 @@ public class TreeManager : MonoBehaviour
     /// A reference to the parent object in the scene to keep the hierarchy structured
     /// </summary>
     public GameObject _Parent;
-
     /// <summary>
-    /// A reference to the tree segment prefab that  needs to be spawned
+    /// The prefab of the tree segment
     /// </summary>
-    [SerializeField] private PrefabReference prefab;
+    [SerializeField] private GameObject m_prefab;
+    private float m_prefabHeight;
+    private GameManager m_Gm;
 
     private void Start()
     {
-        if (GameManager.Instance.IsPaused) enabled = false; // Disable the script until gameplay starts
+        m_Gm = GameManager.Instance;
+        m_prefabHeight = GetPrefabSize().y;
+    }
+
+    private Vector3 GetPrefabSize()
+    {
+        if (m_prefab != null)
+        {
+            if (m_prefab.TryGetComponent<Renderer>(out var renderer))
+                return renderer.bounds.size;
+            else
+            {
+                Debug.LogWarning("Background prefab does not have a Renderer component.", this);
+                return Vector3.zero;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Background prefab is not assigned.", this);
+            return Vector3.zero;
+        }
     }
 
     public void SetupTreeManager()
@@ -51,12 +70,13 @@ public class TreeManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!IsEnabled) return;
-        
+        if (!m_Gm.IsPaused) return;
+
         foreach (TreeTrunkController treeSegment in m_treeSegments)
         {
             treeSegment.UpdatePosition(MovementSpeed);
         }
+        ParallaxSystemManager.Instance.UpdateBackgroundPositions(MovementSpeed);
         IncreaseSpeed(); // Increases movement speed over time
     }
 
@@ -93,21 +113,25 @@ public class TreeManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Places a new tree segment under the specified tree trunk controller.
+    /// </summary>
+    /// <param name="callerSegment">The segment that called the method, asking for a segment to be placed underneath it.</param>
+    public void SpawnNewTreeSegment(TreeTrunkController callerSegment)
+    {
+        Vector3 pos = callerSegment.transform.position;
+        pos.y -= m_prefabHeight;
+        Instantiate(m_prefab, pos, Quaternion.identity, _Parent.transform);
+    }
+
+    /// <summary>
     /// Returns a list of all the branches on the last layer of the last placed & finished tree segment
     /// </summary>
     /// <returns></returns>
     public (List<Transform>, bool) GetLastBranchList()
     {
-        BranchPlacingAlgorithm reference = m_treeSegments[^2].GetComponent<BranchPlacingAlgorithm>();
+        BranchPlacingAlgorithm reference = m_treeSegments[^1].GetComponent<BranchPlacingAlgorithm>();
         List<Transform> transforms = reference.lastBranches;
         bool isBird = reference.lastWasBird;
         return (transforms, isBird);
-    }
-
-    public void SpawnNewTreeSegment(TreeTrunkController treeTrunkController)
-    {
-        Vector3 pos = transform.position;
-        pos.y -= 10f;
-        Instantiate(prefab.prefab, pos, Quaternion.identity, _Parent.transform);
     }
 }

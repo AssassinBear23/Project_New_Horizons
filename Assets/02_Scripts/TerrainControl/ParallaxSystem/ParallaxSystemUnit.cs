@@ -24,7 +24,7 @@ public class ParallaxSystemUnit : MonoBehaviour
     {
         if (backgroundTransforms.Count == 0)
         {
-            Debug.Log("No background transforms assigned. Adding all children to list.", this);
+            //Debug.Log("No background transforms assigned. Adding all children to list.", this);
             foreach (Transform child in transform)
             {
                 AddBackground(child);

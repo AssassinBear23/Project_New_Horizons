@@ -39,6 +39,9 @@ namespace Managers
         /// </summary>
         [Tooltip("Whether or not the game can be paused")]
         [field: SerializeField] public bool AllowTogglePause { get; set; }
+        /// <summary>
+        /// True if the game is paused, false if it is playing.
+        /// </summary>
         [field: SerializeField] public bool IsPaused { get; private set; } = true;
 
         [Header("Internal")]
@@ -56,7 +59,11 @@ namespace Managers
 
         [Header("Events")]
         [SerializeField] private UnityEvent onSetupFinished;
-        #endregion
+        [SerializeField] private UnityEvent onStopGameplay;
+        [SerializeField] private UnityEvent onStartGameplay;
+        #endregion Variables
+
+        #region Methods
         private void Awake()
         {
             // Set the fps target to the current screen's refresh rate
@@ -132,43 +139,45 @@ namespace Managers
             }
         }
 
-        /// <summary>
-        /// Starts the gameplay by enabling player controls and all tree segments.
-        /// </summary>
-        /// <exception cref="Exception">Thrown if no tree segments are available to start gameplay.</exception>
+
         private void StartGameplay()
         {
-            PlayerControls.enabled = true;
-            m_playerObject.SetActive(true);
-            TreeManager.IsEnabled = true;
+            onStartGameplay?.Invoke();
+        }
+
+        private void StopGameplay()
+        {
+            onStopGameplay?.Invoke();
         }
 
         /// <summary>
-        /// Stops the gameplay by disabling player controls and all tree segments.
+        /// Toggles the state of the game between paused and playing.
         /// </summary>
-        public void StopGameplay()
-        {
-            PlayerControls.enabled = false;
-            TreeManager.IsEnabled = false;
-        }
-
+        /// <remarks>
+        /// Might as well be combined with the <see cref="TogglePause"/> method. But no, cause YOLO.
+        /// </remarks>
         public void ToggleGameplayState()
         {
             if (!AllowTogglePause)
                 return;
 
             if (IsPaused)
-            {
                 StartGameplay();
-                IsPaused = false;
-            }
-            else if (!IsPaused)
-            {
+            else if(!IsPaused)
                 StopGameplay();
-                IsPaused = true;
-            }
-
-            UIManager.TogglePause();
         }
+
+        /// <summary>
+        /// Toggles the pause value and calls the <see cref="UIManager.TogglePause(bool)">TogglePause</see> method on the <see cref="Managers.UIManager">UIManager</see>.
+        /// </summary>
+        /// <remarks>
+        /// I don't really know why I did it like this, but it works, so we ball.
+        /// </remarks>
+        public void TogglePause()
+        {
+            IsPaused = !IsPaused;
+            UIManager.TogglePause(IsPaused);
+        }
+        #endregion
     }
 }

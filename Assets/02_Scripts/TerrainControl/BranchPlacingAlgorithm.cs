@@ -37,10 +37,9 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [SerializeField] private Transform birdPrefab;
 
     [Header("DO NOT CHANGE")]
-    [SerializeField] private bool hasBranches = false;
-    
-
+    [SerializeField] private bool hasBranches;
     public bool lastWasBird = false;
+
     void Start()
     {
         if (hasBranches) return;

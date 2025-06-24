@@ -123,21 +123,12 @@ namespace Managers
         /// <summary>
         /// Toggles the pause state of the game.
         /// </summary>
-        public void TogglePause()
+        public void TogglePause(bool shouldPause)
         {
-            if (!m_gm.AllowTogglePause)
-            {
-                return;
-            }
-
-            if (m_gm.IsPaused == true)
-            {
+            if (shouldPause)
                 GoToPage(m_pausePageIndex);
-            }
-            else
-            {
+            else if (!shouldPause)
                 GoToPage(m_gameplayUI);
-            }
         }
 
         /// <summary>

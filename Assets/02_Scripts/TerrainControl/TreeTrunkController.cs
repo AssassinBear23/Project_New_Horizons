@@ -13,6 +13,7 @@ public class TreeTrunkController : MonoBehaviour
 
     public void UpdatePosition(float movementSpeed)
     {
+        Debug.Log($"Updating position of {gameObject.name} with speed {movementSpeed}", this);
         transform.position = new Vector3(
             transform.position.x,
             transform.position.y + movementSpeed,

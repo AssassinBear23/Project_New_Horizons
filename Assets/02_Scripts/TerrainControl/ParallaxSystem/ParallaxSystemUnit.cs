@@ -20,6 +20,8 @@ public class ParallaxSystemUnit : MonoBehaviour
 
     private float prefabSizeY = 0f;
 
+    private Transform lastInstantiatedBackground;
+
     private void Awake()
     {
         if (backgroundTransforms.Count == 0)
@@ -112,8 +114,8 @@ public class ParallaxSystemUnit : MonoBehaviour
         Transform backgroundTransform = backgroundTransforms[transformIndexPosition];
         if (transformIndexPosition == 0 && backgroundTransform.position.y > outOfScopePosition.y)
             RemoveBackground(backgroundTransform);
-        else if (transformIndexPosition == backgroundTransforms.Count - 1 && backgroundTransform.position.y < inScopePosition.y)
-            InstantiateNewBackground(GetSpawnPosition());
+        else if (transformIndexPosition == backgroundTransforms.Count - 1 && backgroundTransform.position.y < inScopePosition.y && backgroundTransform != lastInstantiatedBackground)
+            lastInstantiatedBackground = InstantiateNewBackground(GetSpawnPosition());
     }
 
     /// <summary>
@@ -155,10 +157,11 @@ public class ParallaxSystemUnit : MonoBehaviour
     /// Instantiates a new background prefab at the specified spawn position and adds it to the list of backgrounds.
     /// </summary>
     /// <param name="spawnPosition">The position to instantiate the transform at.</param>
-    public void InstantiateNewBackground(Vector3 spawnPosition)
+    public Transform InstantiateNewBackground(Vector3 spawnPosition)
     {
         Transform instantiatedObject = Instantiate(backgroundPrefab, spawnPosition, Quaternion.identity, transform);
         AddBackground(instantiatedObject);
+        return instantiatedObject;
     }
 
     /// <summary>

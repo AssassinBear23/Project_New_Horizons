@@ -510,6 +510,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2711016253777690084, guid: c758fb2d73ecda442ad807a17a8bbb04, type: 3}
   m_PrefabInstance: {fileID: 517770470}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &643727834 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8888606733263203551, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+  m_PrefabInstance: {fileID: 2595008902557696413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27f37c31d67a5c43b73902adc3136d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &841012884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,6 +1306,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Branch
       objectReference: {fileID: 0}
+    - target: {fileID: 3571998948589631946, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.44444445
@@ -1357,6 +1372,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
   m_PrefabInstance: {fileID: 1142495518}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1149105846 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8444278975378285755, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+  m_PrefabInstance: {fileID: 2595008902557696413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27f37c31d67a5c43b73902adc3136d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1270594121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,6 +1814,17 @@ Transform:
   - {fileID: 1908448173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1475797100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7712583746225365824, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+  m_PrefabInstance: {fileID: 2595008902557696413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27f37c31d67a5c43b73902adc3136d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1525738974
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,6 +2640,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1892569825 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9187566449185398054, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+  m_PrefabInstance: {fileID: 2595008902557696413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27f37c31d67a5c43b73902adc3136d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1895954959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2999,6 +3047,7 @@ GameObject:
   - component: {fileID: 2002851077}
   - component: {fileID: 2002851078}
   - component: {fileID: 2002851079}
+  - component: {fileID: 2002851080}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -3014,7 +3063,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002851076}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.5983246, z: -0, w: -0.8012538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3022,7 +3071,7 @@ Transform:
   - {fileID: 976638481}
   - {fileID: 1985686498}
   m_Father: {fileID: 2014647845}
-  m_LocalEulerAnglesHint: {x: 0, y: -433.5, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2002851078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3057,7 +3106,24 @@ MonoBehaviour:
   m_treeSegments:
   - {fileID: 976638488}
   _Parent: {fileID: 2002851076}
-  m_prefab: {fileID: 7564434767243659198, guid: 7bd2980fd07b7e64bbe5d5464ae5cb2e, type: 3}
+  m_prefab: {fileID: 8167736559371770023, guid: 427314d9da121bb49b15697e278c4b73, type: 3}
+--- !u!114 &2002851080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002851076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafe01693601e8d4f9cd1d98af1dbdc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxUnits:
+  - {fileID: 1149105846}
+  - {fileID: 643727834}
+  - {fileID: 1475797100}
+  - {fileID: 1892569825}
 --- !u!1 &2014647844
 GameObject:
   m_ObjectHideFlags: 0
@@ -3159,17 +3225,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7712583746225365824, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712583746225365824, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 
       objectReference: {fileID: 2002851077}
+    - target: {fileID: 8444278975378285755, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8444278975378285755, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 
       objectReference: {fileID: 2002851077}
     - target: {fileID: 8888606733263203551, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8888606733263203551, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 
       objectReference: {fileID: 2002851077}
+    - target: {fileID: 9187566449185398054, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9187566449185398054, guid: 7bbebc3da0e51134c95b82986760e0f2, type: 3}
       propertyPath: parentTerrain
       value: 

@@ -13,6 +13,7 @@ public partial class StaticMethods
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
+        PlayerPrefs.Save();
         Application.Quit();
 #endif
     }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Managers;
+
 /// <summary>
 /// Places branches on the empty tree segment randomly using a small algorithm
 /// </summary>
@@ -36,10 +37,9 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [SerializeField] private Transform birdPrefab;
 
     [Header("DO NOT CHANGE")]
-    [SerializeField] private bool hasBranches = false;
-    
-
+    [SerializeField] private bool hasBranches;
     public bool lastWasBird = false;
+
     void Start()
     {
         if (hasBranches) return;
@@ -201,7 +201,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     private float GetRandomRotation(bool isFirstBranchOnLayer)
     {
         Vector3 startRotation = lastBranch.localEulerAngles;
-        float randomRotation = 0;
+        float randomRotation;
 
         int leftOrRight = Random.Range(0, 2);
 
@@ -239,9 +239,9 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     /// </summary>
     private void GetLastBranchFromPreviousTreeSegment()
     {
-        var branches = GameManager.Instance.GetLastBranchList();
+        var branches = GameManager.Instance.TreeManager.GetLastBranchList();
         lastBranches = branches.Item1;
-        lastBranch = lastBranches[lastBranches.Count - 1];
+        lastBranch = lastBranches[^1];
         lastWasBird = branches.Item2;
     }
 }

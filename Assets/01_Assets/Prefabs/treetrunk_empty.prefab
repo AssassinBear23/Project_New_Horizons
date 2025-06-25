@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8510484146161530520}
   - component: {fileID: 3775998784436746854}
   - component: {fileID: 5088669238449685003}
-  - component: {fileID: 3506481426866035267}
   - component: {fileID: 8640375358326276097}
-  - component: {fileID: 1343747873505519685}
   - component: {fileID: 7556834914418585023}
+  - component: {fileID: 1343747873505519685}
+  - component: {fileID: 8829613209761400188}
   m_Layer: 0
   m_Name: treetrunk_empty
   m_TagString: Untagged
@@ -90,24 +90,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3506481426866035267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7564434767243659198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2315b8b0da7364747979cb9844df94ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0.01
-  speedIncreaseType: 0
-  speedIncrease: 0.00001
-  speedMultiplier: 1.01
-  _Parent: {fileID: 0}
-  prefab: {fileID: 11400000, guid: 775cb5cb652496f4d873a9c574bfae67, type: 2}
 --- !u!65 &8640375358326276097
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -129,32 +111,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 2, z: 0.75}
   m_Center: {x: 0.00000005960465, y: 0, z: -0.00000008940698}
---- !u!114 &1343747873505519685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7564434767243659198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0577b93fac4e550418bb4b2dcd8b5620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yInterval: 1.65
-  maxAmountOfBranches: 4
-  sameYMinAngleDist: 35
-  sameYMaxAngleDist: 180
-  differentYMinAngleDist: 35
-  differentYMaxAngleDist: 180
-  yOffset: 0.3
-  chanceToSpawnBird: 1
-  lastBranch: {fileID: 0}
-  lastBranches: []
-  branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
-  birdPrefab: {fileID: 1086735497159312334, guid: 5bb6ff88f3b8eb24d9180d860ee58e7e, type: 3}
-  hasBranches: 0
-  lastWasBird: 0
 --- !u!54 &7556834914418585023
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -182,3 +138,41 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1343747873505519685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564434767243659198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0577b93fac4e550418bb4b2dcd8b5620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yInterval: 1.65
+  maxAmountOfBranches: 4
+  sameYMinAngleDist: 35
+  sameYMaxAngleDist: 180
+  differentYMinAngleDist: 35
+  differentYMaxAngleDist: 180
+  yOffset: 0.3
+  chanceToSpawnBird: 0.3
+  lastBranch: {fileID: 0}
+  lastBranches: []
+  branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}
+  birdPrefab: {fileID: 1086735497159312334, guid: 5bb6ff88f3b8eb24d9180d860ee58e7e, type: 3}
+  hasBranches: 0
+  lastWasBird: 0
+--- !u!114 &8829613209761400188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564434767243659198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504550c4fdf55c541beaddac2618b754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

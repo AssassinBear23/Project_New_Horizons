@@ -13,10 +13,13 @@ namespace Managers
     /// </summary>
     public class GameManager : MonoBehaviour
     {
+        #region references
         /// <summary>
         /// Singleton instance of the <see cref="GameManager"/>.
         /// </summary>
         public static GameManager Instance { get; private set; }
+
+        public TreeManager TreeManager { get; set; }
 
         /// <summary>
         /// Gets or sets the input manager for the game.
@@ -28,6 +31,7 @@ namespace Managers
         /// </summary>
         public UIManager UIManager { get; set; }
 
+        #endregion references
         #region Variables
         [field: Header("Game state")]
         /// <summary>
@@ -35,11 +39,12 @@ namespace Managers
         /// </summary>
         [Tooltip("Whether or not the game can be paused")]
         [field: SerializeField] public bool AllowTogglePause { get; set; }
+        /// <summary>
+        /// True if the game is paused, false if it is playing.
+        /// </summary>
         [field: SerializeField] public bool IsPaused { get; private set; } = true;
 
         [Header("Internal")]
-        [SerializeField] private List<TreeController> m_treeSegments = new List<TreeController>();
-
         /// <summary>
         /// Gets or sets the player controls component.
         /// </summary>
@@ -48,13 +53,17 @@ namespace Managers
         [SerializeField] private GameObject m_playerObject;
 
         [Header("Debugging")]
-        [SerializeField] private bool m_showFPSIndicator = false;
+        [SerializeField] private bool m_showFpsIndicator = false;
         [SerializeField] private TMP_Text m_fpsIndicator;
         [SerializeField, Range(0, 2f)] private float m_fpsUpdateIntervalTime = 1f;
 
         [Header("Events")]
         [SerializeField] private UnityEvent onSetupFinished;
-        #endregion
+        [SerializeField] private UnityEvent onStopGameplay;
+        [SerializeField] private UnityEvent onStartGameplay;
+        #endregion Variables
+
+        #region Methods
         private void Awake()
         {
             // Set the fps target to the current screen's refresh rate
@@ -88,7 +97,7 @@ namespace Managers
 
         private void Update()
         {
-            if (m_showFPSIndicator)
+            if (m_showFpsIndicator)
                 UpdateFpsIndicator();
         }
 
@@ -130,85 +139,45 @@ namespace Managers
             }
         }
 
-        /// <summary>
-        /// Starts the gameplay by enabling player controls and all tree segments.
-        /// </summary>
-        /// <exception cref="Exception">Thrown if no tree segments are available to start gameplay.</exception>
+
         private void StartGameplay()
         {
-            if (m_treeSegments.Count == 0)
-                throw new Exception("No tree segments available to start gameplay.");
+            onStartGameplay?.Invoke();
+        }
 
-            PlayerControls.enabled = true;
-            m_playerObject.SetActive(true);
-
-            int count = 0;
-            foreach (TreeController treeSegment in m_treeSegments)
-            {
-                count++;
-                treeSegment.enabled = true;
-            }
+        private void StopGameplay()
+        {
+            onStopGameplay?.Invoke();
         }
 
         /// <summary>
-        /// Stops the gameplay by disabling player controls and all tree segments.
+        /// Toggles the state of the game between paused and playing.
         /// </summary>
-        public void StopGameplay()
-        {
-            PlayerControls.enabled = false;
-            foreach (TreeController treeSegment in m_treeSegments)
-            {
-                treeSegment.enabled = false;
-            }
-        }
-
+        /// <remarks>
+        /// Might as well be combined with the <see cref="TogglePause"/> method. But no, cause YOLO.
+        /// </remarks>
         public void ToggleGameplayState()
         {
             if (!AllowTogglePause)
                 return;
 
             if (IsPaused)
-            {
                 StartGameplay();
-                IsPaused = false;
-            }
             else if(!IsPaused)
-            {
                 StopGameplay();
-                IsPaused = true;
-            }
-
-            UIManager.TogglePause();
         }
 
         /// <summary>
-        /// Adds a tree segment to the managed list.
+        /// Toggles the pause value and calls the <see cref="UIManager.TogglePause(bool)">TogglePause</see> method on the <see cref="Managers.UIManager">UIManager</see>.
         /// </summary>
-        /// <param name="treeSegment">The tree segment to add.</param>
-        public void AddTreeSegment(TreeController treeSegment)
+        /// <remarks>
+        /// I don't really know why I did it like this, but it works, so we ball.
+        /// </remarks>
+        public void TogglePause()
         {
-            if (!m_treeSegments.Contains(treeSegment)) m_treeSegments.Add(treeSegment);
+            IsPaused = !IsPaused;
+            UIManager.TogglePause(IsPaused);
         }
-
-        /// <summary>
-        /// Removes a tree segment from the managed list.
-        /// </summary>
-        /// <param name="treeSegment">The tree segment to remove.</param>
-        public void RemoveTreeSegment(TreeController treeSegment)
-        {
-            if (m_treeSegments.Contains(treeSegment)) m_treeSegments.Remove(treeSegment);
-        }
-
-        /// <summary>
-        /// Returns a list of all the branches on the last layer of the last placed & finished tree segment
-        /// </summary>
-        /// <returns></returns>
-        public (List<Transform>, bool) GetLastBranchList()
-        {
-            BranchPlacingAlgorithm reference = m_treeSegments[m_treeSegments.Count - 2].GetComponent<BranchPlacingAlgorithm>();
-            List<Transform> transforms = reference.lastBranches;
-            bool isBird = reference.lastWasBird;
-            return (transforms, isBird);
-        }
+        #endregion
     }
 }

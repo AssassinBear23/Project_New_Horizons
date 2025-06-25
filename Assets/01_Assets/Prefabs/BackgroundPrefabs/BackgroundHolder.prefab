@@ -51,8 +51,8 @@ MonoBehaviour:
   parallaxSpeed: 0.4
   parentTerrain: {fileID: 0}
   backgroundPrefab: {fileID: 4571972333220953979, guid: e1a5290f704903740b594d23e48b95ac, type: 3}
-  outOfScopePosition: {x: 0, y: 20, z: 0}
-  inScopePosition: {x: 0, y: -36, z: 0}
+  outOfScopePosition: {x: 0, y: 25, z: 0}
+  inScopePosition: {x: 0, y: -40, z: 0}
 --- !u!1 &3400580509850343128
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5564209490894817886}
+  - component: {fileID: 6356962463081401026}
   m_Layer: 0
   m_Name: BackgroundHolder
   m_TagString: Untagged
@@ -141,6 +142,23 @@ Transform:
   - {fileID: 1806869019367079745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
+--- !u!114 &6356962463081401026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3718297318442867244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafe01693601e8d4f9cd1d98af1dbdc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxUnits:
+  - {fileID: 8444278975378285755}
+  - {fileID: 8888606733263203551}
+  - {fileID: 7712583746225365824}
+  - {fileID: 9187566449185398054}
 --- !u!1 &4002142557876352835
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,8 +209,8 @@ MonoBehaviour:
   parallaxSpeed: 0.7
   parentTerrain: {fileID: 0}
   backgroundPrefab: {fileID: 2714573352021809558, guid: a245b73cac566b24cbc8e3a6b44ed144, type: 3}
-  outOfScopePosition: {x: 0, y: 40, z: 0}
-  inScopePosition: {x: 0, y: -30, z: 0}
+  outOfScopePosition: {x: 0, y: 30, z: 0}
+  inScopePosition: {x: 0, y: -40, z: 0}
 --- !u!1 &6017064587091331706
 GameObject:
   m_ObjectHideFlags: 0

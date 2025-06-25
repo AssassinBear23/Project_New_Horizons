@@ -2368,6 +2368,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HowToPlayPage
       objectReference: {fileID: 0}
+    - target: {fileID: 4821539780342691155, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

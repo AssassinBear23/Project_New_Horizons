@@ -94,9 +94,6 @@ PrefabInstance:
       addedObject: {fileID: 5294859086177279202}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af4f66c3672c27849839686aa3177495, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8176099342647420654}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af4f66c3672c27849839686aa3177495, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 233131389954315209}
   m_SourcePrefab: {fileID: 100100000, guid: af4f66c3672c27849839686aa3177495, type: 3}
 --- !u!4 &6087141655599257059 stripped
@@ -135,24 +132,6 @@ MonoBehaviour:
   birdPrefab: {fileID: 1086735497159312334, guid: 5bb6ff88f3b8eb24d9180d860ee58e7e, type: 3}
   hasBranches: 0
   lastWasBird: 0
---- !u!114 &8176099342647420654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859562470584504153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2315b8b0da7364747979cb9844df94ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0.01
-  speedIncreaseType: 0
-  speedIncrease: 0.00001
-  speedMultiplier: 1.01
-  _Parent: {fileID: 0}
-  prefab: {fileID: 11400000, guid: 775cb5cb652496f4d873a9c574bfae67, type: 2}
 --- !u!54 &233131389954315209
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -241,9 +220,6 @@ PrefabInstance:
       addedObject: {fileID: 7173265018882815597}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af4f66c3672c27849839686aa3177495, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6458825711677149313}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af4f66c3672c27849839686aa3177495, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3842213581296389564}
   m_SourcePrefab: {fileID: 100100000, guid: af4f66c3672c27849839686aa3177495, type: 3}
 --- !u!4 &6996970932597306265 stripped
@@ -282,24 +258,6 @@ MonoBehaviour:
   birdPrefab: {fileID: 1086735497159312334, guid: 5bb6ff88f3b8eb24d9180d860ee58e7e, type: 3}
   hasBranches: 0
   lastWasBird: 0
---- !u!114 &6458825711677149313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7661163175458531619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2315b8b0da7364747979cb9844df94ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0.01
-  speedIncreaseType: 0
-  speedIncrease: 0.00001
-  speedMultiplier: 1.01
-  _Parent: {fileID: 0}
-  prefab: {fileID: 11400000, guid: 775cb5cb652496f4d873a9c574bfae67, type: 2}
 --- !u!54 &3842213581296389564
 Rigidbody:
   m_ObjectHideFlags: 0

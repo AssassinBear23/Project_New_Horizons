@@ -61,6 +61,7 @@ namespace Managers
         [SerializeField] private UnityEvent onSetupFinished;
         [SerializeField] private UnityEvent onStopGameplay;
         [SerializeField] private UnityEvent onStartGameplay;
+        [SerializeField] private UnityEvent onGameOver;
         #endregion Variables
 
         #region Methods
@@ -176,6 +177,11 @@ namespace Managers
         {
             IsPaused = !IsPaused;
             UIManager.TogglePause(IsPaused);
+        }
+        public void GameOver()
+        {
+            IsPaused = true;
+            onGameOver?.Invoke();
         }
         #endregion
     }

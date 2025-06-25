@@ -22,12 +22,15 @@ namespace Managers
         [Tooltip("The pages (panels) managed by this UI Manager")]
         public List<UIPage> pages;
 
+        [Header("Page Indexes")]
+        [Tooltip("The pause menu page's index\n defaults to 1")]
+        [SerializeField] private UIPage m_pausePageIndex;
+        [Tooltip("The game over menu page's index\n defaults to 1")]
+        [SerializeField] private UIPage GameOverPage;
         /// <summary>
         /// The pause menu page's index.
         /// </summary>
         [Header("Pause Settings")]
-        [Tooltip("The pause menu page's index\n defaults to 1")]
-        [SerializeField] private UIPage m_pausePageIndex;
         [Tooltip("The gameplay UI page that is active when the game is not paused")]
         [SerializeField] private UIPage m_gameplayUI;
 
@@ -123,21 +126,20 @@ namespace Managers
         /// <summary>
         /// Toggles the pause state of the game.
         /// </summary>
-        public void TogglePause()
+        public void TogglePause(bool shouldPause)
         {
-            if (!m_gm.AllowTogglePause)
-            {
-                return;
-            }
-
-            if (m_gm.IsPaused == true)
-            {
+            if (shouldPause)
                 GoToPage(m_pausePageIndex);
-            }
-            else
-            {
+            else if (!shouldPause)
                 GoToPage(m_gameplayUI);
-            }
+        }
+
+        /// <summary>
+        /// Goes to the end screen page of the UI
+        /// </summary>
+        public void GoToEndScreen()
+        {
+            GoToPage(GameOverPage);
         }
 
         /// <summary>

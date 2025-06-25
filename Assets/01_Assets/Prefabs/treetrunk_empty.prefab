@@ -148,7 +148,7 @@ MonoBehaviour:
   differentYMinAngleDist: 35
   differentYMaxAngleDist: 180
   yOffset: 0.3
-  chanceToSpawnBird: 0.3
+  chanceToSpawnBird: 1
   lastBranch: {fileID: 0}
   lastBranches: []
   branchPrefab: {fileID: 6745239867347738851, guid: cd042643c52960a4994dd14b468e0dc2, type: 3}

@@ -123,8 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: 0
-  onBirdTouchEvent: 1
-  movementSpeed: 5
+  onBirdTouchEvent: 0
+  movementSpeed: 2.5
+  playerTakingSpeed: 2
+  topY: 12.5
 --- !u!54 &6147143059836248560
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -6,7 +6,9 @@ public class BirdController : MonoBehaviour
 {
     public Directions moveDirection = Directions.Clockwise;
     [SerializeField] private OnBirdTouchEvent onBirdTouchEvent = OnBirdTouchEvent.KillsPlayer;
-    [SerializeField] private float movementSpeed = 10;
+    [SerializeField] private float movementSpeed = 2.5f;
+    [SerializeField] private float playerTakingSpeed = 2.5f;
+    [SerializeField] private float topY = 2.5f;
 
     private bool isEnabled = true;
     private void FixedUpdate()
@@ -50,9 +52,11 @@ public class BirdController : MonoBehaviour
         Vector3 birdPos = transform.position;
         birdPos.y = 0;
 
-        float angle = Vector3.Angle(birdPos, playerPos);
+        float angle = Vector3.Angle(birdPos.normalized, playerPos.normalized);
 
-        transform.parent.localEulerAngles += new Vector3(0, angle, 0);
+        float dir = (transform.parent.localEulerAngles.y > 0) ? -1 : 1;
+
+        transform.parent.localEulerAngles += new Vector3(0, angle * dir, 0);
 
         // Start moving away
         StartCoroutine(MoveAway(_PlayerPos));
@@ -65,13 +69,15 @@ public class BirdController : MonoBehaviour
     {
         while (transform.localPosition.z > -4)
         {
-            transform.localPosition += new Vector3(0, 0, -10 * Time.deltaTime);
+            Debug.Log("moving away");
+            transform.localPosition += new Vector3(0, 0, -playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
             if (transform.localPosition.z < -4)
             {
                 transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -4);
                 player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+                break;
             }
 
             yield return null;
@@ -84,10 +90,18 @@ public class BirdController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator MoveUp(Transform player)
     {
-        while (transform.localPosition.y < 10)
+        while (transform.position.y < topY)
         {
-            transform.localPosition += new Vector3(0, 10 * Time.deltaTime, 0);
+            Debug.Log("moving up");
+            transform.position += new Vector3(0, playerTakingSpeed * Time.deltaTime, 0);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+
+            if (transform.position.y > topY)
+            {
+                transform.position = new Vector3(transform.position.x, topY, transform.position.z);
+                player.position = new Vector3(transform.position.x, topY, transform.position.z);
+                break;
+            }
 
             yield return null;
         }
@@ -99,20 +113,25 @@ public class BirdController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator MoveTowards(Transform player)
     {
-        while (transform.localPosition.z < -4)
+        while (transform.position.z < -2.5f)
         {
-            transform.localPosition += new Vector3(0, 10 * Time.deltaTime, 0);
+            Debug.Log("moving back");
+            transform.position += new Vector3(0, 0, playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
-            if (transform.localPosition.z > -4)
+            if (transform.position.z > -2.5)
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -4);
+                transform.position = new Vector3(transform.position.x, transform.position.y, -2.5f);
                 player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+                break;
             }
 
             yield return null;
         }
         isEnabled = true;
         Managers.GameManager.Instance.PlayerControls.EnableInput();
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        Destroy(transform.parent.gameObject);
+        Debug.Log("done");
     }
 }

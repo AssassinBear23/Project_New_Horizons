@@ -139,7 +139,6 @@ namespace Managers
             }
         }
 
-
         private void StartGameplay()
         {
             onStartGameplay?.Invoke();

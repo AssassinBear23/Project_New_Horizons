@@ -93,7 +93,6 @@ public class TreeManager : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Adds a tree segment to the managed list.
     /// </summary>

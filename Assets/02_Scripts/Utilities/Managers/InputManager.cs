@@ -191,6 +191,7 @@ namespace Managers
             {
                 Debug.Log("Pause pressed");
                 // Handle pause logic here, e.g., toggle pause menu
+                m_pausePressed?.Invoke();
             }
         }
 

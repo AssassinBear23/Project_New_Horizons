@@ -13,7 +13,7 @@ public class BirdController : MonoBehaviour
     private bool isEnabled = true;
     private void FixedUpdate()
     {
-        if (!isEnabled) return;
+        if (!isEnabled || Managers.GameManager.Instance.IsPaused) return;
 
         float direction = (moveDirection == Directions.Clockwise) ? 1 : -1;
         transform.parent.localEulerAngles += new Vector3(0, movementSpeed * direction, 0);
@@ -69,7 +69,12 @@ public class BirdController : MonoBehaviour
     {
         while (transform.localPosition.z > -4)
         {
-            Debug.Log("moving away");
+            if (Managers.GameManager.Instance.IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+
             transform.localPosition += new Vector3(0, 0, -playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
@@ -92,7 +97,12 @@ public class BirdController : MonoBehaviour
     {
         while (transform.position.y < topY)
         {
-            Debug.Log("moving up");
+            if (Managers.GameManager.Instance.IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+
             transform.position += new Vector3(0, playerTakingSpeed * Time.deltaTime, 0);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
@@ -115,7 +125,12 @@ public class BirdController : MonoBehaviour
     {
         while (transform.position.z < -2.5f)
         {
-            Debug.Log("moving back");
+            if (Managers.GameManager.Instance.IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+
             transform.position += new Vector3(0, 0, playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
@@ -132,6 +147,5 @@ public class BirdController : MonoBehaviour
         Managers.GameManager.Instance.PlayerControls.EnableInput();
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         Destroy(transform.parent.gameObject);
-        Debug.Log("done");
     }
 }

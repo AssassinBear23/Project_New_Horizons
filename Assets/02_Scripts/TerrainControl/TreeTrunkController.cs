@@ -4,6 +4,7 @@ using UnityEngine;
 public class TreeTrunkController : MonoBehaviour
 {
     private TreeManager m_Tm;
+    private bool hasSpawned = false;
 
     private void Start()
     {
@@ -13,11 +14,8 @@ public class TreeTrunkController : MonoBehaviour
 
     public void UpdatePosition(float movementSpeed)
     {
-        Debug.Log($"Updating position of {gameObject.name} with speed {movementSpeed}", this);
-        transform.position = new Vector3(
-            transform.position.x,
-            transform.position.y + movementSpeed,
-            transform.position.z);
+        //Debug.Log($"Updating position of {gameObject.name} with speed {movementSpeed}", this);
+        transform.position += new Vector3(0, movementSpeed, 0);
     }
 
 
@@ -31,9 +29,10 @@ public class TreeTrunkController : MonoBehaviour
         }
 
         // Spawns a new tree segment under this one when it touches the spawner object
-        else if (other.CompareTag("Spawner"))
+        else if (other.CompareTag("Spawner") && !hasSpawned)
         {
             m_Tm.SpawnNewTreeSegment(this);
+            hasSpawned = true;
         }
     }
 }

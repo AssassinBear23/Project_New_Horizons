@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9424b41c4566f4986e5d8423f77f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offScreenOffSet: 0.1
+  offScreenOffSet: 0.2
   bounciness: 0.5
   onDeadge:
     m_PersistentCalls:
@@ -359,7 +359,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 294126188}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -369,7 +369,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   rb: {fileID: 294126189}
 --- !u!1001 &517770470
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AllowTogglePause>k__BackingField: 1
-  <IsPaused>k__BackingField: 0
+  <IsPaused>k__BackingField: 1
   m_playerObject: {fileID: 294126188}
   m_showFpsIndicator: 0
   m_fpsIndicator: {fileID: 1074422450}
@@ -2548,7 +2548,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2800,7 +2800,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002851076}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 573dac44f26422a4a9de24eed8aac681, type: 3}
   m_Name: 
@@ -2820,9 +2820,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d226ed1e7861c4d897be86d814ac48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementSpeed: 0.005
   speedIncreaseType: 0
-  speedIncrease: 0.001
-  speedMultiplier: 1.01
+  speedIncrease: 0.0001
+  speedMultiplier: 1.0000001
   m_treeSegments:
   - {fileID: 976638488}
   _Parent: {fileID: 2002851076}

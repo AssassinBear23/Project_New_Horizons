@@ -12,7 +12,7 @@ public class TreeManager : MonoBehaviour
     /// <summary>
     /// The speed at which the terrain moves upwards
     /// </summary>
-    public float MovementSpeed { get; private set; } = 5;
+    [SerializeField] public float MovementSpeed = 5;
 
     /// <summary>
     /// The way in which the speed is increased over time
@@ -70,7 +70,7 @@ public class TreeManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!m_Gm.IsPaused) return;
+        if (m_Gm.IsPaused) return;
 
         foreach (TreeTrunkController treeSegment in m_treeSegments)
         {

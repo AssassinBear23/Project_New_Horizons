@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 namespace Managers
 {
+    using UI.Elements;
+
     /// <summary>
     /// Manages the UI elements in the game.
     /// </summary>
@@ -25,10 +27,9 @@ namespace Managers
         /// </summary>
         [Header("Pause Settings")]
         [Tooltip("The pause menu page's index\n defaults to 1")]
-        public int pausePageIndex = 1;
-
-        // Whether or not the game is paused
-        private bool isPaused = false;
+        [SerializeField] private UIPage m_pausePageIndex;
+        [Tooltip("The gameplay UI page that is active when the game is not paused")]
+        [SerializeField] private UIPage m_gameplayUI;
 
         // A list of all UIElements for this page.
         private List<UIElement> UIElements;
@@ -39,26 +40,15 @@ namespace Managers
         [SerializeField] InputManager m_inputManager;
         // The game manager instance in the scene
         [SerializeField] GameManager m_gm;
-
         #endregion Variables
 
         #region Methods
         #region SetupMethods
-
-        /// <summary>
-        /// Default Unity Method called when the script is enabled.
-        /// </summary>
-        private void OnEnable()
-        {
-            SetupUIManager();
-        }
-
         /// <summary>
         /// Default Unity Method called when the script is first loaded.
         /// </summary>
         private void Start()
         {
-            SetupInputManager();
             SetupEventSystem();
             UpdateElements();
         }
@@ -106,12 +96,14 @@ namespace Managers
         /// <summary>
         /// Sets up the UIManager singleton m_gm in <see cref="GameManager.UIManager"/>.
         /// </summary>
-        void SetupUIManager()
+        public void SetupUIManager()
         {
             if (GameManager.Instance != null && GameManager.Instance.UIManager == null)
             {
                 GameManager.Instance.UIManager = this;
             }
+
+            SetupInputManager();
         }
         #endregion Setup Methods
         #region FunctionalMethods
@@ -129,48 +121,22 @@ namespace Managers
         }
 
         /// <summary>
-        /// Default Unity Method that is called every frame.
-        /// </summary>
-        private void Update()
-        {
-            CheckPauseInput();
-        }
-
-        /// <summary>
-        /// Checks for pause input.
-        /// </summary>
-        private void CheckPauseInput()
-        {
-            if (m_inputManager == null)
-            {
-                return;
-            }
-            if (m_inputManager.IsPausePressed)
-            {
-                TogglePause();
-            }
-        }
-
-        /// <summary>
         /// Toggles the pause state of the game.
         /// </summary>
         public void TogglePause()
         {
-            if (!m_gm.AllowPause)
+            if (!m_gm.AllowTogglePause)
             {
                 return;
             }
-            if (isPaused)
+
+            if (m_gm.IsPaused == true)
             {
-                SetActiveAllPages(false);
-                Time.timeScale = 1;
-                isPaused = false;
+                GoToPage(m_pausePageIndex);
             }
             else
             {
-                GoToPage(pausePageIndex);
-                Time.timeScale = 0;
-                isPaused = true;
+                GoToPage(m_gameplayUI);
             }
         }
 
@@ -197,13 +163,21 @@ namespace Managers
         {
             int pageIndex = pages.IndexOf(page);
 
-            if (pageIndex < pages.Count && pages[pageIndex] != null)
+
+            try
             {
-                SetActiveAllPages(false);
-                pages[pageIndex].gameObject.SetActive(true);
-                pages[pageIndex].SetSelectedUIToDefault();
+                if (pageIndex < pages.Count && pages[pageIndex] != null)
+                {
+                    SetActiveAllPages(false);
+                    pages[pageIndex].gameObject.SetActive(true);
+                    pages[pageIndex].SetSelectedUIToDefault();
+                }
+                GetUIElements();
             }
-            GetUIElements();
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                Debug.LogError($"Error while trying to go to page {page.name} with index {pageIndex}: {e.Message}");
+            }
         }
 
         public void GoToOriginPage(UIPage currentPage)

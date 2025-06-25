@@ -342,14 +342,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9424b41c4566f4986e5d8423f77f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offScreenOffSet: 0.1
+  offScreenOffSet: 0.2
   bounciness: 0.5
   onDeadge:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1270594122}
         m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
-        m_MethodName: StopGameplay
+        m_MethodName: GameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -359,7 +359,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 294126188}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -369,7 +369,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   rb: {fileID: 294126189}
 --- !u!1001 &517770470
@@ -459,6 +459,22 @@ PrefabInstance:
     - target: {fileID: 2711016253777690084, guid: c758fb2d73ecda442ad807a17a8bbb04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922634793896328434, guid: c758fb2d73ecda442ad807a17a8bbb04, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922634793896328434, guid: c758fb2d73ecda442ad807a17a8bbb04, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1270594122}
+    - target: {fileID: 5922634793896328434, guid: c758fb2d73ecda442ad807a17a8bbb04, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleGameplayState
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922634793896328434, guid: c758fb2d73ecda442ad807a17a8bbb04, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Managers.GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8676575188538348928, guid: c758fb2d73ecda442ad807a17a8bbb04, type: 3}
       propertyPath: m_Color.a
@@ -1222,7 +1238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AllowTogglePause>k__BackingField: 1
-  <IsPaused>k__BackingField: 0
+  <IsPaused>k__BackingField: 1
   m_playerObject: {fileID: 294126188}
   m_showFpsIndicator: 0
   m_fpsIndicator: {fileID: 1074422450}
@@ -1305,6 +1321,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 294126189}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: Sleep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStartGameplay:
     m_PersistentCalls:
       m_Calls:
@@ -1312,6 +1340,57 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
         m_MethodName: TogglePause
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 294126189}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: WakeUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGameOver:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1270594122}
+        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
+        m_MethodName: ToggleAllowPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1314249866}
+        m_TargetAssemblyTypeName: Managers.UIManager, Assembly-CSharp
+        m_MethodName: GoToEndScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 294126188}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1445,6 +1524,7 @@ MonoBehaviour:
   - {fileID: 1050609076}
   - {fileID: 1865549188}
   m_pausePageIndex: {fileID: 2066777662}
+  GameOverPage: {fileID: 1865549188}
   m_gameplayUI: {fileID: 1364505097}
   eventSystem: {fileID: 0}
   m_inputManager: {fileID: 1880506944}
@@ -2548,7 +2628,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2800,7 +2880,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002851076}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 573dac44f26422a4a9de24eed8aac681, type: 3}
   m_Name: 
@@ -2820,9 +2900,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d226ed1e7861c4d897be86d814ac48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementSpeed: 0.005
   speedIncreaseType: 0
-  speedIncrease: 0.001
-  speedMultiplier: 1.01
+  speedIncrease: 0.0001
+  speedMultiplier: 1.0000001
   m_treeSegments:
   - {fileID: 976638488}
   _Parent: {fileID: 2002851076}

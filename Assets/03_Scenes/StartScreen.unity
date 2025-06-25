@@ -1663,7 +1663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &871392401
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1792,6 +1792,12 @@ MonoBehaviour:
   m_fpsIndicator: {fileID: 0}
   m_fpsUpdateIntervalTime: 1
   onSetupFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopGameplay:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartGameplay:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &962400306

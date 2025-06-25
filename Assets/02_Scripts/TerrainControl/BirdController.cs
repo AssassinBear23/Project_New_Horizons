@@ -6,31 +6,28 @@ public class BirdController : MonoBehaviour
 {
     public Directions moveDirection = Directions.Clockwise;
     [SerializeField] private OnBirdTouchEvent onBirdTouchEvent = OnBirdTouchEvent.KillsPlayer;
-    [SerializeField] private float movementSpeed = 10;
+    [SerializeField] private float movementSpeed = 2.5f;
+    [SerializeField] private float playerTakingSpeed = 2.5f;
+    [SerializeField] private float topY = 2.5f;
 
     private bool isEnabled = true;
     private void FixedUpdate()
     {
-        if (!isEnabled) return;
+        if (!isEnabled || Managers.GameManager.Instance.IsPaused) return;
 
         float direction = (moveDirection == Directions.Clockwise) ? 1 : -1;
-        transform.localEulerAngles = new Vector3(
-            transform.localEulerAngles.x,
-            transform.localEulerAngles.y + movementSpeed * direction,
-            transform.localEulerAngles.z);
+        transform.parent.localEulerAngles += new Vector3(0, movementSpeed * direction, 0);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Player" && isEnabled)
         {
-            Debug.Log("Player hit bird");
-
             switch(onBirdTouchEvent)
             {
                 case OnBirdTouchEvent.MovesToTopOfScreen:
                     Debug.LogWarning("Not Yet Implemented dumbass");
-                    StartCoroutine(CarryToTop());
+                    CarryToTop(collision.transform);
                     break;
                 case OnBirdTouchEvent.KillsPlayer:
                     Debug.Log("Killing Player");
@@ -40,19 +37,115 @@ public class BirdController : MonoBehaviour
             }
         }
     }
-    private bool finishedMovingAway = false;
-    private bool finishedMovingUp = false;
-    private bool finishedMovingTowards = false;
-    private IEnumerator CarryToTop()
+    /// <summary>
+    /// Disables controls and starts sequence to move the player to the top of the screen
+    /// </summary>
+    private void CarryToTop(Transform _PlayerPos)
     {
-        finishedMovingAway = false;
-        finishedMovingTowards = false;
-        finishedMovingUp = false;
-
+        isEnabled = false;
         Managers.GameManager.Instance.PlayerControls.DisableInput();
 
-        yield return new WaitUntil(() => finishedMovingAway);
+        // Calculate angle from bird to player
+        Vector3 playerPos = _PlayerPos.position;
+        playerPos.y = 0;
 
+        Vector3 birdPos = transform.position;
+        birdPos.y = 0;
+
+        float angle = Vector3.Angle(birdPos.normalized, playerPos.normalized);
+
+        float dir = (transform.parent.localEulerAngles.y > 0) ? -1 : 1;
+
+        transform.parent.localEulerAngles += new Vector3(0, angle * dir, 0);
+
+        // Start moving away
+        StartCoroutine(MoveAway(_PlayerPos));
+    }
+    /// <summary>
+    /// Makes the bird move away to not clip through branches
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator MoveAway(Transform player)
+    {
+        while (transform.localPosition.z > -4)
+        {
+            if (Managers.GameManager.Instance.IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+
+            transform.localPosition += new Vector3(0, 0, -playerTakingSpeed * Time.deltaTime);
+            player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+
+            if (transform.localPosition.z < -4)
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -4);
+                player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+                break;
+            }
+
+            yield return null;
+        }
+        StartCoroutine(MoveUp(player));
+    }
+    /// <summary>
+    /// Makes the bird move to the top of the screen
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator MoveUp(Transform player)
+    {
+        while (transform.position.y < topY)
+        {
+            if (Managers.GameManager.Instance.IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+
+            transform.position += new Vector3(0, playerTakingSpeed * Time.deltaTime, 0);
+            player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+
+            if (transform.position.y > topY)
+            {
+                transform.position = new Vector3(transform.position.x, topY, transform.position.z);
+                player.position = new Vector3(transform.position.x, topY, transform.position.z);
+                break;
+            }
+
+            yield return null;
+        }
+        StartCoroutine(MoveTowards(player));
+    }
+    /// <summary>
+    /// Returns the bird to the original z position so the player can land on branches again
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator MoveTowards(Transform player)
+    {
+        while (transform.position.z < -2.5f)
+        {
+            if (Managers.GameManager.Instance.IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+
+            transform.position += new Vector3(0, 0, playerTakingSpeed * Time.deltaTime);
+            player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+
+            if (transform.position.z > -2.5)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, -2.5f);
+                player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+                break;
+            }
+
+            yield return null;
+        }
+        isEnabled = true;
         Managers.GameManager.Instance.PlayerControls.EnableInput();
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        Destroy(transform.parent.gameObject);
     }
 }

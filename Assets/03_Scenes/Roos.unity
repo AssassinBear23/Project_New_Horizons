@@ -2761,6 +2761,7 @@ MonoBehaviour:
   speedMultiplier: 1.01
   _Parent: {fileID: 2002851076}
   prefab: {fileID: 11400000, guid: 775cb5cb652496f4d873a9c574bfae67, type: 2}
+  hasSpawned: 0
 --- !u!23 &976638486
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3931,10 +3932,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AllowTogglePause>k__BackingField: 0
   <IsPaused>k__BackingField: 1
-  m_treeSegments:
-  - {fileID: 976638485}
   m_playerObject: {fileID: 294126188}
-  m_showFPSIndicator: 1
+  m_showFpsIndicator: 0
   m_fpsIndicator: {fileID: 1074422450}
   m_fpsUpdateIntervalTime: 1
   onSetupFinished:
@@ -3976,6 +3975,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onStopGameplay:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartGameplay:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameOver:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1270594123
 Transform:
   m_ObjectHideFlags: 0
@@ -4315,6 +4323,7 @@ MonoBehaviour:
   - {fileID: 1102102288}
   - {fileID: 0}
   m_pausePageIndex: {fileID: 1102102288}
+  GameOverPage: {fileID: 0}
   m_gameplayUI: {fileID: 1364505097}
   eventSystem: {fileID: 0}
   m_inputManager: {fileID: 1880506944}

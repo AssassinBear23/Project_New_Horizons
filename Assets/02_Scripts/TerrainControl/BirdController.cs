@@ -67,7 +67,7 @@ public class BirdController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator MoveAway(Transform player)
     {
-        while (transform.localPosition.z > -4)
+        while (transform.localPosition.z > -2.5f)
         {
             if (Managers.GameManager.Instance.IsPaused)
             {
@@ -78,7 +78,7 @@ public class BirdController : MonoBehaviour
             transform.localPosition += new Vector3(0, 0, -playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
-            if (transform.localPosition.z < -4)
+            if (transform.localPosition.z < -2.5f)
             {
                 transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -4);
                 player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
@@ -123,7 +123,7 @@ public class BirdController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator MoveTowards(Transform player)
     {
-        while (transform.position.z < -2.5f)
+        while (transform.position.z < -1)
         {
             if (Managers.GameManager.Instance.IsPaused)
             {
@@ -134,7 +134,7 @@ public class BirdController : MonoBehaviour
             transform.position += new Vector3(0, 0, playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
-            if (transform.position.z > -2.5)
+            if (transform.position.z > -1)
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, -2.5f);
                 player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);

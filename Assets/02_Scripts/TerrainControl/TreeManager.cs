@@ -31,7 +31,7 @@ public class TreeManager : MonoBehaviour
     /// <summary>
     /// The prefab of the tree segment
     /// </summary>
-    [SerializeField] private GameObject m_prefab;
+    [SerializeField] private List<GameObject> m_prefabs = new();
     private float m_prefabHeight;
     private GameManager m_Gm;
 
@@ -43,9 +43,9 @@ public class TreeManager : MonoBehaviour
 
     private Vector3 GetPrefabSize()
     {
-        if (m_prefab != null)
+        if (m_prefabs.Count > 0)
         {
-            if (m_prefab.TryGetComponent<Renderer>(out var renderer))
+            if (m_prefabs[0].TryGetComponent<Renderer>(out var renderer))
                 return renderer.bounds.size;
             else
             {
@@ -120,7 +120,10 @@ public class TreeManager : MonoBehaviour
     {
         Vector3 pos = callerSegment.transform.position;
         pos.y -= m_prefabHeight;
-        Instantiate(m_prefab, pos, Quaternion.identity, _Parent.transform);
+
+        GameObject toInstantiate = m_prefabs[Random.Range(0, m_prefabs.Count)];
+
+        Instantiate(toInstantiate, pos, Quaternion.identity, _Parent.transform);
     }
 
     /// <summary>

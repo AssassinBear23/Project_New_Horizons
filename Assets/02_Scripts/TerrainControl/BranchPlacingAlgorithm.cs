@@ -32,8 +32,8 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform lastBranch;
-    public List<Transform> lastBranches = new List<Transform>();
-    [SerializeField] private Transform branchPrefab;
+    public List<Transform> lastBranches = new();
+    [SerializeField] private List<Transform> branchPrefabs = new();
     [SerializeField] private Transform birdPrefab;
 
     [Header("DO NOT CHANGE")]
@@ -154,7 +154,8 @@ public class BranchPlacingAlgorithm : MonoBehaviour
             }
 
             // Create Branch
-            Transform branch = Instantiate(branchPrefab, lastBranch.position, lastBranch.rotation);
+            Transform toSpawn = branchPrefabs[Random.Range(0, branchPrefabs.Count)];
+            Transform branch = Instantiate(toSpawn, lastBranch.position, lastBranch.rotation);
 
             // Apply random rotation and position
             float pos = _YPos + Random.Range(-yOffset, yOffset);

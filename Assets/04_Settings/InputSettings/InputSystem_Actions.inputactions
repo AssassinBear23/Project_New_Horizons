@@ -168,6 +168,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2f7c63a4-4952-4ce1-a9e2-ee00ba1c2f68",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Phone",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "eab28af1-a26e-472f-a4fe-e464dc560209",
                     "path": "<Touchscreen>/primaryTouch/tap",
                     "interactions": "",

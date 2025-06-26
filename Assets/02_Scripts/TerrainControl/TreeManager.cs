@@ -77,6 +77,7 @@ public class TreeManager : MonoBehaviour
             treeSegment.UpdatePosition(MovementSpeed);
         }
         ParallaxSystemManager.Instance.UpdateBackgroundPositions(MovementSpeed);
+        m_Gm.AddToCurrentScore(MovementSpeed * Time.deltaTime); // Update the score based on movement speed
         IncreaseSpeed(); // Increases movement speed over time
     }
 

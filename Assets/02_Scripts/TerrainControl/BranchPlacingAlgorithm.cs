@@ -56,7 +56,6 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         float yPos = lastBranch.position.y - yInterval;
 
         List<Transform> branchesOnThisLayer = new List<Transform>();
-
         int counter = 0;
         while (yPos > transform.localPosition.y - transform.localScale.y)
         {

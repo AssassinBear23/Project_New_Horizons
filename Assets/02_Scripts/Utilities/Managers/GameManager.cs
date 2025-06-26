@@ -44,6 +44,12 @@ namespace Managers
         /// </summary>
         [field: SerializeField] public bool IsPaused { get; private set; } = true;
 
+        [Header("Gameplay")]
+        /// <summary>
+        /// 
+        /// </summary>
+        private float m_currentScore = 0f;
+
         [Header("Internal")]
         /// <summary>
         /// Gets or sets the player controls component.
@@ -100,6 +106,37 @@ namespace Managers
         {
             if (m_showFpsIndicator)
                 UpdateFpsIndicator();
+        }
+
+        /// <summary>
+        /// Gets the current score of the game.
+        /// </summary>
+        /// <returns>The score of the currently active run.</returns>
+        public float GetCurrentScore()
+        {
+            return m_currentScore;
+        }
+
+        /// <summary>
+        /// Adds a specified amount to the current score.
+        /// </summary>
+        /// <param name="scoreToAdd">The amount of score to add to the score of the current run</param>
+        public void AddToCurrentScore(float scoreToAdd)
+        {
+            m_currentScore += scoreToAdd;
+        }
+
+        /// <summary>
+        /// Saves the current score as the high score if it exceeds the existing high score.
+        /// </summary>
+        public void SaveScore()
+        {
+            float currentHighscore = PlayerPrefs.GetFloat("HighScore");
+
+            if (m_currentScore > currentHighscore)
+            {
+                PlayerPrefs.SetFloat("HighScore", m_currentScore);
+            }
         }
 
         /// <summary>
@@ -163,7 +200,7 @@ namespace Managers
 
             if (IsPaused)
                 StartGameplay();
-            else if(!IsPaused)
+            else if (!IsPaused)
                 StopGameplay();
         }
 

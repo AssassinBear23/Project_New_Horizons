@@ -3931,10 +3931,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AllowTogglePause>k__BackingField: 0
   <IsPaused>k__BackingField: 1
-  m_treeSegments:
-  - {fileID: 976638485}
+  m_treeSegments: []
   m_playerObject: {fileID: 294126188}
-  m_showFPSIndicator: 1
+  m_showFPSIndicator: 0
   m_fpsIndicator: {fileID: 1074422450}
   m_fpsUpdateIntervalTime: 1
   onSetupFinished:

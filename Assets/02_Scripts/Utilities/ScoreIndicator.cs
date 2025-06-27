@@ -24,6 +24,7 @@ public class ScoreIndicator : MonoBehaviour
     private void UpdateText()
     {
         float currentScore = m_Gm.GetCurrentScore();
+        currentScore *= 100;
         string text = GetFormatedText(currentScore);
         m_textComponent.text = text;
     }
@@ -31,7 +32,9 @@ public class ScoreIndicator : MonoBehaviour
     private string GetFormatedText(float currentScore)
     {
         string formatedScore = GetFormatedScore(currentScore);
+        //Debug.Log($"Current Score: {currentScore}, Formatted Score: {formatedScore}");
         string modifier = GetTextModifier(currentScore);
+        //Debug.Log($"Current Score: {currentScore}, Modifier: {modifier}");
 
         return formatedScore + modifier;
     }
@@ -46,12 +49,16 @@ public class ScoreIndicator : MonoBehaviour
 
     private string GetFormatedScore(float currentScore)
     {
+        float selectedDivisor = 1;
+
         foreach (var (threshold, divisor) in ranges)
         {
-            if (currentScore < threshold)
-                return (currentScore / divisor).ToString("F0");
+            if (currentScore > threshold)
+                selectedDivisor = divisor;
+            else
+                break;
         }
-        return currentScore.ToString("F0");
+        return (currentScore / selectedDivisor).ToString("F0");
     }
 
     /// <summary>
@@ -67,11 +74,11 @@ public class ScoreIndicator : MonoBehaviour
     {
         return currentScore switch
         {
-            < 10000 => "K",
-            < 1000000 => "M",
-            < 1000000000 => "B",
-            < 1000000000000 => "T",
-            _ => string.Empty,
+            < 1000 => string.Empty,
+            < 1000000 => "K",
+            < 1000000000 => "M",
+            < 1000000000000 => "B",
+            _ => "T"
         };
     }
 }

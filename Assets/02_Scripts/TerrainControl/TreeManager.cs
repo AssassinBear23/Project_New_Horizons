@@ -1,137 +1,143 @@
-using Managers;
+
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum IncreaseTypes { Linearly, Exponentially }
-/// <summary>
-/// Moves the tree segment upwards, destroys it once it's out of screen and spawns a new one
-/// </summary>
-public class TreeManager : MonoBehaviour
+namespace Managers.Terrain
 {
-    [Header("Stats")]
     /// <summary>
-    /// The speed at which the terrain moves upwards
+    /// Moves the tree segment upwards, destroys it once it's out of screen and spawns a new one
     /// </summary>
-    [SerializeField] public float MovementSpeed = 5;
-
-    /// <summary>
-    /// The way in which the speed is increased over time
-    /// </summary>
-    [SerializeField] private IncreaseTypes speedIncreaseType = IncreaseTypes.Linearly;
-
-    [SerializeField] private float speedIncrease = 0.001f;
-    [SerializeField, Min(1)] private float speedMultiplier = 1.01f;
-
-    [Header("References")]
-    [SerializeField] private List<TreeTrunkController> m_treeSegments = new();
-    /// <summary>
-    /// A reference to the parent object in the scene to keep the hierarchy structured
-    /// </summary>
-    public GameObject _Parent;
-    /// <summary>
-    /// The prefab of the tree segment
-    /// </summary>
-    [SerializeField] private GameObject m_prefab;
-    private float m_prefabHeight;
-    private GameManager m_Gm;
-
-    private void Start()
+    public class TreeManager : MonoBehaviour
     {
-        m_Gm = GameManager.Instance;
-        m_prefabHeight = GetPrefabSize().y;
-    }
+        [Header("Stats")]
+        /// <summary>
+        /// The speed at which the terrain moves upwards
+        /// </summary>
+        [SerializeField] public float MovementSpeed = 5;
 
-    private Vector3 GetPrefabSize()
-    {
-        if (m_prefab != null)
+        /// <summary>
+        /// The way in which the speed is increased over time
+        /// </summary>
+        [SerializeField] private IncreaseTypes speedIncreaseType = IncreaseTypes.Linearly;
+
+        [SerializeField] private float speedIncrease = 0.001f;
+        [SerializeField, Min(1)] private float speedMultiplier = 1.01f;
+
+        [Header("References")]
+        [SerializeField] private List<TreeTrunkController> m_treeSegments = new();
+        /// <summary>
+        /// A reference to the parent object in the scene to keep the hierarchy structured
+        /// </summary>
+        public GameObject _Parent;
+        /// <summary>
+        /// The prefab of the tree segment
+        /// </summary>
+        [SerializeField] private List<GameObject> m_prefabs = new();
+        private float m_prefabHeight;
+        private GameManager m_Gm;
+
+        private void Start()
         {
-            if (m_prefab.TryGetComponent<Renderer>(out var renderer))
-                return renderer.bounds.size;
+            m_Gm = GameManager.Instance;
+            m_prefabHeight = GetPrefabSize().y;
+        }
+
+        private Vector3 GetPrefabSize()
+        {
+            if (m_prefabs.Count > 0)
+            {
+                if (m_prefabs[0].TryGetComponent<Renderer>(out var renderer))
+                    return renderer.bounds.size;
+                else
+                {
+                    Debug.LogWarning("Background prefab does not have a Renderer component.", this);
+                    return Vector3.zero;
+                }
+            }
             else
             {
-                Debug.LogWarning("Background prefab does not have a Renderer component.", this);
+                Debug.LogWarning("Background prefab is not assigned.", this);
                 return Vector3.zero;
             }
         }
-        else
+
+        public void SetupTreeManager()
         {
-            Debug.LogWarning("Background prefab is not assigned.", this);
-            return Vector3.zero;
+            if (GameManager.Instance != null && GameManager.Instance.TreeManager == null)
+                GameManager.Instance.TreeManager = this;
+            else
+                Debug.LogError("GameManager instance is null or TreeManager is already set.");
         }
-    }
 
-    public void SetupTreeManager()
-    {
-        if (GameManager.Instance != null && GameManager.Instance.TreeManager == null)
-            GameManager.Instance.TreeManager = this;
-        else
-            Debug.LogError("GameManager instance is null or TreeManager is already set.");
-    }
-
-    private void FixedUpdate()
-    {
-        if (m_Gm.IsPaused) return;
-
-        foreach (TreeTrunkController treeSegment in m_treeSegments)
+        private void FixedUpdate()
         {
-            treeSegment.UpdatePosition(MovementSpeed);
-        }
-        ParallaxSystemManager.Instance.UpdateBackgroundPositions(MovementSpeed);
-        m_Gm.AddToCurrentScore(MovementSpeed * Time.deltaTime); // Update the score based on movement speed
-        IncreaseSpeed(); // Increases movement speed over time
-    }
+            if (m_Gm.IsPaused) return;
 
-    private void IncreaseSpeed()
-    {
-        switch (speedIncreaseType)
+            foreach (TreeTrunkController treeSegment in m_treeSegments)
+            {
+                treeSegment.UpdatePosition(MovementSpeed);
+            }
+            ParallaxSystemManager.Instance.UpdateBackgroundPositions(MovementSpeed);
+            m_Gm.AddToCurrentScore(MovementSpeed * Time.deltaTime); // Update the score based on movement speed
+            IncreaseSpeed(); // Increases movement speed over time
+        }
+
+        private void IncreaseSpeed()
         {
-            case IncreaseTypes.Linearly:
-                MovementSpeed += speedIncrease;
-                break;
-            case IncreaseTypes.Exponentially:
-                MovementSpeed *= speedMultiplier;
-                break;
+            switch (speedIncreaseType)
+            {
+                case IncreaseTypes.Linearly:
+                    MovementSpeed += speedIncrease;
+                    break;
+                case IncreaseTypes.Exponentially:
+                    MovementSpeed *= speedMultiplier;
+                    break;
+            }
         }
-    }
 
-    /// <summary>
-    /// Adds a tree segment to the managed list.
-    /// </summary>
-    /// <param name="treeSegment">The tree segment to add.</param>
-    public void AddTreeSegment(TreeTrunkController treeSegment)
-    {
-        if (!m_treeSegments.Contains(treeSegment)) m_treeSegments.Add(treeSegment);
-    }
+        /// <summary>
+        /// Adds a tree segment to the managed list.
+        /// </summary>
+        /// <param name="treeSegment">The tree segment to add.</param>
+        public void AddTreeSegment(TreeTrunkController treeSegment)
+        {
+            if (!m_treeSegments.Contains(treeSegment)) m_treeSegments.Add(treeSegment);
+        }
 
-    /// <summary>
-    /// Removes a tree segment from the managed list.
-    /// </summary>
-    /// <param name="treeSegment">The tree segment to remove.</param>
-    public void RemoveTreeSegment(TreeTrunkController treeSegment)
-    {
-        if (m_treeSegments.Contains(treeSegment)) m_treeSegments.Remove(treeSegment);
-    }
+        /// <summary>
+        /// Removes a tree segment from the managed list.
+        /// </summary>
+        /// <param name="treeSegment">The tree segment to remove.</param>
+        public void RemoveTreeSegment(TreeTrunkController treeSegment)
+        {
+            if (m_treeSegments.Contains(treeSegment)) m_treeSegments.Remove(treeSegment);
+        }
 
-    /// <summary>
-    /// Places a new tree segment under the specified tree trunk controller.
-    /// </summary>
-    /// <param name="callerSegment">The segment that called the method, asking for a segment to be placed underneath it.</param>
-    public void SpawnNewTreeSegment(TreeTrunkController callerSegment)
-    {
-        Vector3 pos = callerSegment.transform.position;
-        pos.y -= m_prefabHeight;
-        Instantiate(m_prefab, pos, Quaternion.identity, _Parent.transform);
-    }
+        /// <summary>
+        /// Places a new tree segment under the specified tree trunk controller.
+        /// </summary>
+        /// <param name="callerSegment">The segment that called the method, asking for a segment to be placed underneath it.</param>
+        public void SpawnNewTreeSegment(TreeTrunkController callerSegment)
+        {
+            Vector3 pos = callerSegment.transform.position;
+            pos.y -= m_prefabHeight - 0.1f;
 
-    /// <summary>
-    /// Returns a list of all the branches on the last layer of the last placed & finished tree segment
-    /// </summary>
-    /// <returns></returns>
-    public (List<Transform>, bool) GetLastBranchList()
-    {
-        BranchPlacingAlgorithm reference = m_treeSegments[^1].GetComponent<BranchPlacingAlgorithm>();
-        List<Transform> transforms = reference.lastBranches;
-        bool isBird = reference.lastWasBird;
-        return (transforms, isBird);
+            GameObject toInstantiate = m_prefabs[Random.Range(0, m_prefabs.Count)];
+
+            Instantiate(toInstantiate, pos, Quaternion.identity, _Parent.transform);
+        }
+
+        /// <summary>
+        /// Returns a list of all the branches on the last layer of the last placed & finished tree segment
+        /// </summary>
+        /// <returns></returns>
+        public (List<Transform>, bool) GetLastBranchList()
+        {
+            BranchPlacingAlgorithm reference = m_treeSegments[^1].GetComponent<BranchPlacingAlgorithm>();
+            List<Transform> transforms = reference.lastBranches;
+            bool isBird = reference.lastWasBird;
+            return (transforms, isBird);
+        }
     }
 }

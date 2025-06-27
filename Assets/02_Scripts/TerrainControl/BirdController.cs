@@ -1,7 +1,8 @@
-using UnityEngine;
+using Managers;
 using System.Collections;
+using UnityEngine;
 public enum Directions { Clockwise, Counterclockwise }
-public enum OnBirdTouchEvent { MovesToTopOfScreen, KillsPlayer}
+public enum OnBirdTouchEvent { MovesToTopOfScreen, KillsPlayer }
 public class BirdController : MonoBehaviour
 {
     public Directions moveDirection = Directions.Clockwise;
@@ -9,6 +10,7 @@ public class BirdController : MonoBehaviour
     [SerializeField] private float movementSpeed = 2.5f;
     [SerializeField] private float playerTakingSpeed = 2.5f;
     [SerializeField] private float topY = 2.5f;
+    [SerializeField] private AudioClip m_birdSound;
 
     private bool isEnabled = true;
     private void FixedUpdate()
@@ -19,23 +21,29 @@ public class BirdController : MonoBehaviour
         transform.parent.localEulerAngles += new Vector3(0, movementSpeed * direction, 0);
     }
 
+    private void Update()
+    {
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Player" && isEnabled)
+        if (collision.transform.tag != "Player" || isEnabled || GameManager.Instance.InputManager.swiped)
+            return;
+
+        switch (onBirdTouchEvent)
         {
-            switch(onBirdTouchEvent)
-            {
-                case OnBirdTouchEvent.MovesToTopOfScreen:
-                    Debug.LogWarning("Not Yet Implemented dumbass");
-                    CarryToTop(collision.transform);
-                    break;
-                case OnBirdTouchEvent.KillsPlayer:
-                    Debug.Log("Killing Player");
-                    collision.gameObject.GetComponent<PlayerDeath>().onDeadge?.Invoke();
-                    isEnabled = false;
-                    break;
-            }
+            case OnBirdTouchEvent.MovesToTopOfScreen:
+                Debug.LogWarning("Not Yet Implemented dumbass");
+                CarryToTop(collision.transform);
+                break;
+            case OnBirdTouchEvent.KillsPlayer:
+                Debug.Log("Killing Player");
+                collision.gameObject.GetComponent<PlayerDeath>().onDeadge?.Invoke();
+                isEnabled = false;
+                break;
         }
+        GameManager.Instance.SoundManager.PlaySpatialOneShotSound(m_birdSound, transform.position);
     }
     /// <summary>
     /// Disables controls and starts sequence to move the player to the top of the screen
@@ -67,7 +75,7 @@ public class BirdController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator MoveAway(Transform player)
     {
-        while (transform.localPosition.z > -4)
+        while (transform.localPosition.z > -2.5f)
         {
             if (Managers.GameManager.Instance.IsPaused)
             {
@@ -78,7 +86,7 @@ public class BirdController : MonoBehaviour
             transform.localPosition += new Vector3(0, 0, -playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
-            if (transform.localPosition.z < -4)
+            if (transform.localPosition.z < -2.5f)
             {
                 transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -4);
                 player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
@@ -123,7 +131,7 @@ public class BirdController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator MoveTowards(Transform player)
     {
-        while (transform.position.z < -2.5f)
+        while (transform.position.z < -1)
         {
             if (Managers.GameManager.Instance.IsPaused)
             {
@@ -134,7 +142,7 @@ public class BirdController : MonoBehaviour
             transform.position += new Vector3(0, 0, playerTakingSpeed * Time.deltaTime);
             player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
 
-            if (transform.position.z > -2.5)
+            if (transform.position.z > -1)
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, -2.5f);
                 player.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);

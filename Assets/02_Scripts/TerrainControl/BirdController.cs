@@ -15,16 +15,12 @@ public class BirdController : MonoBehaviour
     private bool isEnabled = true;
     private void FixedUpdate()
     {
-        if (!isEnabled || Managers.GameManager.Instance.IsPaused) return;
+        if (!isEnabled || GameManager.Instance.IsPaused) return;
 
         float direction = (moveDirection == Directions.Clockwise) ? 1 : -1;
         transform.parent.localEulerAngles += new Vector3(0, movementSpeed * direction, 0);
     }
 
-    private void Update()
-    {
-
-    }
 
     private void OnCollisionEnter(Collision collision)
     {

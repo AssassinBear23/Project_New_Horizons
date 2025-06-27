@@ -73,7 +73,7 @@ namespace Managers
         [Tooltip("The distance the player needs to swipe down to activate the power")]
         [SerializeField] private float swipeThreshold = 2f;
         [HideInInspector] public bool swiped = false;
-        private bool canSwipe = false;
+        private bool canSwipe = true;
         private bool isSwiping = true;
         private float SwipeMovement = 0;
         public UnityEvent OnSwipeEvent;
@@ -136,10 +136,6 @@ namespace Managers
         {
             m_moveAction = inputActions.FindActionMap("Player").FindAction("Move");
             m_filteredAccel = Vector3.zero;
-        }
-        private void Start()
-        {
-            StartCoroutine(SwipeCooldown(3));
         }
         #endregion Setup Methods
 

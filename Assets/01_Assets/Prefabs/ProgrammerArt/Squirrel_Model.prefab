@@ -131,8 +131,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 41.342148, y: 75.14733, z: 45.696037}
-  m_Center: {x: 0.9382054, y: 25.740284, z: -10.270194}
+  m_Size: {x: 41.342148, y: 34.71031, z: 45.696033}
+  m_Center: {x: 0.9382054, y: 5.5217743, z: -10.270195}
 --- !u!114 &7904286697425575262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offScreenOffSet: 0.1
   bounciness: 0.5
+  swipeCooldown: 10
   onDeadge:
     m_PersistentCalls:
       m_Calls:
@@ -175,6 +176,9 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   rb: {fileID: 7508866762673510128}
+  onDestroyObstacle:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &7508866762673510128
 Rigidbody:
   m_ObjectHideFlags: 0

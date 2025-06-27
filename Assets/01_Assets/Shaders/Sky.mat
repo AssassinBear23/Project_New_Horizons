@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_toonBark
-  m_Shader: {fileID: -6465566751694194690, guid: 6a72ededffaaaba4eb7d16022d4762dd, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: 6a72ededffaaaba4eb7d16022d4762dd, type: 3}
+  m_Name: Sky
+  m_Shader: {fileID: -6465566751694194690, guid: eeb84ea091c7fc84f91e348ba92d3f5c, type: 3}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -24,25 +24,28 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 8a3c3b65b61505745ae2a10739edb0fa, type: 3}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture:
-        m_Texture: {fileID: 2800000, guid: bccf2842ac6f9ee458400ca81edb4bf9, type: 3}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Brightness: 0.23
-    - _Max: 6.01
-    - _Min: 6.34
+    - _MaxGradientDistance: 100
+    - _Progress: 270.87
     - _QueueControl: 0
-    - _Shades: 1.13
+    - _QueueOffset: 0
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &5447246259730489816
+--- !u!114 &2114298634738418497
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

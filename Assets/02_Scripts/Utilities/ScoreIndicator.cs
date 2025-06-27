@@ -32,9 +32,9 @@ public class ScoreIndicator : MonoBehaviour
     private string GetFormatedText(float currentScore)
     {
         string formatedScore = GetFormatedScore(currentScore);
-        Debug.Log($"Current Score: {currentScore}, Formatted Score: {formatedScore}");
+        //Debug.Log($"Current Score: {currentScore}, Formatted Score: {formatedScore}");
         string modifier = GetTextModifier(currentScore);
-        Debug.Log($"Current Score: {currentScore}, Modifier: {modifier}");
+        //Debug.Log($"Current Score: {currentScore}, Modifier: {modifier}");
 
         return formatedScore + modifier;
     }

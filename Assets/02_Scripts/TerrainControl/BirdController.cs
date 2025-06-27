@@ -21,7 +21,7 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Player" && isEnabled)
+        if (collision.transform.tag == "Player" && isEnabled && !Managers.GameManager.Instance.InputManager.swiped)
         {
             switch(onBirdTouchEvent)
             {

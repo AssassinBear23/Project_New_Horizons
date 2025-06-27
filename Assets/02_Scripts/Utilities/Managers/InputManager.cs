@@ -67,6 +67,17 @@ namespace Managers
         /// </summary>
         public float RotationMovement { get; private set; }
 
+        [Header("Swipe Power")]
+        [Tooltip("The time window in which the player needs to reach the swipe threshold to activate the power")]
+        [SerializeField] private float swipeWindow = 0.2f;
+        [Tooltip("The distance the player needs to swipe down to activate the power")]
+        [SerializeField] private float swipeThreshold = 2f;
+        [HideInInspector] public bool swiped = false;
+        private bool canSwipe = false;
+        private bool isSwiping = true;
+        private float SwipeMovement = 0;
+        public UnityEvent OnSwipeEvent;
+
         [Header("Sensitivity Settings")]
         [SerializeField] private float m_sensitivity = 1f;
         [SerializeField] private float m_minSensitivity = 0.1f;
@@ -126,6 +137,10 @@ namespace Managers
             m_moveAction = inputActions.FindActionMap("Player").FindAction("Move");
             m_filteredAccel = Vector3.zero;
         }
+        private void Start()
+        {
+            StartCoroutine(SwipeCooldown(3));
+        }
         #endregion Setup Methods
 
         #region Input Handling
@@ -136,7 +151,55 @@ namespace Managers
             Vector2 inputValue = input.Get<Vector2>();
             RotationMovement = InputCleanUp(inputValue);
         }
+        #region SwipePowerLogic
+        public void OnSwipe(InputValue input)
+        {
+            if (!IsInputEnabled || swiped || !canSwipe)
+                return;
+            
+            float inputValue = input.Get<Vector2>().y * m_sensitivity;
 
+            if (isSwiping)
+            {
+                SwipeMovement += inputValue;
+                if (SwipeMovement <= -swipeThreshold)
+                {
+                    DidSwipe();
+                    isSwiping = false;
+                }
+            }
+
+            else if (inputValue < 0)
+            {
+                isSwiping = true;
+                SwipeMovement = inputValue;
+                StartCoroutine(SwipeCheck());
+            }
+        }
+        private IEnumerator SwipeCheck()
+        {
+            yield return new WaitForSeconds(swipeWindow);
+            if (SwipeMovement <= -swipeThreshold && canSwipe)
+            {
+                DidSwipe();
+            }
+            isSwiping = false;
+        }
+        public IEnumerator SwipeCooldown(float time)
+        {
+            yield return null;
+            swiped = false;
+            yield return new WaitForSeconds(time - Time.deltaTime);
+            canSwipe = true;
+        }
+        private void DidSwipe()
+        {
+            Debug.Log("successful swipe");
+            canSwipe = false;
+            swiped = true;
+            OnSwipeEvent?.Invoke();
+        }
+        #endregion
         /// <summary>
         /// Cleans up and processes the input value based on the current control scheme.
         /// </summary>

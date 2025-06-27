@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: 0
-  onBirdTouchEvent: 0
+  onBirdTouchEvent: 1
   movementSpeed: 2.5
   playerTakingSpeed: 2
   topY: 12.5

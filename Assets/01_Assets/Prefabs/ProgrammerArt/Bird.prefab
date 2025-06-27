@@ -141,10 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: 0
-  onBirdTouchEvent: 0
+  onBirdTouchEvent: 1
   movementSpeed: 2.5
   playerTakingSpeed: 2
   topY: 12.5
+  m_birdSound: {fileID: 8300000, guid: 276505e70b1db7f408209583f3da7153, type: 3}
 --- !u!54 &6661232424979385032
 Rigidbody:
   m_ObjectHideFlags: 0

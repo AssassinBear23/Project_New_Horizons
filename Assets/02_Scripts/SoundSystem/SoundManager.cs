@@ -6,7 +6,7 @@ namespace Managers
 {
     using AYellowpaper.SerializedCollections;
     using NaughtyAttributes;
-    using Unity.VisualScripting;
+    using UnityEngine.Audio;
 
     /// <summary>
     /// Manages the creation and playback of audio clips, including one-shot and looping sounds.
@@ -36,6 +36,9 @@ namespace Managers
         /// The parent transform for all instantiated sound objects.
         /// </summary>
         private Transform m_soundParentTransform;
+
+        [SerializeField]
+        private AudioMixer m_audioMixer;
 
         [Header("Music settings")]
         /// <summary>
@@ -72,23 +75,26 @@ namespace Managers
         /// <param name="loopingSoundClip">The looping audio clip that is played after the entry clip finishes.</param>
         public void PlayLoopSound(AudioClip entrySoundClip, AudioClip loopingSoundClip)
         {
-            // TODO: Implement the logic to play a looping sound.
-            // 
             Debug.Log("Playing looping sound.");
+
+            // TODO: Implement the logic to play a looping sound.
         }
 
         /// <summary>
         /// Creates a new <see cref="LoopingSound"/> object to play a looping sound with a limited loop count.
         /// Plays the entry clip once, then transitions to the looping sound clip, stopping after a specified number of loops.
         /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
         /// <param name="entrySoundClip">The entry clip that is played once before the looping sound.</param>
         /// <param name="loopingSoundClip">The looping audio clip that is played after the entry clip finishes.</param>
         /// <param name="stopAfter">The number of times to loop the <see cref="LoopingSound"/> before stopping.</param>
         public void PlayLoopSound(AudioClip entrySoundClip, AudioClip loopingSoundClip, int stopAfter)
         {
+            Debug.Log($"Playing x{stopAfter} looping sound.");
+
             // TODO: Implement the logic to play a looping sound with limited loop count.
-            // 
-            Debug.Log("Playing looping sound.");
         }
 
         /// <summary>
@@ -100,7 +106,10 @@ namespace Managers
             Debug.Log($"Playing one-shot sound:" +
                 $"\n{soundClip.name}");
 
+            OneShotSound component = (OneShotSound)InstantiatePrefab(m_oneShotPrefab);
+            component.PlaySound(soundClip);
             // TODO: Implement the logic to play the sound clip as a one-shot sound.
+
         }
 
         /// <summary>
@@ -111,10 +120,11 @@ namespace Managers
         /// <param name="parentTransform">The transform of the parent to attach the clip to. Defaults to <c>null</c></param>
         public void PlaySpatialOneShotSound(AudioClip soundClip, Vector3 spawnPosition, Transform parentTransform = null)
         {
-            InstantiatePrefab(m_oneShotPrefab, spawnPosition, parentTransform);
             Debug.Log($"Playing one-shot sound at position:" +
                 $"\n{soundClip.name}" +
                 $"\n{spawnPosition}");
+            OneShotSound component = (OneShotSound)InstantiatePrefab(m_oneShotPrefab, spawnPosition, parentTransform);
+            component.PlaySound(soundClip);
 
             // TODO: Implement the logic to play the sound clip as a spatial one-shot sound.
         }
@@ -137,7 +147,7 @@ namespace Managers
                 return loopingComponent;
             else
             {
-                Debug.LogWarning("Prefab does not contain a OneShotSound or LoopingSound component.");
+                Debug.LogWarning($"Prefab does not contain a {nameof(OneShotSound)} or {nameof(LoopingSound)}.");
                 return null;
             }
         }
@@ -166,6 +176,78 @@ namespace Managers
                 return null;
             }
         }
-        #endregion
+
+        #region Sound Control Methods
+
+        public void SetMasterVolume(float sliderValue)
+        {
+            m_audioMixer.SetFloat("Master_Volume", sliderValue);
+        }
+
+        public void SetMusicVolume(float sliderValue)
+        {
+            m_audioMixer.SetFloat("Music_Volume", sliderValue);
+        }
+
+        public void SetSFXVolume(float sliderValue)
+        {
+            m_audioMixer.SetFloat("SFX_Volume", sliderValue);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mixerGroup"></param>
+        public void SetGroupVolume(AudioMixerGroup mixerGroup, float sliderValue)
+        {
+            m_audioMixer.SetFloat(mixerGroup.name + "_Volume", sliderValue);
+        }
+
+        private HashSet<(string, float)> storedVolumeValues = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mixerGroup"></param>
+        public void ToggleMute(AudioMixerGroup mixerGroup)
+        {
+            if (m_audioMixer.GetFloat(mixerGroup.name + "_Volume", out float currentVolume))
+            {
+                if (currentVolume == 0f)
+                {
+                    // Restore the stored volume value
+                    if (GetStoredVolume(mixerGroup.name, out float storedVolume))
+                        m_audioMixer.SetFloat(mixerGroup.name + "_Volume", storedVolume);
+                }
+                else
+                {
+                    storedVolumeValues.Add((mixerGroup.name, currentVolume));
+                    m_audioMixer.SetFloat(mixerGroup.name + "_Volume", 0f);
+                }
+            }
+            else
+                Debug.LogWarning($"AudioMixerGroup '{mixerGroup.name}' not found or does not have a volume parameter.");
+        }
+
+        private bool GetStoredVolume(string groupName, out float value)
+        {
+            if (storedVolumeValues != null)
+            {
+                foreach (var entry in storedVolumeValues)
+                {
+                    if (entry.Item1 == groupName)
+                    {
+                        value = entry.Item2;
+                        storedVolumeValues.Remove(entry);
+                        return true;
+                    }
+                }
+            }
+            value = 1f;
+            return false;
+        }
+
+        #endregion Sound Control Methods
+        #endregion Methods
     }
 }

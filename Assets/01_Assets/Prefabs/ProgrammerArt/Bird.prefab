@@ -126,8 +126,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 125.00872, y: 47.56213, z: 86.03903}
-  m_Center: {x: 1.0476233, y: 0.117364526, z: 2.1718175}
+  m_Size: {x: 125.00872, y: 27.970787, z: 86.03903}
+  m_Center: {x: 1.0476233, y: 0.7407859, z: 2.1718175}
 --- !u!114 &4758346327403019585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: 0
-  onBirdTouchEvent: 0
+  onBirdTouchEvent: 1
   movementSpeed: 2.5
   playerTakingSpeed: 2
   topY: 12.5

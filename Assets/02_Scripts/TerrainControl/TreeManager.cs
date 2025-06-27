@@ -121,7 +121,7 @@ namespace Managers.Terrain
         public void SpawnNewTreeSegment(TreeTrunkController callerSegment)
         {
             Vector3 pos = callerSegment.transform.position;
-            pos.y -= m_prefabHeight;
+            pos.y -= m_prefabHeight - 0.1f;
 
             GameObject toInstantiate = m_prefabs[Random.Range(0, m_prefabs.Count)];
 

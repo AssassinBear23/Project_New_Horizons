@@ -87,14 +87,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0577b93fac4e550418bb4b2dcd8b5620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yInterval: 3
+  yInterval: 1.5
   maxAmountOfBranches: 4
   sameYMinAngleDist: 30
   sameYMaxAngleDist: 50
   differentYMinAngleDist: 30
   differentYMaxAngleDist: 50
   yOffset: 0.2
-  chanceToSpawnBird: 1
+  chanceToSpawnBird: 0.3
   lastBranch: {fileID: 0}
   lastBranches: []
   branchPrefabs:

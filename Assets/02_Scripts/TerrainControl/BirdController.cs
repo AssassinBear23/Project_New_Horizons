@@ -13,7 +13,7 @@ public class BirdController : MonoBehaviour
     private bool isEnabled = true;
     private void FixedUpdate()
     {
-        if (!isEnabled || Managers.GameManager.Instance.IsPaused) return;
+        if (!isEnabled || GameManager.Instance.IsPaused) return;
 
         float direction = (moveDirection == Directions.Clockwise) ? 1 : -1;
         transform.parent.localEulerAngles += new Vector3(0, movementSpeed * direction, 0);
@@ -21,7 +21,16 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Player" && isEnabled && !Managers.GameManager.Instance.InputManager.swiped)
+        if (collision.transform.tag != "Player" || isEnabled || GameManager.Instance.InputManager.swiped)
+            return;
+
+        if (GameManager.Instance.PowerUpManager.hasShield)
+        {
+            GameManager.Instance.PowerUpManager.DisablePower(PowerUps.Shield);
+            return;
+        }
+
+        switch (onBirdTouchEvent)
         {
             switch(onBirdTouchEvent)
             {
@@ -43,7 +52,7 @@ public class BirdController : MonoBehaviour
     private void CarryToTop(Transform _PlayerPos)
     {
         isEnabled = false;
-        Managers.GameManager.Instance.PlayerControls.DisableInput();
+        GameManager.Instance.PlayerControls.DisableInput();
 
         // Calculate angle from bird to player
         Vector3 playerPos = _PlayerPos.position;
@@ -69,7 +78,7 @@ public class BirdController : MonoBehaviour
     {
         while (transform.localPosition.z > -2.5f)
         {
-            if (Managers.GameManager.Instance.IsPaused)
+            if (GameManager.Instance.IsPaused)
             {
                 yield return null;
                 continue;
@@ -97,7 +106,7 @@ public class BirdController : MonoBehaviour
     {
         while (transform.position.y < topY)
         {
-            if (Managers.GameManager.Instance.IsPaused)
+            if (GameManager.Instance.IsPaused)
             {
                 yield return null;
                 continue;
@@ -125,7 +134,7 @@ public class BirdController : MonoBehaviour
     {
         while (transform.position.z < -1)
         {
-            if (Managers.GameManager.Instance.IsPaused)
+            if (GameManager.Instance.IsPaused)
             {
                 yield return null;
                 continue;
@@ -144,7 +153,7 @@ public class BirdController : MonoBehaviour
             yield return null;
         }
         isEnabled = true;
-        Managers.GameManager.Instance.PlayerControls.EnableInput();
+        GameManager.Instance.PlayerControls.EnableInput();
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         Destroy(transform.parent.gameObject);
     }

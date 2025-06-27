@@ -41,6 +41,8 @@ namespace Managers
         /// </summary>
         public UIManager UIManager { get; set; }
 
+        public PowerUpManager PowerUpManager;
+
         #endregion ManagerReferences
         #region Variables
         [field: Header("Game state")]

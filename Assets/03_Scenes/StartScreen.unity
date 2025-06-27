@@ -856,7 +856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 94902a7e16b6db449b2919b56a291d8f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1cf2cb1182a4ab4fa7aeacd9d57c5c1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1800,6 +1800,9 @@ MonoBehaviour:
   onStartGameplay:
     m_PersistentCalls:
       m_Calls: []
+  onGameOver:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &962400306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,6 +2169,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_pausePageIndex: {fileID: 0}
+  GameOverPage: {fileID: 0}
   m_gameplayUI: {fileID: 0}
   eventSystem: {fileID: 0}
   m_inputManager: {fileID: 1159220411}

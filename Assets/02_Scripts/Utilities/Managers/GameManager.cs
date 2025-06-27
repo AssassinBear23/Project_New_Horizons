@@ -7,31 +7,41 @@ using UnityEngine.Events;
 
 namespace Managers
 {
+    using Terrain;
+
     /// <summary>
     /// Manages the overall game state, including player controls, UI, tree segments, and debugging utilities.
     /// Provides singleton access and controls game start, stop, and quitting logic.
     /// </summary>
     public class GameManager : MonoBehaviour
     {
-        #region references
+        #region ManagerReferences
         /// <summary>
         /// Singleton instance of the <see cref="GameManager"/>.
         /// </summary>
         public static GameManager Instance { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="Terrain.TreeManager">TerrainManager</see> instance responsible for managing tree-related operations.
+        /// </summary>
         public TreeManager TreeManager { get; set; }
 
         /// <summary>
-        /// Gets or sets the input manager for the game.
+        /// Gets or sets the <see cref="Managers.InputManager">InputManager</see> instance for handling player input and movement.
         /// </summary>
         public InputManager InputManager { get; set; }
 
         /// <summary>
-        /// Gets or sets the UI manager for the game.
+        /// Gets or sets the <see cref="Managers.SoundManager"/> instance for managing sound effects and music in the game.
+        /// </summary>
+        public SoundManager SoundManager { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="Managers.UIManager">UIManager</see> instance for managing the game's user interface.
         /// </summary>
         public UIManager UIManager { get; set; }
 
-        #endregion references
+        #endregion ManagerReferences
         #region Variables
         [field: Header("Game state")]
         /// <summary>

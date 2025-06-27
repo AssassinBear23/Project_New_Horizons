@@ -13,8 +13,6 @@ public class BirdController : MonoBehaviour
     [SerializeField] private AudioClip m_birdSound;
 
     private bool isEnabled = true;
-
-    [SerializeField] private AudioClip m_birdSound;
     private void FixedUpdate()
     {
         if (!isEnabled || GameManager.Instance.IsPaused) return;
@@ -26,7 +24,7 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-            return;
+        if (!isEnabled || GameManager.Instance.IsPaused || GameManager.Instance.InputManager.swiped) return;
 
         if (Managers.GameManager.Instance.PowerUpManager.hasShield)
         {
@@ -48,7 +46,6 @@ public class BirdController : MonoBehaviour
                 break;
         }
         Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(m_birdSound, transform.position);
-        if (collision.transform.tag != "Player" || isEnabled || Managers.GameManager.Instance.InputManager.swiped)
     }
     /// <summary>
     /// Disables controls and starts sequence to move the player to the top of the screen

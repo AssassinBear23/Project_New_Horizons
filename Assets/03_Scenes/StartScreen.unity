@@ -2112,6 +2112,12 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   m_smoothingFactor: 0.2
+  swipeWindow: 0.2
+  swipeThreshold: 2
+  swiped: 0
+  OnSwipeEvent:
+    m_PersistentCalls:
+      m_Calls: []
   m_sensitivity: 1
   m_minSensitivity: 0.1
   m_maxSensitivity: 10
@@ -2165,7 +2171,7 @@ MonoBehaviour:
   pages:
   - {fileID: 871392402}
   - {fileID: 1098987605}
-  - {fileID: 0}
+  - {fileID: 1656979821}
   - {fileID: 0}
   - {fileID: 0}
   m_pausePageIndex: {fileID: 0}
@@ -2375,6 +2381,26 @@ PrefabInstance:
     - target: {fileID: 4821539780342691155, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258913846709608948, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258913846709608948, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1346693858}
+    - target: {fileID: 6258913846709608948, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258913846709608948, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 871392402}
+    - target: {fileID: 6258913846709608948, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UI.Elements.UIPage, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2937,6 +2963,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1346693858}
+    - target: {fileID: 5946620123247620255, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946620123247620255, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 871392402}
+    - target: {fileID: 5946620123247620255, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UI.Elements.UIPage, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6062077588622877435, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

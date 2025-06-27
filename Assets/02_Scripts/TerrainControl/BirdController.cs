@@ -11,9 +11,11 @@ public class BirdController : MonoBehaviour
     [SerializeField] private float topY = 2.5f;
 
     private bool isEnabled = true;
+
+    [SerializeField] private AudioClip m_birdSound;
     private void FixedUpdate()
     {
-        if (!isEnabled || GameManager.Instance.IsPaused) return;
+        if (!isEnabled || Managers.GameManager.Instance.IsPaused) return;
 
         float direction = (moveDirection == Directions.Clockwise) ? 1 : -1;
         transform.parent.localEulerAngles += new Vector3(0, movementSpeed * direction, 0);
@@ -21,30 +23,29 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag != "Player" || isEnabled || GameManager.Instance.InputManager.swiped)
+        if (collision.transform.tag != "Player" || isEnabled || Managers.GameManager.Instance.InputManager.swiped)
             return;
 
-        if (GameManager.Instance.PowerUpManager.hasShield)
+        if (Managers.GameManager.Instance.PowerUpManager.hasShield)
         {
-            GameManager.Instance.PowerUpManager.DisablePower(PowerUps.Shield);
+            Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Shield);
+            Destroy(gameObject);
             return;
         }
 
         switch (onBirdTouchEvent)
         {
-            switch(onBirdTouchEvent)
-            {
-                case OnBirdTouchEvent.MovesToTopOfScreen:
-                    Debug.LogWarning("Not Yet Implemented dumbass");
-                    CarryToTop(collision.transform);
-                    break;
-                case OnBirdTouchEvent.KillsPlayer:
-                    Debug.Log("Killing Player");
-                    collision.gameObject.GetComponent<PlayerDeath>().onDeadge?.Invoke();
-                    isEnabled = false;
-                    break;
-            }
+            case OnBirdTouchEvent.MovesToTopOfScreen:
+                Debug.LogWarning("Not Yet Implemented dumbass");
+                CarryToTop(collision.transform);
+                break;
+            case OnBirdTouchEvent.KillsPlayer:
+                Debug.Log("Killing Player");
+                collision.gameObject.GetComponent<PlayerDeath>().onDeadge?.Invoke();
+                isEnabled = false;
+                break;
         }
+        Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(m_birdSound, transform.position);
     }
     /// <summary>
     /// Disables controls and starts sequence to move the player to the top of the screen
@@ -52,7 +53,7 @@ public class BirdController : MonoBehaviour
     private void CarryToTop(Transform _PlayerPos)
     {
         isEnabled = false;
-        GameManager.Instance.PlayerControls.DisableInput();
+        Managers.GameManager.Instance.PlayerControls.DisableInput();
 
         // Calculate angle from bird to player
         Vector3 playerPos = _PlayerPos.position;
@@ -78,7 +79,7 @@ public class BirdController : MonoBehaviour
     {
         while (transform.localPosition.z > -2.5f)
         {
-            if (GameManager.Instance.IsPaused)
+            if (Managers.GameManager.Instance.IsPaused)
             {
                 yield return null;
                 continue;
@@ -106,7 +107,7 @@ public class BirdController : MonoBehaviour
     {
         while (transform.position.y < topY)
         {
-            if (GameManager.Instance.IsPaused)
+            if (Managers.GameManager.Instance.IsPaused)
             {
                 yield return null;
                 continue;
@@ -134,7 +135,7 @@ public class BirdController : MonoBehaviour
     {
         while (transform.position.z < -1)
         {
-            if (GameManager.Instance.IsPaused)
+            if (Managers.GameManager.Instance.IsPaused)
             {
                 yield return null;
                 continue;
@@ -153,8 +154,10 @@ public class BirdController : MonoBehaviour
             yield return null;
         }
         isEnabled = true;
-        GameManager.Instance.PlayerControls.EnableInput();
-        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        Managers.GameManager.Instance.PlayerControls.EnableInput();
+        Rigidbody rb = player.GetComponent<Rigidbody>();
+        rb.AddForce(-1f * rb.GetAccumulatedForce());
+        rb.angularVelocity = Vector3.zero;
         Destroy(transform.parent.gameObject);
     }
 }

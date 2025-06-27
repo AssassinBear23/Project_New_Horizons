@@ -30,16 +30,22 @@ public class BranchPlacingAlgorithm : MonoBehaviour
 
     [SerializeField, Range(0f,1f)] private float chanceToSpawnBird;
 
+    [Header("Power Ups")]
+    [SerializeField, Range(0f, 1f)] private float chanceForPowerUpOnBranch;
+    [SerializeField, Min(0)] private int maxPowerUpsOnSegment;
+
     [Header("References")]
     [SerializeField] private Transform lastBranch;
     public List<Transform> lastBranches = new();
     [SerializeField] private List<Transform> branchPrefabs = new();
     [SerializeField] private Transform birdPrefab;
+    [SerializeField] private List<Transform> powerUpPrefabs = new();
 
     [Header("DO NOT CHANGE")]
     [SerializeField] private bool hasBranches;
     public bool lastWasBird = false;
 
+    private int powerUpsOnSegment;
     void Start()
     {
         if (hasBranches) return;
@@ -164,12 +170,29 @@ public class BranchPlacingAlgorithm : MonoBehaviour
             branch.localPosition = new Vector3(transform.position.x, pos, transform.position.z);
             branch.parent = _Parent;
 
+            SpawnPowerUps(branch);
+
             // Add to necessary lists
             list.Add(branch);
             lastBranch = branch;
         }
 
         return list;
+    }
+    private void SpawnPowerUps(Transform branch)
+    {
+        if (Random.Range(0f,1f) <= chanceForPowerUpOnBranch && powerUpsOnSegment < maxPowerUpsOnSegment)
+        {
+            powerUpsOnSegment++;
+            Transform toSpawnPowerup = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Count)];
+            Transform spawned = Instantiate(toSpawnPowerup, branch);
+            Vector3 pos = spawned.localPosition;
+            pos.x = 0;
+            pos.y = 0.5f;
+            pos.z = 0;
+            spawned.localPosition = pos;
+            spawned.localEulerAngles = new Vector3(0, 90, 0);
+        }
     }
     /// <summary>
     /// Instantiates a bird

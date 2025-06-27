@@ -22,12 +22,12 @@ namespace Managers
         public static GameManager Instance { get; private set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Terrain.TreeManager">TerrainManager</see> instance responsible for managing tree-related operations.
+        /// Gets or sets the <see cref="Terrain.TreeManager"/> instance responsible for managing tree-related operations.
         /// </summary>
         public TreeManager TreeManager { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Managers.InputManager">InputManager</see> instance for handling player input and movement.
+        /// Gets or sets the <see cref="Managers.InputManager"/> instance for handling player input and movement.
         /// </summary>
         public InputManager InputManager { get; set; }
 
@@ -37,30 +37,34 @@ namespace Managers
         public SoundManager SoundManager { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Managers.UIManager">UIManager</see> instance for managing the game's user interface.
+        /// Gets or sets the <see cref="Managers.UIManager"/> instance for managing the game's user interface.
         /// </summary>
         public UIManager UIManager { get; set; }
 
         public PowerUpManager PowerUpManager;
 
         #endregion ManagerReferences
+
         #region Variables
         [field: Header("Game state")]
         /// <summary>
-        /// Whether or not the game can be paused.
+        /// Gets or sets a value indicating whether the game can be paused.
         /// </summary>
         [Tooltip("Whether or not the game can be paused")]
         [field: SerializeField] public bool AllowTogglePause { get; set; }
+
         /// <summary>
-        /// True if the game is paused, false if it is playing.
+        /// Gets a value indicating whether the game is currently paused.
         /// </summary>
         [field: SerializeField] public bool IsPaused { get; private set; } = true;
 
         [Header("Gameplay")]
         /// <summary>
-        /// 
+        /// The current score of the active run.
         /// </summary>
         private float m_currentScore = 0f;
+        [SerializeField]
+        private float m_scoreMultiplier = 100f;
 
         [Header("Internal")]
         /// <summary>
@@ -68,21 +72,53 @@ namespace Managers
         /// </summary>
         public PlayerControls PlayerControls { get; set; }
 
+        /// <summary>
+        /// The player GameObject reference.
+        /// </summary>
         [SerializeField] private GameObject m_playerObject;
 
         [Header("Debugging")]
+        /// <summary>
+        /// Whether to show the FPS indicator in the UI.
+        /// </summary>
         [SerializeField] private bool m_showFpsIndicator = false;
+
+        /// <summary>
+        /// Reference to the TMP_Text component used for displaying FPS.
+        /// </summary>
         [SerializeField] private TMP_Text m_fpsIndicator;
+
+        /// <summary>
+        /// The interval in seconds at which the FPS indicator updates.
+        /// </summary>
         [SerializeField, Range(0, 2f)] private float m_fpsUpdateIntervalTime = 1f;
 
         [Header("Events")]
+        /// <summary>
+        /// Event invoked when setup is finished.
+        /// </summary>
         [SerializeField] private UnityEvent onSetupFinished;
+
+        /// <summary>
+        /// Event invoked when gameplay is stopped.
+        /// </summary>
         [SerializeField] private UnityEvent onStopGameplay;
+
+        /// <summary>
+        /// Event invoked when gameplay is started.
+        /// </summary>
         [SerializeField] private UnityEvent onStartGameplay;
+
+        /// <summary>
+        /// Event invoked when the game is over.
+        /// </summary>
         [SerializeField] private UnityEvent onGameOver;
         #endregion Variables
 
         #region Methods
+        /// <summary>
+        /// Unity Awake callback. Initializes singleton instance, sets target frame rate, and invokes setup event.
+        /// </summary>
         private void Awake()
         {
             // Set the fps target to the current screen's refresh rate
@@ -110,10 +146,24 @@ namespace Managers
             AllowTogglePause = !AllowTogglePause;
         }
 
+        /// <summary>
+        /// Time counter for FPS calculation.
+        /// </summary>
         private float m_timeCounter = 0f;
+
+        /// <summary>
+        /// Last calculated framerate.
+        /// </summary>
         private float m_lastFramerate = 0f;
+
+        /// <summary>
+        /// Frame count for FPS calculation.
+        /// </summary>
         private int m_frameCount = 0;
 
+        /// <summary>
+        /// Unity Update callback. Updates the FPS indicator if enabled.
+        /// </summary>
         private void Update()
         {
             if (m_showFpsIndicator)
@@ -132,10 +182,10 @@ namespace Managers
         /// <summary>
         /// Adds a specified amount to the current score.
         /// </summary>
-        /// <param name="scoreToAdd">The amount of score to add to the score of the current run</param>
+        /// <param name="scoreToAdd">The amount of score to add to the score of the current run.</param>
         public void AddToCurrentScore(float scoreToAdd)
         {
-            m_currentScore += scoreToAdd;
+            m_currentScore += scoreToAdd * m_scoreMultiplier;
         }
 
         /// <summary>
@@ -143,12 +193,30 @@ namespace Managers
         /// </summary>
         public void SaveScore()
         {
-            float currentHighscore = PlayerPrefs.GetFloat("HighScore");
-
-            if (m_currentScore > currentHighscore)
+            Debug.Assert(m_currentScore > GetHighscore(), "Current score is greater than high score, proceeding to save!");
+            if (m_currentScore > GetHighscore())
             {
                 PlayerPrefs.SetFloat("HighScore", m_currentScore);
+                Debug.Log($"New high score saved: {GetHighscore()}");
             }
+        }
+
+        /// <summary>
+        /// Unity callback that is invoked when the application is quitting.
+        /// Ensures that all PlayerPrefs are saved before the application closes.
+        /// </summary>
+        private void OnApplicationQuit()
+        {
+            PlayerPrefs.Save();
+        }
+
+        /// <summary>
+        /// Gets the saved high score from PlayerPrefs.
+        /// </summary>
+        /// <returns>The saved high score, or <see cref="Mathf.Infinity"/> if not set.</returns>
+        public float GetHighscore()
+        {
+            return PlayerPrefs.GetFloat("HighScore", 0);
         }
 
         /// <summary>
@@ -189,11 +257,17 @@ namespace Managers
             }
         }
 
+        /// <summary>
+        /// Starts gameplay and invokes the start gameplay event.
+        /// </summary>
         private void StartGameplay()
         {
             onStartGameplay?.Invoke();
         }
 
+        /// <summary>
+        /// Stops gameplay and invokes the stop gameplay event.
+        /// </summary>
         private void StopGameplay()
         {
             onStopGameplay?.Invoke();
@@ -217,7 +291,7 @@ namespace Managers
         }
 
         /// <summary>
-        /// Toggles the pause value and calls the <see cref="UIManager.TogglePause(bool)">TogglePause</see> method on the <see cref="Managers.UIManager">UIManager</see>.
+        /// Toggles the pause value and calls the <see cref="UIManager.TogglePause(bool)"/> method on the <see cref="Managers.UIManager"/>.
         /// </summary>
         /// <remarks>
         /// I don't really know why I did it like this, but it works, so we ball.
@@ -227,6 +301,10 @@ namespace Managers
             IsPaused = !IsPaused;
             UIManager.TogglePause(IsPaused);
         }
+
+        /// <summary>
+        /// Triggers the game over state, pauses the game, and invokes the game over event.
+        /// </summary>
         public void GameOver()
         {
             IsPaused = true;

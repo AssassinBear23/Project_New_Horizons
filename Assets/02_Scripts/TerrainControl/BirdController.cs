@@ -1,7 +1,8 @@
-using UnityEngine;
+using Managers;
 using System.Collections;
+using UnityEngine;
 public enum Directions { Clockwise, Counterclockwise }
-public enum OnBirdTouchEvent { MovesToTopOfScreen, KillsPlayer}
+public enum OnBirdTouchEvent { MovesToTopOfScreen, KillsPlayer }
 public class BirdController : MonoBehaviour
 {
     public Directions moveDirection = Directions.Clockwise;
@@ -9,21 +10,22 @@ public class BirdController : MonoBehaviour
     [SerializeField] private float movementSpeed = 2.5f;
     [SerializeField] private float playerTakingSpeed = 2.5f;
     [SerializeField] private float topY = 2.5f;
+    [SerializeField] private AudioClip m_birdSound;
 
     private bool isEnabled = true;
 
     [SerializeField] private AudioClip m_birdSound;
     private void FixedUpdate()
     {
-        if (!isEnabled || Managers.GameManager.Instance.IsPaused) return;
+        if (!isEnabled || GameManager.Instance.IsPaused) return;
 
         float direction = (moveDirection == Directions.Clockwise) ? 1 : -1;
         transform.parent.localEulerAngles += new Vector3(0, movementSpeed * direction, 0);
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag != "Player" || isEnabled || Managers.GameManager.Instance.InputManager.swiped)
             return;
 
         if (Managers.GameManager.Instance.PowerUpManager.hasShield)
@@ -46,6 +48,7 @@ public class BirdController : MonoBehaviour
                 break;
         }
         Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(m_birdSound, transform.position);
+        if (collision.transform.tag != "Player" || isEnabled || Managers.GameManager.Instance.InputManager.swiped)
     }
     /// <summary>
     /// Disables controls and starts sequence to move the player to the top of the screen

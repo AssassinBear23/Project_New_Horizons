@@ -338,18 +338,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1656979821}
-        m_TargetAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
-        m_MethodName: SetOriginalCallerPage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1346693858}
         m_TargetAssemblyTypeName: Managers.UIManager, Assembly-CSharp
         m_MethodName: GoToPage
@@ -2289,8 +2277,6 @@ MonoBehaviour:
   - {fileID: 871392402}
   - {fileID: 1098987605}
   - {fileID: 1656979821}
-  - {fileID: 0}
-  - {fileID: 0}
   m_pausePageIndex: {fileID: 0}
   GameOverPage: {fileID: 0}
   m_gameplayUI: {fileID: 0}
@@ -2530,6 +2516,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1346693858}
+    - target: {fileID: 6258913846709608948, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258913846709608948, guid: a86d51691614e5f42bd38e4b3c8abe79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 871392402}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2634,18 +2628,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1098987605}
-        m_TargetAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
-        m_MethodName: SetOriginalCallerPage
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 871392402}
-          m_ObjectArgumentAssemblyTypeName: UI.Elements.UIPage, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1346693858}
         m_TargetAssemblyTypeName: Managers.UIManager, Assembly-CSharp
         m_MethodName: GoToPage
@@ -3434,22 +3416,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1346693858}
+    - target: {fileID: 5946620123247620255, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 871392402}
     - target: {fileID: 7149860187391212931, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 941977385}
-    - target: {fileID: 7149860187391212931, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMasterVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 8333481555987256380, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 899170159}
-    - target: {fileID: 8333481555987256380, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_Sensitivity
-      objectReference: {fileID: 0}
     - target: {fileID: 8417043750913085530, guid: 5cd8c4125c0d7274fab44d810ada0060, type: 3}
       propertyPath: m_Name
       value: Settings

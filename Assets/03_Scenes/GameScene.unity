@@ -2686,7 +2686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1821986600368710340, guid: 7ed1cdb985fa08642ac98019be5f3630, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1946564050967911441, guid: 7ed1cdb985fa08642ac98019be5f3630, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -3424,7 +3424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3716277528664240206, guid: 97395309a60d74947baceba0401e9253, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7794053698111620971, guid: 97395309a60d74947baceba0401e9253, type: 3}
       propertyPath: m_text

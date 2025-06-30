@@ -40,6 +40,9 @@ namespace Managers
         /// Gets or sets the <see cref="Managers.UIManager"/> instance for managing the game's user interface.
         /// </summary>
         public UIManager UIManager { get; set; }
+
+        public PowerUpManager PowerUpManager;
+
         #endregion ManagerReferences
 
         #region Variables
@@ -306,6 +309,10 @@ namespace Managers
         {
             IsPaused = true;
             onGameOver?.Invoke();
+        }
+        public GameObject GetPlayer()
+        {
+            return m_playerObject;
         }
         #endregion
     }

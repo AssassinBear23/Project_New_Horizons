@@ -80,9 +80,77 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7996822800711754136, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -6797101757275198482, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -6314086220610092162, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -4637518223278006338, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -3976140535585806046, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -3067943914943755831, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -1925920956260853490, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -573817643175715516, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 303976269252218073, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
       propertyPath: m_Name
       value: Branch_B_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117720466511751032, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673626414985302567, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 3492981130755483968, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4164011898884661133, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588302839025746142, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773833378209564700, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638038556202000701, guid: 4f8ef591ada6fbc4c9ff55310e3bbb36, type: 3}
+      propertyPath: m_TagString
+      value: Branch
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

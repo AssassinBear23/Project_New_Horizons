@@ -32,9 +32,9 @@ public class PlayerDeath : MonoBehaviour
     {
         if (collision.transform.CompareTag("Branch"))
         {
-            if (m_inputManager.swiped)
+            if (m_inputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn)
             {
-                StartSwipeCooldown();
+                if (m_inputManager.swiped) StartSwipeCooldown();
                 Destroy(collision.transform.parent.gameObject);
             }
 
@@ -67,9 +67,9 @@ public class PlayerDeath : MonoBehaviour
             }
         }
 
-        else if (collision.transform.CompareTag("Bird"))
+        else if (collision.transform.CompareTag("Bird") && (m_inputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn))
         {
-            StartSwipeCooldown();
+            if (m_inputManager.swiped) StartSwipeCooldown();
             Destroy(collision.transform.parent.gameObject);
         }
     }

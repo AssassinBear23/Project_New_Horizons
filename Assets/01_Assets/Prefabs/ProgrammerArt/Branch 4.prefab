@@ -80,9 +80,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8604190522724672125, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -7741661298027705308, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -6498107079997352372, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -4397360127093570987, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: -573454988824149798, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
       propertyPath: m_Name
       value: Branch_D_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677237957158749620, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032823420476312315, guid: 89d914399e9e63342895b7b348c2a33f, type: 3}
+      propertyPath: m_TagString
+      value: Branch
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

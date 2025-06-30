@@ -45,9 +45,7 @@ namespace UI.Elements
                 return;
 
             if (eventCaller.TryGetComponent<UIPage>(out UIPage page))
-            {
                 OriginalCallerPage = page;
-            }
             else
             {
                 page = eventCaller.GetComponentInParent<UIPage>();

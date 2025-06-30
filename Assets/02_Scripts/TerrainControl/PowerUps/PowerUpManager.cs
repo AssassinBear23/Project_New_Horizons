@@ -11,8 +11,8 @@ namespace Managers
         public UnityEvent DisableGoldenAcorn;
 
         public UnityEvent EnableShield;
-        public UnityEvent<float> EnableLock;
-        public UnityEvent<float> EnableGoldenAcorn;
+        public UnityEvent EnableLock;
+        public UnityEvent EnableGoldenAcorn;
 
         [HideInInspector] public bool hasShield = false;
         [HideInInspector] public bool hasLock = false;
@@ -34,14 +34,16 @@ namespace Managers
 
                 case PowerUps.Lock:
                     hasLock = true;
-                    EnableLock?.Invoke(time);
+                    EnableLock?.Invoke();
                     yield return new WaitForSeconds(time);
                     DisablePower(PowerUps.Lock);
                     break;
 
                 case PowerUps.GoldenAcorn:
                     hasGoldenAcorn = true;
-                    EnableGoldenAcorn?.Invoke(time);
+                    EnableGoldenAcorn?.Invoke();
+                    yield return new WaitForSeconds(time);
+                    DisablePower(PowerUps.GoldenAcorn);
                     break;
             }
         }

@@ -33,6 +33,6 @@ public class CameraController : MonoBehaviour
     }
     public void Unlock()
     {
-        isLockedToPlayer = false;
+        if (!Managers.GameManager.Instance.PowerUpManager.hasGoldenAcorn && !Managers.GameManager.Instance.PowerUpManager.hasLock) isLockedToPlayer = false;
     }
 }

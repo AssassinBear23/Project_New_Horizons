@@ -149,17 +149,5 @@ namespace Managers.Terrain
             bool isBird = reference.lastWasBird;
             return (transforms, isBird);
         }
-        public void StartLockPowerUp(float duration)
-        {
-            float time = duration + 1;
-            StartCoroutine(LockPowerUp(time));
-        }
-        public IEnumerator LockPowerUp(float duration)
-        {
-            m_Controller.Lock();
-            yield return new WaitForSeconds(duration);
-            m_Controller.Unlock();
-            m_Gm.PowerUpManager.DisablePower(PowerUps.GoldenAcorn);
-        }
     }
 }

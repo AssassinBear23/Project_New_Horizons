@@ -100,6 +100,7 @@ namespace Managers
                 {
                     m_sensitivity = value;
                 }
+                Settings.Instance.ControlSettings.SetFloat("Sensitivity", m_sensitivity);
             }
         }
 
@@ -137,9 +138,15 @@ namespace Managers
             m_moveAction = inputActions.FindActionMap("Player").FindAction("Move");
             m_filteredAccel = Vector3.zero;
         }
-        #endregion Setup Methods
+
+        private void Start()
+        {
+            Sensitivity = Settings.Instance.ControlSettings.GetFloat("Sensitivity").GetValueOrDefault(.5f);
+        }
+         #endregion Setup Methods
 
         #region Input Handling
+
         public void OnMove(InputValue input)
         {
             if (!IsInputEnabled)
@@ -147,6 +154,7 @@ namespace Managers
             Vector2 inputValue = input.Get<Vector2>();
             RotationMovement = InputCleanUp(inputValue);
         }
+
         #region SwipePowerLogic
         public void OnSwipe(InputValue input)
         {
@@ -165,7 +173,7 @@ namespace Managers
                 }
             }
 
-            else if (inputValue < 0)
+            else if (inputValue <= -swipeThreshold)
             {
                 isSwiping = true;
                 SwipeMovement = inputValue;
@@ -195,7 +203,8 @@ namespace Managers
             swiped = true;
             OnSwipeEvent?.Invoke();
         }
-        #endregion
+        #endregion SwipePowerLogic
+
         /// <summary>
         /// Cleans up and processes the input value based on the current control scheme.
         /// </summary>

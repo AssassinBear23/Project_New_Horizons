@@ -1,13 +1,12 @@
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 namespace Managers
 {
-    using AYellowpaper.SerializedCollections;
-    using NaughtyAttributes;
-    using UnityEngine.Audio;
-
     /// <summary>
     /// Manages the creation and playback of audio clips, including one-shot and looping sounds.
     /// Handles logic for sustaining and controlling audio playback in the game.
@@ -35,8 +34,12 @@ namespace Managers
         /// <summary>
         /// The parent transform for all instantiated sound objects.
         /// </summary>
+        [SerializeField]
         private Transform m_soundParentTransform;
 
+        /// <summary>
+        /// The audio mixer used for controlling audio groups and volume.
+        /// </summary>
         [SerializeField]
         private AudioMixer m_audioMixer;
 
@@ -60,6 +63,7 @@ namespace Managers
             if (GameManager.Instance.SoundManager == null)
             {
                 GameManager.Instance.SoundManager = this;
+                SetMasterVolume(Settings.Instance.SoundSettings.GetFloat("MasterVolume").GetValueOrDefault(100f));
             }
             else
             {
@@ -84,9 +88,6 @@ namespace Managers
         /// Creates a new <see cref="LoopingSound"/> object to play a looping sound with a limited loop count.
         /// Plays the entry clip once, then transitions to the looping sound clip, stopping after a specified number of loops.
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         /// <param name="entrySoundClip">The entry clip that is played once before the looping sound.</param>
         /// <param name="loopingSoundClip">The looping audio clip that is played after the entry clip finishes.</param>
         /// <param name="stopAfter">The number of times to loop the <see cref="LoopingSound"/> before stopping.</param>
@@ -179,56 +180,82 @@ namespace Managers
 
         #region Sound Control Methods
 
+        /// <summary>
+        /// Sets the master volume in the audio mixer and updates the settings.
+        /// </summary>
+        /// <param name="sliderValue">The new master volume value.</param>
         public void SetMasterVolume(float sliderValue)
         {
-            m_audioMixer.SetFloat("Master_Volume", sliderValue);
-        }
-
-        public void SetMusicVolume(float sliderValue)
-        {
-            m_audioMixer.SetFloat("Music_Volume", sliderValue);
-        }
-
-        public void SetSFXVolume(float sliderValue)
-        {
-            m_audioMixer.SetFloat("SFX_Volume", sliderValue);
+            m_audioMixer.SetFloat("MasterVolume", sliderValue);
+            Settings.Instance.SoundSettings.SetFloat("MasterVolume", sliderValue);
         }
 
         /// <summary>
-        /// 
+        /// Sets the music volume in the audio mixer and updates the settings.
         /// </summary>
-        /// <param name="mixerGroup"></param>
-        public void SetGroupVolume(AudioMixerGroup mixerGroup, float sliderValue)
+        /// <param name="sliderValue">The new music volume value.</param>
+        public void SetMusicVolume(float sliderValue)
         {
-            m_audioMixer.SetFloat(mixerGroup.name + "_Volume", sliderValue);
+            m_audioMixer.SetFloat("MusicVolume", sliderValue);
+            Settings.Instance.SoundSettings.SetFloat("MusicVolume", sliderValue);
         }
 
+        /// <summary>
+        /// Sets the SFX volume in the audio mixer and updates the settings.
+        /// </summary>
+        /// <param name="sliderValue">The new SFX volume value.</param>
+        public void SetSFXVolume(float sliderValue)
+        {
+            m_audioMixer.SetFloat("SFXVolume", sliderValue);
+            Settings.Instance.SoundSettings.SetFloat("SFXVolume", sliderValue);
+        }
+
+        /// <summary>
+        /// Sets the volume for a specific audio mixer group and updates the settings.
+        /// </summary>
+        /// <param name="mixerGroup">The audio mixer group to set the volume for.</param>
+        /// <param name="sliderValue">The new volume value.</param>
+        public void SetGroupVolume(AudioMixerGroup mixerGroup, float sliderValue)
+        {
+            m_audioMixer.SetFloat(mixerGroup.name + "Volume", sliderValue);
+            Settings.Instance.SoundSettings.SetFloat(mixerGroup.name + "Volume", sliderValue);
+        }
+
+        /// <summary>
+        /// Stores the volume values for audio mixer groups when muting.
+        /// </summary>
         private HashSet<(string, float)> storedVolumeValues = new();
 
         /// <summary>
-        /// 
+        /// Toggles mute for a specific audio mixer group, restoring the previous volume if unmuted.
         /// </summary>
-        /// <param name="mixerGroup"></param>
+        /// <param name="mixerGroup">The audio mixer group to mute or unmute.</param>
         public void ToggleMute(AudioMixerGroup mixerGroup)
         {
-            if (m_audioMixer.GetFloat(mixerGroup.name + "_Volume", out float currentVolume))
+            if (m_audioMixer.GetFloat(mixerGroup.name + "Volume", out float currentVolume))
             {
                 if (currentVolume == 0f)
                 {
                     // Restore the stored volume value
                     if (GetStoredVolume(mixerGroup.name, out float storedVolume))
-                        m_audioMixer.SetFloat(mixerGroup.name + "_Volume", storedVolume);
+                        m_audioMixer.SetFloat(mixerGroup.name + "Volume", storedVolume);
                 }
                 else
                 {
                     storedVolumeValues.Add((mixerGroup.name, currentVolume));
-                    m_audioMixer.SetFloat(mixerGroup.name + "_Volume", 0f);
+                    m_audioMixer.SetFloat(mixerGroup.name + "Volume", 0f);
                 }
             }
             else
                 Debug.LogWarning($"AudioMixerGroup '{mixerGroup.name}' not found or does not have a volume parameter.");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private bool GetStoredVolume(string groupName, out float value)
         {
             if (storedVolumeValues != null)

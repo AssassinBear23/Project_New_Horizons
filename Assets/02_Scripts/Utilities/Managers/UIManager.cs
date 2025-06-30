@@ -191,6 +191,7 @@ namespace Managers
             UIManager uiManager = GameManager.Instance.UIManager;
 
             int index = uiManager.pages.IndexOf(toGoToPage);
+            Debug.Log($"TF IS GOING ON???? {index}");
             uiManager.GoToPage(index);
         }
 

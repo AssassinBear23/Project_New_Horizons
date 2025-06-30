@@ -310,6 +310,10 @@ namespace Managers
             IsPaused = true;
             onGameOver?.Invoke();
         }
+        public GameObject GetPlayer()
+        {
+            return m_playerObject;
+        }
         #endregion
     }
 }

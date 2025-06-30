@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public enum IncreaseTypes { Linearly, Exponentially }
 namespace Managers.Terrain
@@ -36,13 +37,17 @@ namespace Managers.Terrain
         [SerializeField] private List<GameObject> m_prefabs = new();
         private float m_prefabHeight;
         private GameManager m_Gm;
+        private CameraController m_Controller;
 
         private void Start()
         {
             m_Gm = GameManager.Instance;
             m_prefabHeight = GetPrefabSize().y;
         }
-
+        public void InitializeCameraController(CameraController controller)
+        {
+            m_Controller = controller;
+        }
         private Vector3 GetPrefabSize()
         {
             if (m_prefabs.Count > 0)
@@ -74,11 +79,16 @@ namespace Managers.Terrain
         {
             if (m_Gm.IsPaused) return;
 
+            /*
             foreach (TreeTrunkController treeSegment in m_treeSegments)
             {
                 treeSegment.UpdatePosition(MovementSpeed);
             }
-            ParallaxSystemManager.Instance.UpdateBackgroundPositions(MovementSpeed);
+            */
+
+            m_Controller.UpdatePosition(MovementSpeed);
+
+            //ParallaxSystemManager.Instance.UpdateBackgroundPositions(MovementSpeed);
             m_Gm.AddToCurrentScore(MovementSpeed * Time.deltaTime); // Update the score based on movement speed
             IncreaseSpeed(); // Increases movement speed over time
         }
@@ -138,6 +148,17 @@ namespace Managers.Terrain
             List<Transform> transforms = reference.lastBranches;
             bool isBird = reference.lastWasBird;
             return (transforms, isBird);
+        }
+        public void StartLockPowerUp(float duration)
+        {
+            StartCoroutine(LockPowerUp(duration));
+        }
+        public IEnumerator LockPowerUp(float duration)
+        {
+            m_Controller.Lock();
+            yield return new WaitForSeconds(duration);
+            if (!GameManager.Instance.PowerUpManager.hasGoldenAcorn && !GameManager.Instance.PowerUpManager.hasLock)
+                m_Controller.Unlock();
         }
     }
 }

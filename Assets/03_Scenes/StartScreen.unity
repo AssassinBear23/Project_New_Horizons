@@ -2171,7 +2171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -2230,14 +2230,6 @@ MonoBehaviour:
     m_ActionId: 0489e84a-4833-4c40-bfae-cea84b696689
     m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 24908448-c609-4bc3-a128-ea258674378a
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ReadTiltValues, Assembly-CSharp
@@ -2253,6 +2245,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 75d5ecec-322e-4583-ae6c-8fc32c5b5012
     m_ActionName: Player/Click
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 42d66c1e-f7c1-48ae-a91d-72a35a8055b0
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a0ad73a5-2d8c-4958-9907-d2c47ff9a744
+    m_ActionName: 'Player/Swipe[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Phone
   m_DefaultActionMap: Player
@@ -2285,10 +2285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb95c96fbeb540458d0adde23003ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActions: {fileID: 0}
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerInput: {fileID: 0}
   m_moveAction:
-    m_Name: 
+    m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 020e94f9-c318-4792-99c0-749302542c86
@@ -3200,6 +3200,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2024008186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2024008188}
+  - component: {fileID: 2024008187}
+  m_Layer: 0
+  m_Name: Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2024008187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024008186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae017de07b6c02242989c54f3ce3d414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <SoundSettings>k__BackingField:
+    m_FloatValues:
+      _serializedList: []
+    m_BoolValues:
+      _serializedList: []
+    m_intValues:
+      _serializedList: []
+  <ControlSettings>k__BackingField:
+    m_FloatValues:
+      _serializedList: []
+    m_BoolValues:
+      _serializedList: []
+    m_intValues:
+      _serializedList: []
+--- !u!4 &2024008188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024008186}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.7066793, y: 3.9894152, z: -2.4266896}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2798492678386099960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3342,6 +3400,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1159220410}
+  - {fileID: 2024008188}
   - {fileID: 891096106}
   - {fileID: 1603582987}
   - {fileID: 1933367706}

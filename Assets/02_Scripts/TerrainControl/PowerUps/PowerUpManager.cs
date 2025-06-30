@@ -26,7 +26,6 @@ namespace Managers
             switch (powerUp)
             {
                 case PowerUps.Shield:
-                    Debug.Log("enabling shield");
                     hasShield = true;
                     EnableShield?.Invoke();
                     yield return new WaitForSeconds(time);
@@ -34,18 +33,15 @@ namespace Managers
                     break;
 
                 case PowerUps.Lock:
-                    Debug.Log("enabling lock");
                     hasLock = true;
                     EnableLock?.Invoke(time);
                     yield return new WaitForSeconds(time);
-                    if (hasLock) DisablePower(PowerUps.Lock);
+                    DisablePower(PowerUps.Lock);
                     break;
 
                 case PowerUps.GoldenAcorn:
                     hasGoldenAcorn = true;
                     EnableGoldenAcorn?.Invoke(time);
-                    yield return new WaitForSeconds(time);
-                    if (hasGoldenAcorn) DisablePower(PowerUps.GoldenAcorn);
                     break;
             }
         }

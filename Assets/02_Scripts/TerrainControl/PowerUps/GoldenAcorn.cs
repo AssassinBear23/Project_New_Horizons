@@ -6,7 +6,9 @@ public class GoldenAcorn : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        if (!Managers.GameManager.Instance.PowerUpManager.hasGoldenAcorn) StartCoroutine(Managers.GameManager.Instance.PowerUpManager.PowerDuration(duration, Managers.PowerUps.GoldenAcorn));
+        if (!Managers.GameManager.Instance.PowerUpManager.hasGoldenAcorn)
+            Managers.GameManager.Instance.StartCoroutine(Managers.GameManager.Instance.PowerUpManager.PowerDuration(duration, Managers.PowerUps.GoldenAcorn));
+        
         Destroy(gameObject);
     }
 }

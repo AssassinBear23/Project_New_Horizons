@@ -151,14 +151,15 @@ namespace Managers.Terrain
         }
         public void StartLockPowerUp(float duration)
         {
-            StartCoroutine(LockPowerUp(duration));
+            float time = duration + 1;
+            StartCoroutine(LockPowerUp(time));
         }
         public IEnumerator LockPowerUp(float duration)
         {
             m_Controller.Lock();
             yield return new WaitForSeconds(duration);
-            if (!GameManager.Instance.PowerUpManager.hasGoldenAcorn && !GameManager.Instance.PowerUpManager.hasLock)
-                m_Controller.Unlock();
+            m_Controller.Unlock();
+            m_Gm.PowerUpManager.DisablePower(PowerUps.GoldenAcorn);
         }
     }
 }

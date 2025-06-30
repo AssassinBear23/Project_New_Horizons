@@ -95,6 +95,8 @@ MonoBehaviour:
   differentYMaxAngleDist: 50
   yOffset: 0.2
   chanceToSpawnBird: 0.3
+  chanceForPowerUpOnBranch: 1
+  maxPowerUpsOnSegment: 1000
   lastBranch: {fileID: 0}
   lastBranches: []
   branchPrefabs:
@@ -103,6 +105,8 @@ MonoBehaviour:
   - {fileID: 6745239867347738851, guid: b996983b032e76b4ebaa0072180c998f, type: 3}
   - {fileID: 6745239867347738851, guid: 03e7779df399d194eb10430817c21880, type: 3}
   birdPrefab: {fileID: 1086735497159312334, guid: 5bb6ff88f3b8eb24d9180d860ee58e7e, type: 3}
+  powerUpPrefabs:
+  - {fileID: 7727373604282968969, guid: df8eee7b11c99214c85d719343e64e41, type: 3}
   hasBranches: 0
   lastWasBird: 0
 --- !u!114 &-787192352951634330

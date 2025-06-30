@@ -1649,6 +1649,95 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1285ee634c5d74d4a8e440ad1b0543ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1270128693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1270128694}
+  - component: {fileID: 1270128695}
+  m_Layer: 0
+  m_Name: PowerUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1270128694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270128693}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1823662317}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1270128695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270128693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a1780184e85384f9e85436b895bfc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisableShield:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1948890502}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  DisableLock:
+    m_PersistentCalls:
+      m_Calls: []
+  DisableGoldenAcorn:
+    m_PersistentCalls:
+      m_Calls: []
+  EnableShield:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1948890502}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  EnableLock:
+    m_PersistentCalls:
+      m_Calls: []
+  EnableGoldenAcorn:
+    m_PersistentCalls:
+      m_Calls: []
+  hasShield: 0
+  hasLock: 0
+  hasGoldenAcorn: 0
 --- !u!1 &1270594121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,6 +1767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53ae904f91b8ee45972e12c991c88e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PowerUpManager: {fileID: 0}
   <AllowTogglePause>k__BackingField: 1
   <IsPaused>k__BackingField: 1
   m_scoreMultiplier: 10
@@ -2753,6 +2843,7 @@ Transform:
   - {fileID: 1880506946}
   - {fileID: 1270594123}
   - {fileID: 36301084}
+  - {fileID: 1270128694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1865549184
@@ -3686,6 +3777,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1908448173}
     m_Modifications:
+    - target: {fileID: 456100662464805331, guid: 97395309a60d74947baceba0401e9253, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1181380973193845621, guid: 97395309a60d74947baceba0401e9253, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -3713,6 +3808,10 @@ PrefabInstance:
     - target: {fileID: 1181380973193845621, guid: 97395309a60d74947baceba0401e9253, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775374745283589397, guid: 97395309a60d74947baceba0401e9253, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3716277528664240206, guid: 97395309a60d74947baceba0401e9253, type: 3}
       propertyPath: m_Name
@@ -3813,6 +3912,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1046222117}
   m_SourcePrefab: {fileID: 100100000, guid: 97395309a60d74947baceba0401e9253, type: 3}
+--- !u!1 &1948890502 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 456100662464805331, guid: 97395309a60d74947baceba0401e9253, type: 3}
+  m_PrefabInstance: {fileID: 1948890501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1992775181
 PrefabInstance:
   m_ObjectHideFlags: 0

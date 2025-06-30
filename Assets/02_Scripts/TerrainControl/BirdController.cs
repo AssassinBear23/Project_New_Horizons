@@ -24,8 +24,14 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag != "Player" || isEnabled || GameManager.Instance.InputManager.swiped)
+        if (!isEnabled || GameManager.Instance.IsPaused || GameManager.Instance.InputManager.swiped) return;
+
+        if (Managers.GameManager.Instance.PowerUpManager.hasShield)
+        {
+            Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Shield);
+            Destroy(gameObject);
             return;
+        }
 
         switch (onBirdTouchEvent)
         {
@@ -39,7 +45,7 @@ public class BirdController : MonoBehaviour
                 isEnabled = false;
                 break;
         }
-        GameManager.Instance.SoundManager.PlaySpatialOneShotSound(m_birdSound, transform.position);
+        Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(m_birdSound, transform.position);
     }
     /// <summary>
     /// Disables controls and starts sequence to move the player to the top of the screen
@@ -149,7 +155,9 @@ public class BirdController : MonoBehaviour
         }
         isEnabled = true;
         Managers.GameManager.Instance.PlayerControls.EnableInput();
-        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        Rigidbody rb = player.GetComponent<Rigidbody>();
+        rb.AddForce(-1f * rb.GetAccumulatedForce());
+        rb.angularVelocity = Vector3.zero;
         Destroy(transform.parent.gameObject);
     }
 }

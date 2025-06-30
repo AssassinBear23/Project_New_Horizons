@@ -12,7 +12,7 @@ namespace Managers
 
         public UnityEvent EnableShield;
         public UnityEvent<float> EnableLock;
-        public UnityEvent EnableGoldenAcorn;
+        public UnityEvent<float> EnableGoldenAcorn;
 
         [HideInInspector] public bool hasShield = false;
         [HideInInspector] public bool hasLock = false;
@@ -43,7 +43,7 @@ namespace Managers
 
                 case PowerUps.GoldenAcorn:
                     hasGoldenAcorn = true;
-                    EnableGoldenAcorn?.Invoke();
+                    EnableGoldenAcorn?.Invoke(time);
                     yield return new WaitForSeconds(time);
                     if (hasGoldenAcorn) DisablePower(PowerUps.GoldenAcorn);
                     break;

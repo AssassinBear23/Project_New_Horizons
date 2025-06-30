@@ -6,7 +6,9 @@ public class Lock : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        StartCoroutine(Managers.GameManager.Instance.PowerUpManager.PowerDuration(duration, Managers.PowerUps.Lock));
+        if (!Managers.GameManager.Instance.PowerUpManager.hasGoldenAcorn && !Managers.GameManager.Instance.PowerUpManager.hasLock)
+            StartCoroutine(Managers.GameManager.Instance.PowerUpManager.PowerDuration(duration, Managers.PowerUps.Lock));
+        
         Destroy(gameObject);
     }
 }

@@ -184,7 +184,7 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         if (Random.Range(0f,1f) <= chanceForPowerUpOnBranch && powerUpsOnSegment < maxPowerUpsOnSegment)
         {
             powerUpsOnSegment++;
-            Transform toSpawnPowerup = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Count)];
+            Transform toSpawnPowerup = powerUpPrefabs[^1];//Random.Range(0, powerUpPrefabs.Count)];
             Transform spawned = Instantiate(toSpawnPowerup, branch);
             Vector3 pos = spawned.localPosition;
             pos.x = 0;

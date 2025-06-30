@@ -24,7 +24,7 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isEnabled || GameManager.Instance.IsPaused || GameManager.Instance.InputManager.swiped) return;
+        if (!isEnabled || GameManager.Instance.IsPaused || GameManager.Instance.InputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn) return;
 
         if (Managers.GameManager.Instance.PowerUpManager.hasShield)
         {

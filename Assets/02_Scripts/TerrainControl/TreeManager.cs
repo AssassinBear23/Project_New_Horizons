@@ -157,7 +157,8 @@ namespace Managers.Terrain
         {
             m_Controller.Lock();
             yield return new WaitForSeconds(duration);
-            m_Controller.Unlock();
+            if (!GameManager.Instance.PowerUpManager.hasGoldenAcorn && !GameManager.Instance.PowerUpManager.hasLock)
+                m_Controller.Unlock();
         }
     }
 }

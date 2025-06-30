@@ -6,7 +6,7 @@ public class Shield : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        StartCoroutine(Managers.GameManager.Instance.PowerUpManager.PowerDuration(duration, Managers.PowerUps.Shield));
+        if (!Managers.GameManager.Instance.PowerUpManager.hasShield) StartCoroutine(Managers.GameManager.Instance.PowerUpManager.PowerDuration(duration, Managers.PowerUps.Shield));
         Destroy(gameObject);
     }
 }

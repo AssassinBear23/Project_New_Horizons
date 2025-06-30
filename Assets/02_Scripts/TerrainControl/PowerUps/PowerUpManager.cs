@@ -11,7 +11,7 @@ namespace Managers
         public UnityEvent DisableGoldenAcorn;
 
         public UnityEvent EnableShield;
-        public UnityEvent EnableLock;
+        public UnityEvent<float> EnableLock;
         public UnityEvent EnableGoldenAcorn;
 
         [HideInInspector] public bool hasShield = false;
@@ -26,6 +26,7 @@ namespace Managers
             switch (powerUp)
             {
                 case PowerUps.Shield:
+                    Debug.Log("enabling shield");
                     hasShield = true;
                     EnableShield?.Invoke();
                     yield return new WaitForSeconds(time);
@@ -33,8 +34,9 @@ namespace Managers
                     break;
 
                 case PowerUps.Lock:
+                    Debug.Log("enabling lock");
                     hasLock = true;
-                    EnableLock?.Invoke();
+                    EnableLock?.Invoke(time);
                     yield return new WaitForSeconds(time);
                     if (hasLock) DisablePower(PowerUps.Lock);
                     break;

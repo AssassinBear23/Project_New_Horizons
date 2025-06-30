@@ -1188,11 +1188,11 @@ Transform:
   m_GameObject: {fileID: 841012884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalPosition: {x: 0, y: -6.8399997, z: 10}
   m_LocalScale: {x: 5, y: 0.1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2014647845}
+  m_Father: {fileID: 1525738977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &841012887
 Rigidbody:
@@ -1731,7 +1731,19 @@ MonoBehaviour:
         m_CallState: 2
   EnableLock:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1416894837}
+        m_TargetAssemblyTypeName: Managers.Terrain.TreeManager, Assembly-CSharp
+        m_MethodName: StartLockPowerUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   EnableGoldenAcorn:
     m_PersistentCalls:
       m_Calls: []
@@ -1771,7 +1783,7 @@ MonoBehaviour:
   <AllowTogglePause>k__BackingField: 1
   <IsPaused>k__BackingField: 1
   m_scoreMultiplier: 10
-  m_playerObject: {fileID: 0}
+  m_playerObject: {fileID: 666911248}
   m_showFpsIndicator: 0
   m_fpsIndicator: {fileID: 0}
   m_fpsUpdateIntervalTime: 0.5
@@ -2240,6 +2252,7 @@ GameObject:
   - component: {fileID: 1525738976}
   - component: {fileID: 1525738975}
   - component: {fileID: 1525738978}
+  - component: {fileID: 1525738979}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2318,7 +2331,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 8.44, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1554521519}
+  - {fileID: 841012886}
   m_Father: {fileID: 2014647845}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1525738978
@@ -2365,6 +2380,18 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1525738979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525738974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc950504d737624596408065d5739a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1554521517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,11 +2440,11 @@ Transform:
   m_GameObject: {fileID: 1554521517}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 27.6, z: 0}
+  m_LocalPosition: {x: 0, y: 19.16, z: 10}
   m_LocalScale: {x: 5, y: 0.1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2014647845}
+  m_Father: {fileID: 1525738977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1554521520
 Rigidbody:
@@ -4101,8 +4128,6 @@ Transform:
   m_Children:
   - {fileID: 1416894835}
   - {fileID: 666911247}
-  - {fileID: 1554521519}
-  - {fileID: 841012886}
   - {fileID: 1525738977}
   - {fileID: 1916510856}
   - {fileID: 1917444519}

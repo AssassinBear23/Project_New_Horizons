@@ -173,7 +173,8 @@ namespace Managers
                 }
             }
 
-            else if (inputValue <= -swipeThreshold)
+            // Start swiping if not swiping yet
+            else if (inputValue <= 0)
             {
                 isSwiping = true;
                 SwipeMovement = inputValue;

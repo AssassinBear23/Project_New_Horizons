@@ -36,6 +36,7 @@ public class PlayerDeath : MonoBehaviour
             {
                 if (m_inputManager.swiped) StartSwipeCooldown();
                 Destroy(collision.transform.parent.gameObject);
+                Debug.Log("Destroyed branch");
             }
 
             else
@@ -62,7 +63,7 @@ public class PlayerDeath : MonoBehaviour
                 else if (topDot > threshold)
                 {
                     Debug.Log("Top");
-                    rb.AddForce(transform.up * rb.linearVelocity.y * bounciness);
+                    //rb.linearVelocity = transform.up * -rb.linearVelocity.y * bounciness;
                 }
             }
         }
@@ -71,6 +72,7 @@ public class PlayerDeath : MonoBehaviour
         {
             if (m_inputManager.swiped) StartSwipeCooldown();
             Destroy(collision.transform.parent.gameObject);
+            Debug.Log("Destroyed bird");
         }
     }
     private void StartSwipeCooldown()

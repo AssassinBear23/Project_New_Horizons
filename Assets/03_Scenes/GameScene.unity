@@ -188,6 +188,10 @@ PrefabInstance:
       value: Trunk_01
       objectReference: {fileID: 0}
     - target: {fileID: 2202265186900968051, guid: 84a3af99374b83249be8e25da8475c32, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202265186900968051, guid: 84a3af99374b83249be8e25da8475c32, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -755,18 +759,6 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4063140024480213793, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 4063140024480213793, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 4063140024480213793, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 4063140024480213793, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -806,9 +798,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4063140024480213793, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
-      propertyPath: m_ConstrainProportionsScale
+    - target: {fileID: 5808315427922104112, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 5bf4e897952635c47918cb1b844e0a24, type: 2}
+    - target: {fileID: 7508866762673510128, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508866762673510128, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: m_Mass
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508866762673510128, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: bounciness
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
       propertyPath: offScreenOffSet
@@ -3867,6 +3875,14 @@ PrefabInstance:
     - target: {fileID: 2525988567557801806, guid: 667928e1c5854274caef9fbc0283168a, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Phone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120208663278011505, guid: 667928e1c5854274caef9fbc0283168a, type: 3}
+      propertyPath: swipeWindow
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120208663278011505, guid: 667928e1c5854274caef9fbc0283168a, type: 3}
+      propertyPath: swipeThreshold
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5120208663278011505, guid: 667928e1c5854274caef9fbc0283168a, type: 3}
       propertyPath: OnSwipeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target

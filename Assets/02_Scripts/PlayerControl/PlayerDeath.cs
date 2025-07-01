@@ -4,7 +4,7 @@ using Managers;
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private float offScreenOffSet = 0.1f;
-    [SerializeField] private float bounciness = 0.5f;
+    //[SerializeField] private float bounciness = 0.5f;
     [SerializeField] private float swipeCooldown = 10;
     public UnityEvent onDeadge;
     public Rigidbody rb;

@@ -4,8 +4,8 @@ public class SkinSelector : MonoBehaviour
 {
     private int index = 0;
     private int selectedSkin = 0;
-    [SerializeField] private List<SpriteRenderer> skins;
-    [SerializeField] private SpriteRenderer checkMark;
+    [SerializeField] private List<Transform> skins;
+    [SerializeField] private Transform checkMark;
     private void Awake()
     {
         PlayerPrefs.SetInt("SelectedSkin", 0);
@@ -20,35 +20,44 @@ public class SkinSelector : MonoBehaviour
     {
         for (int i = 0; i < skins.Count; i++)
         {
-            if (i == index) skins[i].enabled = true;
-            else skins[i].enabled = false;
+            if (i == index) skins[i].gameObject.SetActive(true);
+            else skins[i].gameObject.SetActive(false);
         }
+        checkMark.gameObject.SetActive(true);
     }
     public void NextSkin()
     {
-        skins[index].enabled = false;
+        // Disable current skin
+        skins[index].gameObject.SetActive(false);
+
+        // Go to next skin
         index++;
         if (index >= skins.Count) index = 0;
-        skins[index].enabled = true;
+        skins[index].gameObject.SetActive(true);
 
-        if (index == selectedSkin) checkMark.enabled = true;
-        else checkMark.enabled = false;
+        // Check if this skin is equipped
+        if (index == selectedSkin) checkMark.gameObject.SetActive(true);
+        else checkMark.gameObject.SetActive(false);
     }
     public void PreviousSkin()
     {
-        skins[index].enabled = false;
+        // Disable current skin
+        skins[index].gameObject.SetActive(false);
+
+        // Go to previous skin
         index--;
         if (index < 0) index = skins.Count - 1;
-        skins[index].enabled = true;
+        skins[index].gameObject.SetActive(true);
 
-        if (index == selectedSkin) checkMark.enabled = true;
-        else checkMark.enabled = false;
+        // Check if this skin is equipped
+        if (index == selectedSkin) checkMark.gameObject.SetActive(true);
+        else checkMark.gameObject.SetActive(false);
     }
     public void SelectSkin()
     {
         PlayerPrefs.SetInt("SelectedSkin", index);
         selectedSkin = index;
 
-        checkMark.enabled = true;
+        checkMark.gameObject.SetActive(true);
     }
 }

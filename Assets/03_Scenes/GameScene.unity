@@ -847,6 +847,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: killBirdSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 465cef9e53a3bbb48932c9e1c0a55381, type: 3}
+    - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
       propertyPath: leaveParticles
       value: 
       objectReference: {fileID: -8691234117246974781, guid: e5b547974f090c04fb9bcb483366355e, type: 3}
@@ -858,6 +862,10 @@ PrefabInstance:
       propertyPath: featherParticles
       value: 
       objectReference: {fileID: -1272967923453123883, guid: 6fa7370c9a244ff44b7b16d9a9761e5c, type: 3}
+    - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: destroyBranchSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2c066f5d161ac1a4dbeb4886e5ab6a6a, type: 3}
     - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
       propertyPath: onDeadge.m_PersistentCalls.m_Calls.Array.size
       value: 2

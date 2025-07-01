@@ -10,6 +10,8 @@ public class PlayerDeath : MonoBehaviour
     public Rigidbody rb;
     [SerializeField] private DestroyParticles featherParticles;
     [SerializeField] private DestroyParticles leaveParticles;
+    [SerializeField] private AudioClip killBirdSound;
+    [SerializeField] private AudioClip destroyBranchSound;
     private InputManager m_inputManager;
     public UnityEvent<Vector3> onDestroyBranch;
     public UnityEvent<Vector3> onDestroyBird;
@@ -39,6 +41,7 @@ public class PlayerDeath : MonoBehaviour
             {
                 if (m_inputManager.swiped) StartSwipeCooldown();
                 onDestroyBranch?.Invoke(collision.transform.position);
+                GameManager.Instance.SoundManager.PlaySpatialOneShotSound(destroyBranchSound, collision.transform.position);
                 Destroy(collision.transform.parent.gameObject);
             }
 
@@ -75,6 +78,7 @@ public class PlayerDeath : MonoBehaviour
         {
             if (m_inputManager.swiped) StartSwipeCooldown();
             onDestroyBird?.Invoke(collision.transform.position);
+            GameManager.Instance.SoundManager.PlaySpatialOneShotSound(killBirdSound, collision.transform.position);
             Destroy(collision.transform.parent.gameObject);
             GameManager.Instance.PowerUpManager.DisablePower(PowerUps.Shield);
         }

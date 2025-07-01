@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 10
+  pickUpSound: {fileID: 8300000, guid: 0c3b2dfb609e90241a3a751859085eb1, type: 3}
 --- !u!4 &4209828821823389457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9016941066950524134, guid: 4e5f3f41c47366c469bc8f7333c03b31, type: 3}

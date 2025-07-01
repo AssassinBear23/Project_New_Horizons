@@ -139,3 +139,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 10
+  pickUpSound: {fileID: 8300000, guid: 0c3b2dfb609e90241a3a751859085eb1, type: 3}

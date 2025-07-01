@@ -7,10 +7,17 @@ public class Shield : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        if (!Managers.GameManager.Instance.PowerUpManager.hasShield)
+        if (!Managers.GameManager.Instance.PowerUpManager.hasShield && !Managers.GameManager.Instance.PowerUpManager.hasGoldenAcorn)
+        {
             Managers.GameManager.Instance.StartCoroutine(Managers.GameManager.Instance.PowerUpManager.PowerDuration(duration, Managers.PowerUps.Shield));
 
-        Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(pickUpSound, transform.position);
+            if (Managers.GameManager.Instance.PowerUpManager.hasLock)
+            {
+                Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Lock);
+            }
+
+            Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(pickUpSound, transform.position);
+        }
 
         Destroy(gameObject);
     }

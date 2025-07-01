@@ -15,9 +15,14 @@ public class GoldenAcorn : MonoBehaviour
             {
                 Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Lock);
             }
-        }
 
-        Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(pickUpSound, transform.position);
+            if (Managers.GameManager.Instance.PowerUpManager.hasShield)
+            {
+                Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Shield);
+            }
+
+            Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(pickUpSound, transform.position);
+        }
 
         Destroy(gameObject);
     }

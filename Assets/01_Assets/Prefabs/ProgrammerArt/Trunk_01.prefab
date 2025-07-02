@@ -99,8 +99,15 @@ MonoBehaviour:
   differentYMaxAngleDist: 50
   yOffset: 0.2
   chanceToSpawnBird: 0.3
-  chanceForPowerUpOnBranch: 0.1
+  chanceForPowerUpOnBranch: 0.05
   maxPowerUpsOnSegment: 3
+  powerUpChances:
+  - powerUp: 0
+    chanceToSpawn: 0.4
+  - powerUp: 1
+    chanceToSpawn: 0.4
+  - powerUp: 2
+    chanceToSpawn: 0.2
   lastBranch: {fileID: 0}
   lastBranches: []
   branchPrefabs:

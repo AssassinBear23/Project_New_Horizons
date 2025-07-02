@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
     }
     public void ScreenShake(float playerSpeed)
     {
-        StartCoroutine(DoScreenShake(playerSpeed));
+        if (!screenShaking) StartCoroutine(DoScreenShake(playerSpeed));
     }
     private IEnumerator DoScreenShake(float playerSpeed)
     {

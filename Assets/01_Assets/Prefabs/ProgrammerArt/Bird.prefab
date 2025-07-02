@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GooseEvil_Model_animated
       objectReference: {fileID: 0}
+    - target: {fileID: 151650002216192675, guid: 7424c6e5e5ad734449d74a499506a96f, type: 3}
+      propertyPath: m_TagString
+      value: Bird
+      objectReference: {fileID: 0}
     - target: {fileID: 671340304598093849, guid: 7424c6e5e5ad734449d74a499506a96f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

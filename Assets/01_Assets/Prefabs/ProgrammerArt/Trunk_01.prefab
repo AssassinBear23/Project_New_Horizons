@@ -97,7 +97,7 @@ MonoBehaviour:
   sameYMaxAngleDist: 50
   differentYMinAngleDist: 30
   differentYMaxAngleDist: 50
-  yOffset: 0.2
+  yOffset: 0.1
   chanceToSpawnBird: 0.3
   chanceForPowerUpOnBranch: 0.05
   maxPowerUpsOnSegment: 3

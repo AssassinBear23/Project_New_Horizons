@@ -2339,7 +2339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenShakeDuration: 0.2
   screenShakeIntensity: 0.1
-  screenShakeSpeedThreshold: 1
+  screenShakeSpeedThreshold: 0.2
 --- !u!1 &1554521517
 GameObject:
   m_ObjectHideFlags: 0

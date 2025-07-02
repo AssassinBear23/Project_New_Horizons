@@ -4684,7 +4684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableShield.m_PersistentCalls.m_Calls.Array.size
@@ -4700,7 +4700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableLock.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4737,6 +4737,10 @@ PrefabInstance:
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableLock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4786,6 +4790,10 @@ PrefabInstance:
       propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 431295858}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 666911250}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableShield.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 5
@@ -4859,6 +4867,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableLock.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
@@ -4893,6 +4905,10 @@ PrefabInstance:
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: ResetPlayerForce
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4941,6 +4957,10 @@ PrefabInstance:
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableShield.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -5007,6 +5027,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1455617439}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 666911250}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -5040,6 +5064,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
@@ -5079,6 +5107,10 @@ PrefabInstance:
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: ResetPlayerForce
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableLock.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
@@ -5113,6 +5145,10 @@ PrefabInstance:
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: PlayerDeath, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableLock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
@@ -5227,6 +5263,10 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: PlayerDeath, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
@@ -5295,6 +5335,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableLock.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: EnableShield.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -5348,6 +5392,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
       propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626147605754451700, guid: ed7d6e1bc43228742b7bc85e1d635ba7, type: 3}
+      propertyPath: DisableGoldenAcorn.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []

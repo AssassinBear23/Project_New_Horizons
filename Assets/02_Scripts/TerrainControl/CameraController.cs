@@ -30,8 +30,8 @@ public class CameraController : MonoBehaviour
         if (screenShaking)
         {
             Vector3 position = transform.position;
-            position.x += Random.Range(-screenShakeIntensity, screenShakeIntensity) * _PlayerSpeed * 0.5f;
-            position.y += Random.Range(-screenShakeIntensity, screenShakeIntensity) * _PlayerSpeed * 0.5f;
+            position.x += Random.Range(-screenShakeIntensity, screenShakeIntensity);// * _PlayerSpeed * 0.5f;
+            position.y += Random.Range(-screenShakeIntensity, screenShakeIntensity);// * _PlayerSpeed * 0.5f;
             transform.position = position;
         }
     }

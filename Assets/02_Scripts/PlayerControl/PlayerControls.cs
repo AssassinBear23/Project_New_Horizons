@@ -56,7 +56,7 @@ public class PlayerControls : MonoBehaviour
     public IEnumerator PlayerBounce(float direction)
     {
         m_isEnabled = false;
-        m_direction = direction * 1.5f;
+        m_direction = direction * 2f;
         yield return new WaitForSeconds(m_stunTimer);
         m_isEnabled = true;
     }

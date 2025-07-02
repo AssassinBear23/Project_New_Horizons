@@ -75,6 +75,9 @@ public class PlayerDeath : MonoBehaviour
                     screenShake?.Invoke(rb.linearVelocity.y);
                 }
             }
+
+            rb.AddForce(-1f * rb.GetAccumulatedForce());
+            rb.linearVelocity = Vector3.zero;
         }
 
         else if (collision.transform.CompareTag("Bird"))
@@ -89,6 +92,9 @@ public class PlayerDeath : MonoBehaviour
             }
 
             screenShake?.Invoke(rb.linearVelocity.y);
+
+            rb.AddForce(-1f * rb.GetAccumulatedForce());
+            rb.linearVelocity = Vector3.zero;
         }
     }
     private void StartSwipeCooldown()
@@ -104,5 +110,10 @@ public class PlayerDeath : MonoBehaviour
     {
         position.z -= 1;
         Instantiate(leaveParticles, position, Quaternion.identity);
+    }
+    public void ResetPlayerForce()
+    {
+        rb.AddForce(-1f * rb.GetAccumulatedForce());
+        rb.linearVelocity = Vector3.zero;
     }
 }

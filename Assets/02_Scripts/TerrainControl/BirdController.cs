@@ -24,14 +24,13 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isEnabled || GameManager.Instance.IsPaused || GameManager.Instance.InputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn) return;
+        if (!collision.gameObject.CompareTag("Player")) return;
+
+        if (!isEnabled || GameManager.Instance.IsPaused || GameManager.Instance.InputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn)
+            return;
 
         if (Managers.GameManager.Instance.PowerUpManager.hasShield)
-        {
-            Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Shield);
-            Destroy(gameObject);
             return;
-        }
 
         switch (onBirdTouchEvent)
         {

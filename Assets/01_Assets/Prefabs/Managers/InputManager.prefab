@@ -141,8 +141,8 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   m_smoothingFactor: 0.2
-  swipeWindow: 0.2
-  swipeThreshold: 15
+  swipeWindow: 0.1
+  swipeThreshold: 150
   swiped: 0
   OnSwipeEvent:
     m_PersistentCalls:

@@ -2,6 +2,7 @@ using UnityEngine;
 public class GoldenAcorn : MonoBehaviour
 {
     [SerializeField] private float duration;
+    [SerializeField] private AudioClip pickUpSound;
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
@@ -14,8 +15,15 @@ public class GoldenAcorn : MonoBehaviour
             {
                 Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Lock);
             }
+
+            if (Managers.GameManager.Instance.PowerUpManager.hasShield)
+            {
+                Managers.GameManager.Instance.PowerUpManager.DisablePower(Managers.PowerUps.Shield);
+            }
+
+            Managers.GameManager.Instance.SoundManager.PlaySpatialOneShotSound(pickUpSound, transform.position);
         }
-        
+
         Destroy(gameObject);
     }
 }

@@ -4,12 +4,18 @@ using Managers;
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private float offScreenOffSet = 0.1f;
-    [SerializeField] private float bounciness = 0.5f;
+    //[SerializeField] private float bounciness = 0.5f;
     [SerializeField] private float swipeCooldown = 10;
     public UnityEvent onDeadge;
     public Rigidbody rb;
+    [SerializeField] private DestroyParticles featherParticles;
+    [SerializeField] private DestroyParticles leaveParticles;
+    [SerializeField] private AudioClip killBirdSound;
+    [SerializeField] private AudioClip destroyBranchSound;
     private InputManager m_inputManager;
-    public UnityEvent onDestroyObstacle;
+    public UnityEvent<Vector3> onDestroyBranch;
+    public UnityEvent<Vector3> onDestroyBird;
+    public UnityEvent UsedSwipePower;
     private void Start()
     {
         m_inputManager = InputManager.Instance;
@@ -35,6 +41,8 @@ public class PlayerDeath : MonoBehaviour
             if (m_inputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn)
             {
                 if (m_inputManager.swiped) StartSwipeCooldown();
+                onDestroyBranch?.Invoke(collision.transform.position);
+                GameManager.Instance.SoundManager.PlaySpatialOneShotSound(destroyBranchSound, collision.transform.position);
                 Destroy(collision.transform.parent.gameObject);
             }
 
@@ -62,20 +70,32 @@ public class PlayerDeath : MonoBehaviour
                 else if (topDot > threshold)
                 {
                     Debug.Log("Top");
-                    rb.AddForce(transform.up * rb.linearVelocity.y * bounciness);
+                    //rb.linearVelocity = transform.up * -rb.linearVelocity.y * bounciness;
                 }
             }
         }
 
-        else if (collision.transform.CompareTag("Bird") && (m_inputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn))
+        else if (collision.transform.CompareTag("Bird") && (m_inputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn || GameManager.Instance.PowerUpManager.hasShield))
         {
             if (m_inputManager.swiped) StartSwipeCooldown();
+            onDestroyBird?.Invoke(collision.transform.position);
+            GameManager.Instance.SoundManager.PlaySpatialOneShotSound(killBirdSound, collision.transform.position);
             Destroy(collision.transform.parent.gameObject);
+            GameManager.Instance.PowerUpManager.DisablePower(PowerUps.Shield);
         }
     }
     private void StartSwipeCooldown()
     {
-        onDestroyObstacle?.Invoke();
+        UsedSwipePower?.Invoke();
         StartCoroutine(m_inputManager.SwipeCooldown(swipeCooldown));
+    }
+    public void CreateFeatherParticles(Vector3 position)
+    {
+        Instantiate(featherParticles, position, Quaternion.identity);
+    }
+    public void CreateLeaveParticles(Vector3 position)
+    {
+        position.z -= 1;
+        Instantiate(leaveParticles, position, Quaternion.identity);
     }
 }

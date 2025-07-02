@@ -49,8 +49,4 @@ MonoBehaviour:
   m_soundParentTransform: {fileID: 0}
   m_audioMixer: {fileID: 24100000, guid: db14785fc7963b1438102c1b1b2fb819, type: 2}
   m_loopingMusic:
-    _serializedList:
-    - Key: {fileID: 0}
-      Value:
-      - {fileID: 0}
-      - {fileID: 0}
+    _serializedList: []

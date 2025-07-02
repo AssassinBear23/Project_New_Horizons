@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using System;
 using UnityEngine;
 
@@ -16,12 +17,12 @@ public class Settings : MonoBehaviour
     /// <summary>
     /// Settings related to sound.
     /// </summary>
-    [field: SerializeField] public BaseSettings SoundSettings { get; private set; } = new();
+    [field: SerializeField] public BaseSettings SoundSettings { get; private set; } = new("Sound");
 
     /// <summary>
     /// Settings related to controls.
     /// </summary>
-    [field: SerializeField] public BaseSettings ControlSettings { get; private set; } = new();
+    [field: SerializeField] public BaseSettings ControlSettings { get; private set; } = new("Control");
 
     /// <summary>
     /// Ensures only one instance of Settings exists and persists across scenes.
@@ -35,6 +36,12 @@ public class Settings : MonoBehaviour
         }
         else
             Destroy(gameObject);
+    }
+
+    [Button]
+    public void DestroyPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     /// <summary>
@@ -53,26 +60,6 @@ public class Settings : MonoBehaviour
         SoundSettings.SaveAllSettings();
         ControlSettings.SaveAllSettings();
     }
-
-    /// <summary>
-    /// Loads a setting from PlayerPrefs with the specified key and type.
-    /// </summary>
-    /// <param name="key">The key of the setting to load.</param>
-    /// <param name="type">The type of the setting to load (int, float, bool, string).</param>
-    /// <returns>The loaded setting as an object, or null if the type is unsupported.</returns>
-    public object LoadSettings(string key, Type type)
-    {
-        if (type == typeof(int))
-            return PlayerPrefs.GetInt(key);
-        if (type == typeof(float))
-            return PlayerPrefs.GetFloat(key);
-        if (type == typeof(bool))
-            return PlayerPrefs.GetInt(key) != 0; // Bool doesn't exist in PlayerPrefs, so we use int 0/1
-        if (type == typeof(string))
-            return PlayerPrefs.GetString(key);
-        // Add more types as needed
-        return null;
-    }
 }
 
 /// <summary>
@@ -82,9 +69,17 @@ public class Settings : MonoBehaviour
 [Serializable]
 public class BaseSettings
 {
+    [SerializeField] private string _prefix = "";
     [SerializeField] private SerializedDictionary<string, float> m_FloatValues = new();
     [SerializeField] private SerializedDictionary<string, bool> m_BoolValues = new();
     [SerializeField] private SerializedDictionary<string, int> m_intValues = new();
+
+    public BaseSettings(string prefix = "")
+    {
+        _prefix = prefix;
+    }
+
+    private string GetPrefixedKey(string key) => $"{_prefix}_{key}";
 
     /// <summary>
     /// Gets a float setting by key.
@@ -94,8 +89,11 @@ public class BaseSettings
     public float? GetFloat(string key)
     {
         if (m_FloatValues.TryGetValue(key, out var value))
-        {
             return value;
+        else if (LoadSetting(key, typeof(float), out var result))
+        {
+            SetFloat(key, (float)result); // Cache the value for future use
+            return (float)result;
         }
         return null;
     }
@@ -118,8 +116,11 @@ public class BaseSettings
     public bool? GetBool(string key)
     {
         if (m_BoolValues.TryGetValue(key, out var value))
-        {
             return value;
+        else if (LoadSetting(key, typeof(bool), out var result))
+        {
+            SetBool(key, (bool)result);
+            return (bool)result;
         }
         return null;
     }
@@ -142,8 +143,11 @@ public class BaseSettings
     public int? GetInt(string key)
     {
         if (m_intValues.TryGetValue(key, out var value))
-        {
             return value;
+        else if (LoadSetting(key, typeof(int), out var result))
+        {
+            SetInt(key, (int)result);
+            return (int)result;
         }
         return null;
     }
@@ -165,16 +169,53 @@ public class BaseSettings
     {
         foreach (var kvp in m_FloatValues)
         {
-            PlayerPrefs.SetFloat(kvp.Key, kvp.Value);
+            PlayerPrefs.SetFloat(GetPrefixedKey(kvp.Key), kvp.Value);
         }
         foreach (var kvp in m_BoolValues)
         {
-            PlayerPrefs.SetInt(kvp.Key, kvp.Value ? 1 : 0);
+            PlayerPrefs.SetInt(GetPrefixedKey(kvp.Key), kvp.Value ? 1 : 0);
         }
         foreach (var kvp in m_intValues)
         {
-            PlayerPrefs.SetInt(kvp.Key, kvp.Value);
+            PlayerPrefs.SetInt(GetPrefixedKey(kvp.Key), kvp.Value);
         }
         PlayerPrefs.Save();
+    }
+
+    /// <summary>
+    /// Loads a setting from PlayerPrefs with the specified key and type.
+    /// </summary>
+    /// <param name="key">The key of the setting to load.</param>
+    /// <param name="type">The type of the setting to load (int, float, bool, string).</param>
+    /// <param name="result">The loaded setting as an object, or null if the type is unsupported.</param>
+    /// <returns>
+    /// True if the setting was successfully loaded and the type is supported; otherwise, false.
+    /// </returns>
+    public bool LoadSetting(string key, Type type, out object result)
+    {
+        key = GetPrefixedKey(key);
+        if (type == typeof(int))
+        {
+            result = PlayerPrefs.GetInt(key);
+            return true;
+        }
+        if (type == typeof(float))
+        {
+            result = PlayerPrefs.GetFloat(key);
+            return true;
+        }
+        if (type == typeof(bool))
+        {
+            result = PlayerPrefs.GetInt(key) != 0; // Bool doesn't exist in PlayerPrefs, so we use int 0/1
+            return true;
+        }
+        if (type == typeof(string))
+        {
+            result = PlayerPrefs.GetString(key);
+            return true;
+        }
+        // Add more types as needed
+        result = null;
+        return false;
     }
 }

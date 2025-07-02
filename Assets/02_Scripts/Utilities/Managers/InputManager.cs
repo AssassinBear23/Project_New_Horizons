@@ -80,10 +80,10 @@ namespace Managers
 
         [Header("Sensitivity Settings")]
         [SerializeField] private float m_sensitivity = 1f;
-        [SerializeField] private float m_minSensitivity = 0.1f;
-        [SerializeField] private float m_maxSensitivity = 10f;
+        [field: SerializeField] public float MinSensitivity { get; private set; } = 0.1f;
+        [field: SerializeField] public float MaxSensitivity { get; private set; } = 10f;
         /// <summary>
-        /// The sensitivity of the movement inputs. Clamped between <see cref="m_minSensitivity">m_minSensitivity</see> and <see cref="m_maxSensitivity">m_maxSensitivity</see>.
+        /// The sensitivity of the movement inputs. Clamped between <see cref="MinSensitivity">m_minSensitivity</see> and <see cref="MaxSensitivity">m_maxSensitivity</see>.
         /// </summary>
         public float Sensitivity
         {
@@ -91,10 +91,10 @@ namespace Managers
 
             set
             {
-                if (value < m_minSensitivity || value > m_maxSensitivity)
+                if (value < MinSensitivity || value > MaxSensitivity)
                 {
-                    Debug.LogWarning($"Sensitivity value must be between {m_minSensitivity} and {m_maxSensitivity}. Clamping to valid range.");
-                    m_sensitivity = Mathf.Clamp(value, m_minSensitivity, m_maxSensitivity);
+                    Debug.LogWarning($"Sensitivity value must be between {MinSensitivity} and {MaxSensitivity}. Clamping to valid range.");
+                    m_sensitivity = Mathf.Clamp(value, MinSensitivity, MaxSensitivity);
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace Managers
 
         private void Start()
         {
-            Sensitivity = Settings.Instance.ControlSettings.GetFloat("Sensitivity").GetValueOrDefault(.5f);
+            Sensitivity = Settings.Instance.ControlSettings.GetFloat("Sensitivity").Value;
         }
          #endregion Setup Methods
 

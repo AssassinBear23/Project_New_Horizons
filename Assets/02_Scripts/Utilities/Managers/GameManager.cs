@@ -21,28 +21,36 @@ namespace Managers
         /// </summary>
         public static GameManager Instance { get; private set; }
 
+        [field: Header("Manager References")]
         /// <summary>
         /// Gets or sets the <see cref="Terrain.TreeManager"/> instance responsible for managing tree-related operations.
         /// </summary>
+        [field: SerializeField]
         public TreeManager TreeManager { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Managers.InputManager"/> instance for handling player input and movement.
         /// </summary>
+        [field: SerializeField]
         public InputManager InputManager { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Managers.SoundManager"/> instance for managing sound effects and music in the game.
         /// </summary>
+        [field: SerializeField]
         public SoundManager SoundManager { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Managers.UIManager"/> instance for managing the game's user interface.
         /// </summary>
+        [field: SerializeField]
         public UIManager UIManager { get; set; }
 
-        public PowerUpManager PowerUpManager;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        [field: SerializeField]
+        public PowerUpManager PowerUpManager { get; set; }
         #endregion ManagerReferences
 
         #region Variables
@@ -126,14 +134,7 @@ namespace Managers
 
             GetFpsIndicator();
 
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Instance = this;
 
             onSetupFinished?.Invoke();
         }

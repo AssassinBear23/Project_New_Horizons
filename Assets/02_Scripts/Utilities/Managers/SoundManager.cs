@@ -60,15 +60,8 @@ namespace Managers
         /// </summary>
         public void SetupSoundManager()
         {
-            if (GameManager.Instance.SoundManager == null)
-            {
-                GameManager.Instance.SoundManager = this;
-                SetMasterVolume(Settings.Instance.SoundSettings.GetFloat("MasterVolume").GetValueOrDefault(100f));
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            GameManager.Instance.SoundManager = this;
+            SetMasterVolume(Settings.Instance.SoundSettings.GetFloat("MasterVolume").GetValueOrDefault(100f));
         }
 
         /// <summary>
@@ -186,7 +179,8 @@ namespace Managers
         /// <param name="sliderValue">The new master volume value.</param>
         public void SetMasterVolume(float sliderValue)
         {
-            m_audioMixer.SetFloat("MasterVolume", sliderValue);
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
+            m_audioMixer.SetFloat("MasterVolume", toSetValue);
             Settings.Instance.SoundSettings.SetFloat("MasterVolume", sliderValue);
         }
 
@@ -196,7 +190,8 @@ namespace Managers
         /// <param name="sliderValue">The new music volume value.</param>
         public void SetMusicVolume(float sliderValue)
         {
-            m_audioMixer.SetFloat("MusicVolume", sliderValue);
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
+            m_audioMixer.SetFloat("MusicVolume", toSetValue);
             Settings.Instance.SoundSettings.SetFloat("MusicVolume", sliderValue);
         }
 
@@ -206,6 +201,7 @@ namespace Managers
         /// <param name="sliderValue">The new SFX volume value.</param>
         public void SetSFXVolume(float sliderValue)
         {
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("SFXVolume", sliderValue);
             Settings.Instance.SoundSettings.SetFloat("SFXVolume", sliderValue);
         }
@@ -217,8 +213,26 @@ namespace Managers
         /// <param name="sliderValue">The new volume value.</param>
         public void SetGroupVolume(AudioMixerGroup mixerGroup, float sliderValue)
         {
-            m_audioMixer.SetFloat(mixerGroup.name + "Volume", sliderValue);
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
+            m_audioMixer.SetFloat(mixerGroup.name + "Volume", toSetValue);
             Settings.Instance.SoundSettings.SetFloat(mixerGroup.name + "Volume", sliderValue);
+        }
+
+        /// <summary>
+        /// Converts a percentage value (0-100) to a decibel (dB) value suitable for use in an audio mixer.
+        /// A value of 0% returns the minimum dB value (silence), while 100% returns 0 dB (no attenuation).
+        /// </summary>
+        /// <param name="percent">The percentage value to convert, typically from a UI slider (0-100).</param>
+        /// <returns>
+        /// The corresponding decibel value. Returns -80 dB for 0% (silence), and logarithmically scales up to 0 dB for 100%.
+        /// </returns>
+        private float ConvertProcentToDecibel(float percent)
+        {
+            float minDb = -80f; // Minimum dB value for silence
+            float normalized = percent / 100f;
+            if (normalized <= 0f)
+                return minDb; // Return minimum dB value if percentage is 0 or less
+            return Mathf.Log10(normalized) * 20f;
         }
 
         /// <summary>

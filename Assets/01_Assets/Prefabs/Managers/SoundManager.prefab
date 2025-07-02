@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333069738892075527}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_oneShotPrefab: {fileID: 998866434951035490, guid: 4c26717723b6d4c4da0ed565a40a7b17, type: 3}
   m_loopingPrefab: {fileID: 3262379319239864280, guid: 3a2e1bd33bb559c41ba8a53f3e55d0f1, type: 3}
   m_soundParentTransform: {fileID: 0}
-  m_audioMixer: {fileID: 0}
+  m_audioMixer: {fileID: 24100000, guid: db14785fc7963b1438102c1b1b2fb819, type: 2}
   m_loopingMusic:
     _serializedList:
     - Key: {fileID: 0}

@@ -9,7 +9,6 @@ public class CameraController : MonoBehaviour
     private Managers.Terrain.TreeManager m_TerrainManager;
     private bool isLockedToPlayer = false;
     private bool screenShaking = false;
-    private float _PlayerSpeed;
     private void Start()
     {
         m_GM = Managers.GameManager.Instance;
@@ -30,8 +29,8 @@ public class CameraController : MonoBehaviour
         if (screenShaking)
         {
             Vector3 position = transform.position;
-            position.x += Random.Range(-screenShakeIntensity, screenShakeIntensity);// * _PlayerSpeed * 0.5f;
-            position.y += Random.Range(-screenShakeIntensity, screenShakeIntensity);// * _PlayerSpeed * 0.5f;
+            position.x += Random.Range(-screenShakeIntensity, screenShakeIntensity);
+            position.y += Random.Range(-screenShakeIntensity, screenShakeIntensity);
             transform.position = position;
         }
     }
@@ -51,25 +50,18 @@ public class CameraController : MonoBehaviour
     }
     public void ScreenShake(float playerSpeed)
     {
-        if (!screenShaking) StartCoroutine(DoScreenShake(playerSpeed));
+        StartCoroutine(DoScreenShake(playerSpeed));
     }
+    private Vector3 startPos;
     private IEnumerator DoScreenShake(float playerSpeed)
     {
         if (Mathf.Abs(playerSpeed) >= screenShakeSpeedThreshold)
         {
-            _PlayerSpeed = playerSpeed;
+            if (!screenShaking) startPos = transform.position;
 
             screenShaking = true;
 
-            float timePassed = 0;
-
-            Vector3 startPos = transform.position;
-
-            while (timePassed < screenShakeDuration)
-            {
-                yield return null;
-                timePassed += Time.deltaTime;
-            }
+            yield return new WaitForSeconds(screenShakeDuration);
 
             startPos.y = transform.position.y;
             transform.position = startPos;

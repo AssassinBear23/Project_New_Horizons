@@ -193,11 +193,11 @@ namespace Managers
         /// </summary>
         public void SaveScore()
         {
-            Debug.Assert(m_currentScore > GetHighscore(), "Current score is greater than high score, proceeding to save!");
+            //Debug.Assert(m_currentScore > GetHighscore(), "Current score is greater than high score, proceeding to save!");
             if (m_currentScore > GetHighscore())
             {
                 PlayerPrefs.SetFloat("HighScore", m_currentScore);
-                Debug.Log($"New high score saved: {GetHighscore()}");
+                //Debug.Log($"New high score saved: {GetHighscore()}");
             }
         }
 

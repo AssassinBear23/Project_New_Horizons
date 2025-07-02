@@ -16,6 +16,7 @@ public class PlayerDeath : MonoBehaviour
     public UnityEvent<Vector3> onDestroyBranch;
     public UnityEvent<Vector3> onDestroyBird;
     public UnityEvent UsedSwipePower;
+    public UnityEvent<float> screenShake;
     private void Start()
     {
         m_inputManager = InputManager.Instance;
@@ -44,6 +45,7 @@ public class PlayerDeath : MonoBehaviour
                 onDestroyBranch?.Invoke(collision.transform.position);
                 GameManager.Instance.SoundManager.PlaySpatialOneShotSound(destroyBranchSound, collision.transform.position);
                 Destroy(collision.transform.parent.gameObject);
+                screenShake?.Invoke(rb.linearVelocity.y);
             }
 
             else
@@ -70,18 +72,23 @@ public class PlayerDeath : MonoBehaviour
                 else if (topDot > threshold)
                 {
                     Debug.Log("Top");
-                    //rb.linearVelocity = transform.up * -rb.linearVelocity.y * bounciness;
+                    screenShake?.Invoke(rb.linearVelocity.y);
                 }
             }
         }
 
-        else if (collision.transform.CompareTag("Bird") && (m_inputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn || GameManager.Instance.PowerUpManager.hasShield))
+        else if (collision.transform.CompareTag("Bird"))
         {
-            if (m_inputManager.swiped) StartSwipeCooldown();
-            onDestroyBird?.Invoke(collision.transform.position);
-            GameManager.Instance.SoundManager.PlaySpatialOneShotSound(killBirdSound, collision.transform.position);
-            Destroy(collision.transform.parent.gameObject);
-            GameManager.Instance.PowerUpManager.DisablePower(PowerUps.Shield);
+            if (m_inputManager.swiped || GameManager.Instance.PowerUpManager.hasGoldenAcorn || GameManager.Instance.PowerUpManager.hasShield)
+            {
+                if (m_inputManager.swiped) StartSwipeCooldown();
+                onDestroyBird?.Invoke(collision.transform.position);
+                GameManager.Instance.SoundManager.PlaySpatialOneShotSound(killBirdSound, collision.transform.position);
+                Destroy(collision.transform.parent.gameObject);
+                GameManager.Instance.PowerUpManager.DisablePower(PowerUps.Shield);
+            }
+
+            screenShake?.Invoke(rb.linearVelocity.y);
         }
     }
     private void StartSwipeCooldown()

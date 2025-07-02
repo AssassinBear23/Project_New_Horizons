@@ -15,6 +15,7 @@ public class PlayerDeath : MonoBehaviour
     private InputManager m_inputManager;
     public UnityEvent<Vector3> onDestroyBranch;
     public UnityEvent<Vector3> onDestroyBird;
+    public UnityEvent UsedSwipePower;
     private void Start()
     {
         m_inputManager = InputManager.Instance;
@@ -85,6 +86,7 @@ public class PlayerDeath : MonoBehaviour
     }
     private void StartSwipeCooldown()
     {
+        UsedSwipePower?.Invoke();
         StartCoroutine(m_inputManager.SwipeCooldown(swipeCooldown));
     }
     public void CreateFeatherParticles(Vector3 position)

@@ -32,7 +32,7 @@ public class ParallaxSystemManager : MonoBehaviour
     {
         Vector3 spawnPosition = GetSpawnPosition(unit.transform, prefabSizeY);
 
-        Transform instantiated = Instantiate(unit.BackgroundPrefab, spawnPosition, Quaternion.identity, parentTerrain);
+        Transform instantiated = Instantiate(unit.BackgroundPrefab, spawnPosition, unit.transform.rotation, parentTerrain);
         
 
         if (instantiated.TryGetComponent<ParallaxSystemUnit>(out var parallaxUnit))

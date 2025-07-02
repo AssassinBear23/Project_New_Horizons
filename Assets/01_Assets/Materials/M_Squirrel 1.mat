@@ -34,6 +34,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 0.65
     - _Max: 1.11
     - _Min: 0.79
     - _QueueControl: 0

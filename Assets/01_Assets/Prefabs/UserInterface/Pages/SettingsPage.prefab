@@ -1219,6 +1219,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2858541377528065495}
     m_Modifications:
+    - target: {fileID: 5659396656146570526, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659396656146570526, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetMasterVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Managers.SoundManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071532114019091228, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6112432502130046172, guid: 96a93bd61b74843498c19890fd443576, type: 3}
       propertyPath: m_Name
       value: volume slider
@@ -1303,7 +1347,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7159561007703792740, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159561007703792740, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159561007703792740, guid: 96a93bd61b74843498c19890fd443576, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2796896407971508761, guid: 96a93bd61b74843498c19890fd443576, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1321,6 +1378,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2858541377528065495}
     m_Modifications:
+    - target: {fileID: 356317007860557829, guid: 27d190217ecdfc74c8ec66fc77ced6af, type: 3}
+      propertyPath: m_MaxValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216307153144171205, guid: 27d190217ecdfc74c8ec66fc77ced6af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252841146208538621, guid: 27d190217ecdfc74c8ec66fc77ced6af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3400199680795520824, guid: 27d190217ecdfc74c8ec66fc77ced6af, type: 3}
       propertyPath: m_Name
       value: sensitivity toggle
@@ -1405,7 +1474,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4749864584712327866, guid: 27d190217ecdfc74c8ec66fc77ced6af, type: 3}
+    - {fileID: -8504037719463954863, guid: 27d190217ecdfc74c8ec66fc77ced6af, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

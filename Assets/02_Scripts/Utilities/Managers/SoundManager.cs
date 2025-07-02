@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 
 namespace Managers
@@ -180,6 +181,7 @@ namespace Managers
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("MasterVolume", toSetValue);
+            PlayerPrefs.SetFloat("Sound_MasterVolume", sliderValue);
         }
 
         /// <summary>
@@ -190,6 +192,7 @@ namespace Managers
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("MusicVolume", toSetValue);
+            PlayerPrefs.SetFloat("Sound_MusicVolume", sliderValue);
         }
 
         /// <summary>
@@ -200,6 +203,7 @@ namespace Managers
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("SFXVolume", sliderValue);
+            PlayerPrefs.SetFloat("Sound_SFXVolume", sliderValue);
         }
 
         /// <summary>
@@ -210,7 +214,7 @@ namespace Managers
         public void SetGroupVolume(AudioMixerGroup mixerGroup, float sliderValue)
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
-            m_audioMixer.SetFloat(mixerGroup.name + "Volume", toSetValue);
+            m_audioMixer.SetFloat("Sound_" + mixerGroup.name + "Volume", toSetValue);
         }
 
         /// <summary>
@@ -283,6 +287,20 @@ namespace Managers
             return false;
         }
 
+        public void SetStoredVolume(Transform sliderTransform, string key)
+        {
+            if(sliderTransform.TryGetComponent<Slider>(out Slider slider))
+            {
+                Debug.Log($"Value for {key} is {PlayerPrefs.GetFloat(key)}");
+                float value = PlayerPrefs.GetFloat(key, slider.minValue);
+                slider.SetValueWithoutNotify(value);
+                Debug.Log($"Slider value set to {value} for key {key}");
+            }
+            else
+            {
+                Debug.LogWarning("Transform does not have a Slider component.");
+            }
+        }
         #endregion Sound Control Methods
         #endregion Methods
     }

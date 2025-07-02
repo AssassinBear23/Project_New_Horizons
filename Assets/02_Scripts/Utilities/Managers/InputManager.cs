@@ -100,6 +100,7 @@ namespace Managers
                 {
                     m_sensitivity = value;
                 }
+                PlayerPrefs.SetFloat("Control_Sensitivity", m_sensitivity);
             }
         }
 

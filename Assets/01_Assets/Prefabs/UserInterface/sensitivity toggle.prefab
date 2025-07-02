@@ -82,8 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3619787676804609943}
   - component: {fileID: 356317007860557829}
-  - component: {fileID: 4749864584712327866}
-  - component: {fileID: -8504037719463954863}
+  - component: {fileID: 7908897025095721398}
   m_Layer: 0
   m_Name: sensitivity toggle
   m_TagString: Untagged
@@ -176,7 +175,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4749864584712327866
+--- !u!114 &7908897025095721398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,25 +184,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3400199680795520824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd7030757dda2e246a246f4b680e7628, type: 3}
+  m_Script: {fileID: 11500000, guid: 253d314d55078504683885f1a1c3ba98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingName: Sensitivity
-  settingType: float
-  settingCategory: Control
-  selectable: {fileID: 356317007860557829}
---- !u!114 &-8504037719463954863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3400199680795520824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a62cf9c752412234f80b580657a57983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerPrefsKey: Control_Sensitivity
 --- !u!1 &4001881782761036188
 GameObject:
   m_ObjectHideFlags: 0

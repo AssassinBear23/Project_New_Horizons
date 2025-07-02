@@ -8,6 +8,8 @@ TagManager:
   - Spawner
   - Bird
   - Branch
+  - BackgroundSpawner
+  - BackgroundDestroyer
   layers:
   - Default
   - TransparentFX

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7950462256717198148}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.7066793, y: 3.9894152, z: -2.4266896}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
     m_ActionId: 42d66c1e-f7c1-48ae-a91d-72a35a8055b0
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Phone
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -141,8 +141,8 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   m_smoothingFactor: 0.2
-  swipeWindow: 0.2
-  swipeThreshold: 15
+  swipeWindow: 0.1
+  swipeThreshold: 150
   swiped: 0
   OnSwipeEvent:
     m_PersistentCalls:
@@ -160,8 +160,8 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   m_sensitivity: 1
-  m_minSensitivity: 0.1
-  m_maxSensitivity: 2
+  <MinSensitivity>k__BackingField: 0.1
+  <MaxSensitivity>k__BackingField: 10
   m_pausePressed:
     m_PersistentCalls:
       m_Calls:

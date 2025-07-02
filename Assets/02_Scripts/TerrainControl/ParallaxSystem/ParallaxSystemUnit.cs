@@ -1,69 +1,63 @@
-using System.Collections.Generic;
-using UnityEditor;
+using System;
 using UnityEngine;
 
+/// <summary>
+/// Handles the behavior of a single parallax background unit, including movement, rotation, and spawning logic.
+/// </summary>
 public class ParallaxSystemUnit : MonoBehaviour
 {
     [Header("Variables and References")]
-    [Tooltip("List of Transforms that are part of this background level.")]
-    [SerializeField] private List<Transform> backgroundTransforms = new();
     [Tooltip("Speed of the parallax effect.\nHigher values mean faster movement of the background relative to the tree.")]
     [SerializeField] private float parallaxSpeed = 0.5f;
-    [SerializeField] private Transform parentTerrain;
-    [SerializeField] private Transform backgroundPrefab;
+    [SerializeField] private Transform m_parentTerrain;
 
-    [Header("Spawn and Destroy Positions")]
-    [Tooltip("Position that a background needs to be at to be considered out of scope and destroyed\nVisualized with gizmo's with red box.")]
-    [SerializeField] private Vector3 outOfScopePosition = new(0, 20, 0);
-    [Tooltip("Position that a background needs to be at to be considered fully in-scope and spawn the next prefab\nVisualized with gizmo's with green box.")]
-    [SerializeField] private Vector3 inScopePosition = new(0, -20, 0);
+    /// <summary>
+    /// Gets the background prefab transform associated with this unit.
+    /// </summary>
+    [field: SerializeField]
+    public Transform BackgroundPrefab { get; private set; }
 
-    private float prefabSizeY = 0f;
+    //public 
+    /// <summary>
+    /// Indicates whether a new background has already been spawned by this unit.
+    /// </summary>
+    private bool hasSpawned = false;
 
-    private Transform lastInstantiatedBackground;
+    /// <summary>
+    /// Gets the vertical size (Y axis) of the background prefab.
+    /// </summary>
+    public float PrefabSizeY { get; private set; } = 0f;
 
+    /// <summary>
+    /// Unity Awake callback. Initializes the prefab size.
+    /// </summary>
     private void Awake()
     {
-        if (backgroundTransforms.Count == 0)
-        {
-            //Debug.Log("No background transforms assigned. Adding all children to list.", this);
-            foreach (Transform child in transform)
-            {
-                AddBackground(child);
-            }
-        }
-
-        prefabSizeY = GetPrefabSize().y;
+        PrefabSizeY = GetPrefabSize().y;
     }
 
     /// <summary>
-    /// Updates the position of the backgrounds elements based on the specified speed.
+    /// Updates the position of the background element based on the specified speed.
     /// The position is updated in a vertical manner, simulating a parallax effect.
-    /// <para>
-    /// Will apply the parallax multiplier to the speed,
-    /// changing the speed that they move at to get a parallax effect in the vertical axis as well.
-    /// </para>
+    /// Applies the parallax multiplier to the speed, changing the speed that the background moves at.
     /// </summary>
     /// <param name="speed">The speed that the player/tree is moving at.</param>
     public void UpdateTransformPositions(float speed)
     {
-        foreach (Transform backgroundTransform in backgroundTransforms)
-        {
-            Vector3 newPosition = backgroundTransform.position;
-            newPosition.y += speed * parallaxSpeed * Time.deltaTime;
-            backgroundTransform.position = newPosition;
-        }
+        Vector3 newPosition = transform.position;
+        newPosition.y += speed * parallaxSpeed * Time.deltaTime;
+        transform.position = newPosition;
     }
 
     /// <summary>
     /// Gets the size of the assigned prefab's bounds, representing the size in global space.
     /// </summary>
-    /// <returns>A Vector3 representing the size of the prefab</returns>
+    /// <returns>A <see cref="Vector3"/> representing the size of the prefab.</returns>
     private Vector3 GetPrefabSize()
     {
-        if (backgroundPrefab != null)
+        if (BackgroundPrefab != null)
         {
-            if (backgroundPrefab.TryGetComponent<Renderer>(out var renderer))
+            if (BackgroundPrefab.TryGetComponent<Renderer>(out var renderer))
             {
                 return renderer.bounds.size;
             }
@@ -82,132 +76,52 @@ public class ParallaxSystemUnit : MonoBehaviour
 
     /// <summary>
     /// Updates the state of background elements at fixed intervals.
+    /// Called automatically by the Unity engine during the physics update cycle.
     /// </summary>
-    /// <remarks>
-    /// This method is called automatically by the Unity engine during the physics update cycle.
-    /// </remarks>
     private void FixedUpdate()
     {
-        for (int i = 0; i < backgroundTransforms.Count; i++)
-            UpdateRotation(i);
+        UpdateRotation();
     }
 
     /// <summary>
-    /// Checks the visibility of background elements and spawns or removes them as necessary.
+    /// Handles trigger events for spawning or destroying background units.
     /// </summary>
-    /// <remarks>
-    /// This method is called automatically by the Unity engine every frame.
-    /// </remarks>
-    private void Update()
+    /// <param name="other">The collider that entered the trigger.</param>
+    private void OnTriggerEnter(Collider other)
     {
-        for (int i = 0; i < backgroundTransforms.Count; i++)
-            CheckVisibility(i);
+        if (other.CompareTag("BackgroundDestroyer"))
+        {
+            Debug.Log($"Destroying background: {gameObject.name}", this);
+            ParallaxSystemManager.Instance.DestroyBackground(gameObject);
+        }
+        else if (other.CompareTag("BackgroundSpawner") && !hasSpawned)
+        {
+            Debug.Log($"Spawning new background for: {gameObject.name}", this);
+            ParallaxSystemManager.Instance.SpawnNewBackground(this, m_parentTerrain, PrefabSizeY);
+            hasSpawned = true;
+        }
     }
 
     /// <summary>
-    /// Method that compares the current position of the transform at the given index in the <see cref="backgroundTransforms">backgroundTransforms</see>
-    /// list to see if it is still within the designated scope passed through the inspector using <see cref="outOfScopePosition">outOfScopePosition</see> and <see cref="inScopePosition">inScopePosition</see>.
+    /// Updates the rotation of the background transform around the parent terrain based on the <see cref="parallaxSpeed"/> variable.
     /// </summary>
-    /// <param name="transformIndexPosition">The index of the transform in the <see cref="backgroundTransforms">backgroundTransforms</see> list.</param>
-    private void CheckVisibility(int transformIndexPosition)
+    private void UpdateRotation()
     {
-        Transform backgroundTransform = backgroundTransforms[transformIndexPosition];
-        if (transformIndexPosition == 0 && backgroundTransform.position.y > outOfScopePosition.y)
-            RemoveBackground(backgroundTransform);
-        else if (transformIndexPosition == backgroundTransforms.Count - 1 && backgroundTransform.position.y < inScopePosition.y && backgroundTransform != lastInstantiatedBackground)
-            lastInstantiatedBackground = InstantiateNewBackground(GetSpawnPosition());
-    }
-
-    /// <summary>
-    /// Method that returns the position where a new background prefab should be spawned.
-    /// </summary>
-    /// <returns>The calculated position as a <see cref="Vector3"/></returns>
-    private Vector3 GetSpawnPosition()
-    {
-        return backgroundTransforms[^1].position - new Vector3(0, prefabSizeY, 0);
-    }
-
-    /// <summary>
-    /// Updates the rotation of a background transform around the parent terrain based on the <see cref="parallaxSpeed">parallaxSpeed</see> variable.
-    /// </summary>
-    /// <param name="transformIndexPosition">The index of the transform in the <see cref="backgroundTransforms">backgroundTransforms</see> list.</param>
-    private void UpdateRotation(int transformIndexPosition)
-    {
-        Transform backgroundTransform = backgroundTransforms[transformIndexPosition];
-        backgroundTransform.RotateAround(
-            parentTerrain.position,
+        transform.RotateAround(
+            m_parentTerrain.position,
             Vector3.up,
             parallaxSpeed * Time.deltaTime
         );
     }
 
     /// <summary>
-    /// Add the specified background transform to the list of backgrounds if it is not already present.
+    /// Initializes the parallax system unit with the specified parent terrain transform.
+    /// Resets the spawn state to allow spawning of new background elements.
     /// </summary>
-    /// <param name="toAddBackground">The transform to add to the list.</param>
-    private void AddBackground(Transform toAddBackground)
+    /// <param name="parentTerrain">The transform of the parent terrain to associate with this unit.</param>
+    public void Initialize(Transform parentTerrain)
     {
-        if (toAddBackground != null && !backgroundTransforms.Contains(toAddBackground))
-        {
-            backgroundTransforms.Add(toAddBackground);
-        }
-    }
-
-    /// <summary>
-    /// Instantiates a new background prefab at the specified spawn position and adds it to the list of backgrounds.
-    /// </summary>
-    /// <param name="spawnPosition">The position to instantiate the transform at.</param>
-    public Transform InstantiateNewBackground(Vector3 spawnPosition)
-    {
-        Transform instantiatedObject = Instantiate(backgroundPrefab, spawnPosition, Quaternion.identity, transform);
-        AddBackground(instantiatedObject);
-        return instantiatedObject;
-    }
-
-    /// <summary>
-    /// Remove the specified background transform from the list and destroy its GameObject.
-    /// </summary>
-    /// <param name="toRemoveBackground">The transform of the background element to remove.</param>
-    public void RemoveBackground(Transform toRemoveBackground)
-    {
-        if (toRemoveBackground != null && backgroundTransforms.Contains(toRemoveBackground))
-        {
-            backgroundTransforms.Remove(toRemoveBackground);
-            Destroy(toRemoveBackground.gameObject);
-        }
-    }
-
-    /// <summary>
-    /// Checks if the necessary components are assigned and logs warnings if not.
-    /// </summary>
-    /// <remarks>
-    /// Exits early if the script is on a prefab asset.<br/>
-    /// This method is called automatically by Unity when values are changed in the Inspector.
-    /// </remarks>
-    private void OnValidate()
-    {
-#if UNITY_EDITOR
-        if (PrefabUtility.IsPartOfPrefabAsset(gameObject))
-            return;
-#endif
-        if (backgroundPrefab == null)
-        {
-            Debug.LogWarning("Background prefab is not assigned in ParallaxSystemUnit.", this);
-        }
-        if (parentTerrain == null)
-        {
-            Debug.LogWarning("Parent terrain is not assigned in ParallaxSystemUnit.", this);
-        }
-    }
-
-    /// <summary>
-    /// Visualizes the out-of-scope and in-scope positions in the scene view using Gizmos if the object is selected.
-    /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + outOfScopePosition, new Vector3(10, .1f, 10));
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + inScopePosition, new Vector3(10, .1f, 10));
+        m_parentTerrain = parentTerrain;
+        hasSpawned = false; // Reset the spawn state when initialized
     }
 }

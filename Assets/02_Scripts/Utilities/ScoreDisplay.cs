@@ -61,7 +61,7 @@ namespace ScoreSystem
         {
             return currentScore switch
             {
-                < 1000 => string.Empty,
+                < 10000 => string.Empty,
                 < 1000000 => "K",
                 < 1000000000 => "M",
                 < 1000000000000 => "B",

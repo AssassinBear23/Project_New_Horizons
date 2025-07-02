@@ -100,7 +100,6 @@ namespace Managers
                 {
                     m_sensitivity = value;
                 }
-                Settings.Instance.ControlSettings.SetFloat("Sensitivity", m_sensitivity);
             }
         }
 
@@ -137,11 +136,6 @@ namespace Managers
         {
             m_moveAction = inputActions.FindActionMap("Player").FindAction("Move");
             m_filteredAccel = Vector3.zero;
-        }
-
-        private void Start()
-        {
-            Sensitivity = Settings.Instance.ControlSettings.GetFloat("Sensitivity").Value;
         }
          #endregion Setup Methods
 

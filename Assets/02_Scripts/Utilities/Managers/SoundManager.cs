@@ -61,7 +61,6 @@ namespace Managers
         public void SetupSoundManager()
         {
             GameManager.Instance.SoundManager = this;
-            SetMasterVolume(Settings.Instance.SoundSettings.GetFloat("MasterVolume").GetValueOrDefault(100f));
         }
 
         /// <summary>
@@ -181,7 +180,6 @@ namespace Managers
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("MasterVolume", toSetValue);
-            Settings.Instance.SoundSettings.SetFloat("MasterVolume", sliderValue);
         }
 
         /// <summary>
@@ -192,7 +190,6 @@ namespace Managers
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("MusicVolume", toSetValue);
-            Settings.Instance.SoundSettings.SetFloat("MusicVolume", sliderValue);
         }
 
         /// <summary>
@@ -203,7 +200,6 @@ namespace Managers
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("SFXVolume", sliderValue);
-            Settings.Instance.SoundSettings.SetFloat("SFXVolume", sliderValue);
         }
 
         /// <summary>
@@ -215,7 +211,6 @@ namespace Managers
         {
             float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat(mixerGroup.name + "Volume", toSetValue);
-            Settings.Instance.SoundSettings.SetFloat(mixerGroup.name + "Volume", sliderValue);
         }
 
         /// <summary>

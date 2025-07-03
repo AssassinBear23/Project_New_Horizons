@@ -31,9 +31,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 1.15
     - _Progress: 0
     - _QueueOffset: 1
     - _brightness: 1.6
+    - _saturation: 0.2
     m_Colors:
     - _Color: {r: 0.9647059, g: 0.85882354, b: 0.8980392, a: 1}
   m_BuildTextureStacks: []

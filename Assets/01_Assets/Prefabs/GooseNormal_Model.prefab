@@ -51,11 +51,11 @@ PrefabInstance:
     - target: {fileID: -5630087695194331396, guid: 74bf7b2cfd378f645b0484f52ac19269, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: -453691804711139574, guid: 74bf7b2cfd378f645b0484f52ac19269, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: 919132149155446097, guid: 74bf7b2cfd378f645b0484f52ac19269, type: 3}
       propertyPath: m_Name
       value: GooseNormal_Model
@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 5328876652709194577, guid: 74bf7b2cfd378f645b0484f52ac19269, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

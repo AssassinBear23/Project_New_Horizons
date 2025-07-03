@@ -67,11 +67,11 @@ PrefabInstance:
     - target: {fileID: -3181455777156074908, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: -2949243336701308073, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: -2003650706270319260, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: m_LocalPosition.z
       value: -13.20722
@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: -1536476189403118218, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: 153334548274765582, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -95,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 1952573768887946495, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: 2945678476208900423, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -103,11 +103,11 @@ PrefabInstance:
     - target: {fileID: 3823282283482595215, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: 5723042938644116137, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: 6250808719360385634, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -115,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 6293298687337444550, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 69b2ddc3052c641448e8a318f3796589, type: 2}
+      objectReference: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
     - target: {fileID: 7745739822353686544, guid: 297cd60e6c6dad645b67b5c02607e75e, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -226,7 +226,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offScreenOffSet: 0.3
+  scoreMultiplier: 0.01
   swipeCooldown: 10
+  rb: {fileID: 7508866762673510128}
+  featherParticles: {fileID: -1272967923453123883, guid: 6fa7370c9a244ff44b7b16d9a9761e5c, type: 3}
+  leaveParticles: {fileID: -8691234117246974781, guid: e5b547974f090c04fb9bcb483366355e, type: 3}
+  killBirdSound: {fileID: 8300000, guid: 465cef9e53a3bbb48932c9e1c0a55381, type: 3}
+  destroyBranchSound: {fileID: 8300000, guid: 2c066f5d161ac1a4dbeb4886e5ab6a6a, type: 3}
   onDeadge:
     m_PersistentCalls:
       m_Calls:
@@ -254,11 +260,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  rb: {fileID: 7508866762673510128}
-  featherParticles: {fileID: -1272967923453123883, guid: 6fa7370c9a244ff44b7b16d9a9761e5c, type: 3}
-  leaveParticles: {fileID: -8691234117246974781, guid: e5b547974f090c04fb9bcb483366355e, type: 3}
-  killBirdSound: {fileID: 8300000, guid: 465cef9e53a3bbb48932c9e1c0a55381, type: 3}
-  destroyBranchSound: {fileID: 8300000, guid: 2c066f5d161ac1a4dbeb4886e5ab6a6a, type: 3}
   onDestroyBranch:
     m_PersistentCalls:
       m_Calls:
@@ -289,6 +290,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  UsedSwipePower:
+    m_PersistentCalls:
+      m_Calls: []
+  screenShake:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2200318450970929089
 MonoBehaviour:
   m_ObjectHideFlags: 0

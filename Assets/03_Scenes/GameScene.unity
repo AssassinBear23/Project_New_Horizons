@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 3c422af4439b66341aa5bfc703c1e430, type: 3}
+  m_Texture: {fileID: 2800000, guid: 1089accee13e52f4494584ac37ce4e6e, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1726,6 +1726,8 @@ MonoBehaviour:
   image: {fileID: 1003633768}
   dark: {r: 0.20392157, g: 0.20392157, b: 0.20392157, a: 1}
   bright: {r: 1, g: 1, b: 1, a: 1}
+  texture1: {fileID: 2800000, guid: 1089accee13e52f4494584ac37ce4e6e, type: 3}
+  texture2: {fileID: 2800000, guid: 1028f4137975ba14fb556b6516ce4b66, type: 3}
 --- !u!1 &1033247626
 GameObject:
   m_ObjectHideFlags: 0

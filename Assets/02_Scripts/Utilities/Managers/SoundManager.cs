@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 
 namespace Managers
@@ -60,15 +61,7 @@ namespace Managers
         /// </summary>
         public void SetupSoundManager()
         {
-            if (GameManager.Instance.SoundManager == null)
-            {
-                GameManager.Instance.SoundManager = this;
-                SetMasterVolume(Settings.Instance.SoundSettings.GetFloat("MasterVolume").GetValueOrDefault(100f));
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            GameManager.Instance.SoundManager = this;
         }
 
         /// <summary>
@@ -186,8 +179,9 @@ namespace Managers
         /// <param name="sliderValue">The new master volume value.</param>
         public void SetMasterVolume(float sliderValue)
         {
-            m_audioMixer.SetFloat("MasterVolume", sliderValue);
-            Settings.Instance.SoundSettings.SetFloat("MasterVolume", sliderValue);
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
+            m_audioMixer.SetFloat("MasterVolume", toSetValue);
+            PlayerPrefs.SetFloat("Sound_MasterVolume", sliderValue);
         }
 
         /// <summary>
@@ -196,8 +190,9 @@ namespace Managers
         /// <param name="sliderValue">The new music volume value.</param>
         public void SetMusicVolume(float sliderValue)
         {
-            m_audioMixer.SetFloat("MusicVolume", sliderValue);
-            Settings.Instance.SoundSettings.SetFloat("MusicVolume", sliderValue);
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
+            m_audioMixer.SetFloat("MusicVolume", toSetValue);
+            PlayerPrefs.SetFloat("Sound_MusicVolume", sliderValue);
         }
 
         /// <summary>
@@ -206,8 +201,9 @@ namespace Managers
         /// <param name="sliderValue">The new SFX volume value.</param>
         public void SetSFXVolume(float sliderValue)
         {
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
             m_audioMixer.SetFloat("SFXVolume", sliderValue);
-            Settings.Instance.SoundSettings.SetFloat("SFXVolume", sliderValue);
+            PlayerPrefs.SetFloat("Sound_SFXVolume", sliderValue);
         }
 
         /// <summary>
@@ -217,8 +213,25 @@ namespace Managers
         /// <param name="sliderValue">The new volume value.</param>
         public void SetGroupVolume(AudioMixerGroup mixerGroup, float sliderValue)
         {
-            m_audioMixer.SetFloat(mixerGroup.name + "Volume", sliderValue);
-            Settings.Instance.SoundSettings.SetFloat(mixerGroup.name + "Volume", sliderValue);
+            float toSetValue = ConvertProcentToDecibel(sliderValue);
+            m_audioMixer.SetFloat("Sound_" + mixerGroup.name + "Volume", toSetValue);
+        }
+
+        /// <summary>
+        /// Converts a percentage value (0-100) to a decibel (dB) value suitable for use in an audio mixer.
+        /// A value of 0% returns the minimum dB value (silence), while 100% returns 0 dB (no attenuation).
+        /// </summary>
+        /// <param name="percent">The percentage value to convert, typically from a UI slider (0-100).</param>
+        /// <returns>
+        /// The corresponding decibel value. Returns -80 dB for 0% (silence), and logarithmically scales up to 0 dB for 100%.
+        /// </returns>
+        private float ConvertProcentToDecibel(float percent)
+        {
+            float minDb = -80f; // Minimum dB value for silence
+            float normalized = percent / 100f;
+            if (normalized <= 0f)
+                return minDb; // Return minimum dB value if percentage is 0 or less
+            return Mathf.Log10(normalized) * 20f;
         }
 
         /// <summary>
@@ -274,6 +287,20 @@ namespace Managers
             return false;
         }
 
+        public void SetStoredVolume(Transform sliderTransform, string key)
+        {
+            if(sliderTransform.TryGetComponent<Slider>(out Slider slider))
+            {
+                Debug.Log($"Value for {key} is {PlayerPrefs.GetFloat(key)}");
+                float value = PlayerPrefs.GetFloat(key, slider.minValue);
+                slider.SetValueWithoutNotify(value);
+                Debug.Log($"Slider value set to {value} for key {key}");
+            }
+            else
+            {
+                Debug.LogWarning("Transform does not have a Slider component.");
+            }
+        }
         #endregion Sound Control Methods
         #endregion Methods
     }

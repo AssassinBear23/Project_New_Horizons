@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
-
+using UnityEngine.UI;
 namespace Managers
 {
     /// <summary>
@@ -77,13 +77,14 @@ namespace Managers
         private bool isSwiping = true;
         private float SwipeMovement = 0;
         public UnityEvent OnSwipeEvent;
+        public UnityEvent<float> OnStartCooldown;
 
         [Header("Sensitivity Settings")]
         [SerializeField] private float m_sensitivity = 1f;
-        [SerializeField] private float m_minSensitivity = 0.1f;
-        [SerializeField] private float m_maxSensitivity = 10f;
+        [field: SerializeField] public float MinSensitivity { get; private set; } = 0.1f;
+        [field: SerializeField] public float MaxSensitivity { get; private set; } = 10f;
         /// <summary>
-        /// The sensitivity of the movement inputs. Clamped between <see cref="m_minSensitivity">m_minSensitivity</see> and <see cref="m_maxSensitivity">m_maxSensitivity</see>.
+        /// The sensitivity of the movement inputs. Clamped between <see cref="MinSensitivity">m_minSensitivity</see> and <see cref="MaxSensitivity">m_maxSensitivity</see>.
         /// </summary>
         public float Sensitivity
         {
@@ -91,21 +92,22 @@ namespace Managers
 
             set
             {
-                if (value < m_minSensitivity || value > m_maxSensitivity)
+                if (value < MinSensitivity || value > MaxSensitivity)
                 {
-                    Debug.LogWarning($"Sensitivity value must be between {m_minSensitivity} and {m_maxSensitivity}. Clamping to valid range.");
-                    m_sensitivity = Mathf.Clamp(value, m_minSensitivity, m_maxSensitivity);
+                    Debug.LogWarning($"Sensitivity value must be between {MinSensitivity} and {MaxSensitivity}. Clamping to valid range.");
+                    m_sensitivity = Mathf.Clamp(value, MinSensitivity, MaxSensitivity);
                 }
                 else
                 {
                     m_sensitivity = value;
                 }
-                Settings.Instance.ControlSettings.SetFloat("Sensitivity", m_sensitivity);
+                PlayerPrefs.SetFloat("Control_Sensitivity", m_sensitivity);
             }
         }
 
         [Header("Events")]
         [SerializeField] private UnityEvent m_pausePressed;
+
         #endregion
 
         #region Setup Methods
@@ -137,11 +139,6 @@ namespace Managers
         {
             m_moveAction = inputActions.FindActionMap("Player").FindAction("Move");
             m_filteredAccel = Vector3.zero;
-        }
-
-        private void Start()
-        {
-            Sensitivity = Settings.Instance.ControlSettings.GetFloat("Sensitivity").GetValueOrDefault(.5f);
         }
          #endregion Setup Methods
 
@@ -193,6 +190,7 @@ namespace Managers
         public IEnumerator SwipeCooldown(float time)
         {
             yield return null;
+            OnStartCooldown?.Invoke(time);
             swiped = false;
             yield return new WaitForSeconds(time - Time.deltaTime);
             canSwipe = true;
@@ -327,6 +325,20 @@ namespace Managers
             }
 
             m_calibrationValue = GetTilt(m_filteredAccel, false);
+        }
+        public void SetStoredSensitivity(Transform sliderTransform, string key)
+        {
+            if (sliderTransform.TryGetComponent<Slider>(out Slider slider))
+            {
+                Debug.Log($"Value for {key} is {PlayerPrefs.GetFloat(key)}");
+                float value = PlayerPrefs.GetFloat(key, slider.minValue);
+                slider.SetValueWithoutNotify(value);
+                Debug.Log($"Slider value set to {value} for key {key}");
+            }
+            else
+            {
+                Debug.LogWarning("Transform does not have a Slider component.");
+            }
         }
         #endregion
     }

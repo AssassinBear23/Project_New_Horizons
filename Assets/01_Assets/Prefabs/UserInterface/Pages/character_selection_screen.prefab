@@ -1895,9 +1895,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Estonian
-
-'
+  m_text: 5-Meter Distance
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: acfb24428b15c1b4192437f67b50c38c, type: 2}
   m_sharedMaterial: {fileID: 6113607886991446949, guid: acfb24428b15c1b4192437f67b50c38c, type: 2}
@@ -1940,7 +1938,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2687,7 +2685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Barbie
+  m_text: Barbara
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: acfb24428b15c1b4192437f67b50c38c, type: 2}
   m_sharedMaterial: {fileID: 6113607886991446949, guid: acfb24428b15c1b4192437f67b50c38c, type: 2}

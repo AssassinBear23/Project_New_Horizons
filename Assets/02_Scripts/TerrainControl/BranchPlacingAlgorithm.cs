@@ -31,8 +31,17 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     [SerializeField, Range(0f,1f)] private float chanceToSpawnBird;
 
     [Header("Power Ups")]
+    [Tooltip("Chance to spawn a power up on a branch")]
     [SerializeField, Range(0f, 1f)] private float chanceForPowerUpOnBranch;
     [SerializeField, Min(0)] private int maxPowerUpsOnSegment;
+    [Tooltip("These values should add up to 1, when spawning a branch, chances will be in order of how you put them in the list")]
+    [SerializeField] private List<PowerUps> powerUpChances = new List<PowerUps>();
+
+    [System.Serializable] public class PowerUps
+    {
+        public Managers.PowerUps powerUp;
+        [Range(0f, 1f)] public float chanceToSpawn;
+    }
 
     [Header("References")]
     [SerializeField] private Transform lastBranch;
@@ -184,7 +193,27 @@ public class BranchPlacingAlgorithm : MonoBehaviour
         if (Random.Range(0f,1f) <= chanceForPowerUpOnBranch && powerUpsOnSegment < maxPowerUpsOnSegment)
         {
             powerUpsOnSegment++;
-            Transform toSpawnPowerup = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Count)];
+
+            int index = 0;
+            float rand = Random.Range(0f, 1f);
+            for (int i = 0; i < powerUpChances.Count; i++)
+            {
+                float totalChanceNeeded = 0;
+                for (int k = i; k >= 0; k--)
+                {
+                    totalChanceNeeded += powerUpChances[k].chanceToSpawn;
+                }
+
+                if (rand <= totalChanceNeeded)
+                {
+                    index = i;
+                    break;
+                }
+
+            }
+            
+            Transform toSpawnPowerup = powerUpPrefabs[index];
+
             Transform spawned = Instantiate(toSpawnPowerup, branch);
             Vector3 pos = spawned.localPosition;
             pos.x = 0;

@@ -79,17 +79,8 @@ namespace Managers.Terrain
         {
             if (m_Gm.IsPaused) return;
 
-            /*
-            foreach (TreeTrunkController treeSegment in m_treeSegments)
-            {
-                treeSegment.UpdatePosition(MovementSpeed);
-            }
-            */
-
             m_Controller.UpdatePosition(MovementSpeed);
 
-            //ParallaxSystemManager.Instance.UpdateBackgroundPositions(MovementSpeed);
-            m_Gm.AddToCurrentScore(MovementSpeed * Time.deltaTime); // Update the score based on movement speed
             IncreaseSpeed(); // Increases movement speed over time
         }
 

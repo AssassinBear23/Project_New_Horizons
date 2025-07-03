@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Branch_D_02
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eec47518cf1af3c47a655bed9415e7f4, type: 3}
+      propertyPath: m_TagString
+      value: Branch
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -4,7 +4,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float screenShakeDuration = 0.2f;
     [SerializeField] private float screenShakeIntensity = 0.1f;
-    [SerializeField] private float screenShakeSpeedThreshold = 1;
+    [SerializeField] private float screenShakeThreshold = 1;
     private Managers.GameManager m_GM;
     private Managers.Terrain.TreeManager m_TerrainManager;
     private bool isLockedToPlayer = false;
@@ -55,7 +55,7 @@ public class CameraController : MonoBehaviour
     private Vector3 startPos;
     private IEnumerator DoScreenShake(float playerSpeed)
     {
-        if (Mathf.Abs(playerSpeed) >= screenShakeSpeedThreshold)
+        if (Mathf.Abs(playerSpeed) >= screenShakeThreshold)
         {
             if (!screenShaking) startPos = transform.position;
 

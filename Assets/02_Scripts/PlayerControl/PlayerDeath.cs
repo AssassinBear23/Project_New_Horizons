@@ -3,23 +3,32 @@ using UnityEngine.Events;
 using Managers;
 public class PlayerDeath : MonoBehaviour
 {
+    [Header("Stats")]
     [SerializeField] private float offScreenOffSet = 0.1f;
-    //[SerializeField] private float bounciness = 0.5f;
+    [SerializeField] private float scoreMultiplier = 0.01f;
     [SerializeField] private float swipeCooldown = 10;
-    public UnityEvent onDeadge;
+
+    [Header("References")]
     public Rigidbody rb;
     [SerializeField] private DestroyParticles featherParticles;
     [SerializeField] private DestroyParticles leaveParticles;
     [SerializeField] private AudioClip killBirdSound;
     [SerializeField] private AudioClip destroyBranchSound;
-    private InputManager m_inputManager;
+    
+
+    [Header("Evenets")]
+    public UnityEvent onDeadge;
     public UnityEvent<Vector3> onDestroyBranch;
     public UnityEvent<Vector3> onDestroyBird;
     public UnityEvent UsedSwipePower;
     public UnityEvent<float> screenShake;
+
+    private Vector3 lastPos;
+    private InputManager m_inputManager;
     private void Start()
     {
         m_inputManager = InputManager.Instance;
+        lastPos = transform.position;
     }
 
     /// <summary>
@@ -30,6 +39,12 @@ public class PlayerDeath : MonoBehaviour
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
 
         if (pos.y < -offScreenOffSet || pos.y > 1+offScreenOffSet) GoDie();
+    }
+    private void FixedUpdate()
+    {
+        float diff = transform.position.y - lastPos.y;
+        Managers.GameManager.Instance.AddToCurrentScore(-1f * diff * scoreMultiplier);
+        lastPos = transform.position;
     }
     private void GoDie()
     {
@@ -53,25 +68,22 @@ public class PlayerDeath : MonoBehaviour
                 Vector3 normal = collision.contacts[0].normal;
                 Transform target = collision.transform;
 
-                float frontDot = Vector3.Dot(normal, target.forward);
-                float backDot = Vector3.Dot(normal, -target.forward);
+                float rightDot = Vector3.Dot(normal, target.forward);
+                float leftDot = Vector3.Dot(normal, -target.forward);
                 float topDot = Vector3.Dot(normal, transform.up);
 
-                float threshold = 0.8f; // Adjust for tolerance due to floating point inaccuracies
+                float threshold = 0.65f; // Adjust for tolerance due to floating point inaccuracies
 
-                if (frontDot > threshold)
+                if (rightDot > threshold)
                 {
-                    Debug.Log("Right");
                     StartCoroutine(GameManager.Instance.PlayerControls.PlayerBounce(1));
                 }
-                else if (backDot > threshold)
+                else if (leftDot > threshold)
                 {
-                    Debug.Log("Left");
                     StartCoroutine(GameManager.Instance.PlayerControls.PlayerBounce(-1));
                 }
                 else if (topDot > threshold)
                 {
-                    Debug.Log("Top");
                     screenShake?.Invoke(rb.linearVelocity.y);
                 }
             }

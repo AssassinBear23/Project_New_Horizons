@@ -980,6 +980,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
+      propertyPath: offScreenOffSet
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904286697425575262, guid: bebad9d0ea4a4c54b9f1a2f55c7654d2, type: 3}
       propertyPath: screenShake.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2338,8 +2342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenShakeDuration: 0.2
-  screenShakeIntensity: 0.1
-  screenShakeSpeedThreshold: 0.2
+  screenShakeIntensity: 0.05
+  screenShakeThreshold: 0.1
 --- !u!1 &1554521517
 GameObject:
   m_ObjectHideFlags: 0

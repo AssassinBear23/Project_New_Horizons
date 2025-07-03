@@ -26,6 +26,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _MaxGradientDistance: 200
     - _Progress: 0
     m_Colors: []
   m_BuildTextureStacks: []

@@ -93,7 +93,7 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
-    - _Brightness: 0
+    - _Brightness: 0.76
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -124,6 +124,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     - _brightness: 1.2
+    - _saturation: 0.64
     m_Colors:
     - _BaseColor: {r: 0.8784314, g: 0.7058824, b: 0.69411767, a: 1}
     - _Color: {r: 0.9647059, g: 0.85882354, b: 0.8980392, a: 1}

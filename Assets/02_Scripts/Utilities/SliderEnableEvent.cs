@@ -1,11 +1,12 @@
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SliderEnableEvent : MonoBehaviour
 {
     [SerializeField] private string playerPrefsKey;
     private bool onEnableCalled = false;
-
+    public UnityEvent<Transform, string> doSomething;
     private void Start()
     {
         OnEnable();
@@ -20,6 +21,7 @@ public class SliderEnableEvent : MonoBehaviour
             return;
         }
 
-        GameManager.Instance.SoundManager.SetStoredVolume(transform, playerPrefsKey);
+        doSomething?.Invoke(transform, playerPrefsKey);
+        //GameManager.Instance.SoundManager.SetStoredVolume(transform, playerPrefsKey);
     }
 }

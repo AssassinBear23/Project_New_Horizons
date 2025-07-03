@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Squirrel 1
-  m_Shader: {fileID: -6465566751694194690, guid: 6a72ededffaaaba4eb7d16022d4762dd, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: 6a72ededffaaaba4eb7d16022d4762dd, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 241fe4b88ca53fe42b82853c9fe8f27e, type: 3}
+  m_Parent: {fileID: 2100000, guid: 03e89876faf60d0408ce2c280009894c, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []

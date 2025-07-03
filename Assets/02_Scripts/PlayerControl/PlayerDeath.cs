@@ -84,11 +84,11 @@ public class PlayerDeath : MonoBehaviour
                 }
                 else if (topDot > threshold)
                 {
+                    Debug.Log("Top");
                     screenShake?.Invoke(rb.linearVelocity.y);
                 }
             }
 
-            rb.AddForce(-1f * rb.GetAccumulatedForce());
             rb.linearVelocity = Vector3.zero;
         }
 
@@ -105,7 +105,6 @@ public class PlayerDeath : MonoBehaviour
 
             screenShake?.Invoke(rb.linearVelocity.y);
 
-            rb.AddForce(-1f * rb.GetAccumulatedForce());
             rb.linearVelocity = Vector3.zero;
         }
     }
@@ -125,7 +124,7 @@ public class PlayerDeath : MonoBehaviour
     }
     public void ResetPlayerForce()
     {
-        rb.AddForce(-1f * rb.GetAccumulatedForce());
-        rb.linearVelocity = Vector3.zero;
+        //rb.AddForce(-1f * rb.GetAccumulatedForce());
+        //rb.linearVelocity = Vector3.zero;
     }
 }

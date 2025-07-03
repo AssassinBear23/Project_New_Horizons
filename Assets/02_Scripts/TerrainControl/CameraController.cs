@@ -55,17 +55,16 @@ public class CameraController : MonoBehaviour
     private Vector3 startPos;
     private IEnumerator DoScreenShake(float playerSpeed)
     {
-        if (Mathf.Abs(playerSpeed) >= screenShakeThreshold)
-        {
-            if (!screenShaking) startPos = transform.position;
+        Debug.Log((Mathf.Abs(playerSpeed) >= screenShakeThreshold) + " " + playerSpeed);
+        //if (Mathf.Abs(playerSpeed) >= screenShakeThreshold)
+        if (!screenShaking) startPos = transform.position;
 
-            screenShaking = true;
+        screenShaking = true;
 
-            yield return new WaitForSeconds(screenShakeDuration);
+        yield return new WaitForSeconds(screenShakeDuration);
 
-            startPos.y = transform.position.y;
-            transform.position = startPos;
-            screenShaking = false;
-        }
+        startPos.y = transform.position.y;
+        transform.position = startPos;
+        screenShaking = false;
     }
 }

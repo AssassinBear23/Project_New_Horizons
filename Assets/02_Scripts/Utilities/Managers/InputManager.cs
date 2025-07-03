@@ -249,7 +249,8 @@ namespace Managers
         }
 
         /// <summary>
-        /// Handles the pause input action. Sets <see cref="IsPausePressed"/> and starts a coroutine to reset it.
+        /// Handles the pause input action. Sets <see cref="IsPausePressed"/> and starts a coroutine to 
+        /// it.
         /// </summary>
         /// <param name="context">The input action callback context.</param>
         public void OnPause(InputValue context)

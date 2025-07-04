@@ -58,12 +58,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skins:
   - {fileID: 5849951639888017268}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7576256572129414006}
+  - {fileID: 7508493182770804056}
+  - {fileID: 5923412322753046733}
+  - {fileID: 4202426903373669374}
+  - {fileID: 5348659989668845247}
+  - {fileID: 5700132503122969540}
   checkMark: {fileID: 9161255092550641010}
 --- !u!1 &2372277844134573219
 GameObject:
@@ -90,16 +90,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2372277844134573219}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 843609709583545915}
+  m_Father: {fileID: 476248380960774175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &682639448622111702
@@ -236,8 +236,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -300, y: 505}
-  m_SizeDelta: {x: 200, y: 300}
+  m_AnchoredPosition: {x: -310, y: 505}
+  m_SizeDelta: {x: 180, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1640074293677004814
 CanvasRenderer:
@@ -349,7 +349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &843609709583545915
 RectTransform:
   m_ObjectHideFlags: 0
@@ -365,7 +365,6 @@ RectTransform:
   - {fileID: 5163094950476722068}
   - {fileID: 476248380960774175}
   - {fileID: 8095167127952524633}
-  - {fileID: 1845610195647263477}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -692,8 +691,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_SizeDelta: {x: -104.4, y: -28.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5261063947423831302
 CanvasRenderer:
@@ -868,8 +867,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 299.99997, y: 505}
-  m_SizeDelta: {x: 200, y: 300}
+  m_AnchoredPosition: {x: 309.99997, y: 505}
+  m_SizeDelta: {x: 180, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &683255518253079954
 CanvasRenderer:
@@ -1132,10 +1131,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2069636007081244012}
+  - {fileID: 1845610195647263477}
   m_Father: {fileID: 843609709583545915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0.4}
-  m_AnchorMax: {x: 0.9, y: 0.85}
+  m_AnchorMin: {x: 0.1, y: 0.29}
+  m_AnchorMax: {x: 0.9, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
@@ -1211,8 +1211,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 500}
-  m_SizeDelta: {x: 440, y: 300}
+  m_AnchoredPosition: {x: 0, y: 530}
+  m_SizeDelta: {x: 440, y: 360}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &991567741010976040
 CanvasRenderer:
@@ -1530,6 +1530,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6650961842016650732, guid: 73826d474351900499d60bc63e037d66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d1d18c2acfc1a6f458f5fef9b7bb36e0, type: 3}
     - target: {fileID: 7940239586234181217, guid: 73826d474351900499d60bc63e037d66, type: 3}
       propertyPath: m_text
       value: The other one
@@ -1646,7 +1650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3435963062234790155, guid: 73826d474351900499d60bc63e037d66, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8970017834867054522, guid: 73826d474351900499d60bc63e037d66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1762,9 +1766,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6650961842016650732, guid: 73826d474351900499d60bc63e037d66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 76588a4dcb410a64092931fdcb81fdbb, type: 3}
     - target: {fileID: 7940239586234181217, guid: 73826d474351900499d60bc63e037d66, type: 3}
       propertyPath: m_text
       value: The Baguette
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389771156697904242, guid: 73826d474351900499d60bc63e037d66, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8970017834867054522, guid: 73826d474351900499d60bc63e037d66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1880,6 +1892,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6650961842016650732, guid: 73826d474351900499d60bc63e037d66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c6e395c852c6314995b8e04db1c93e4, type: 3}
     - target: {fileID: 7940239586234181217, guid: 73826d474351900499d60bc63e037d66, type: 3}
       propertyPath: m_text
       value: Barbara
@@ -1998,6 +2014,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6650961842016650732, guid: 73826d474351900499d60bc63e037d66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e3a41754bd28f6349b5ba2d4d717f947, type: 3}
     - target: {fileID: 7940239586234181217, guid: 73826d474351900499d60bc63e037d66, type: 3}
       propertyPath: m_text
       value: Squirrel Pride

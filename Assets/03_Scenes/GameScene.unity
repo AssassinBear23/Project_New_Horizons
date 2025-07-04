@@ -4103,6 +4103,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1823662317}
     m_Modifications:
+    - target: {fileID: 2525988567557801806, guid: 667928e1c5854274caef9fbc0283168a, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5120208663278011505, guid: 667928e1c5854274caef9fbc0283168a, type: 3}
       propertyPath: OnSwipeEvent.m_PersistentCalls.m_Calls.Array.size
       value: 2

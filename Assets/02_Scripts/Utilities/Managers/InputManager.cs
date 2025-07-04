@@ -218,7 +218,7 @@ namespace Managers
                     return inputValue.x * m_sensitivity;
                 case "Phone":
                     Debug.Log("In phone");
-                    return inputValue.x * m_sensitivity;
+                    return -inputValue.x * m_sensitivity;
                 case "PhoneGyro":
                     // Exponential moving average filter
                     m_filteredAccel = Vector3.Lerp(m_filteredAccel, m_accelerometerAmount, m_smoothingFactor);

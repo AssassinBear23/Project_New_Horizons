@@ -230,11 +230,12 @@ public class BranchPlacingAlgorithm : MonoBehaviour
     private Transform CreateBird(float _YPos, Transform _Parent)
     {
         Transform bird = Instantiate(birdPrefab, lastBranch.position, lastBranch.rotation);
+        bird.GetComponentInChildren<BirdController>().SetDirection((Random.Range(0, 2) == 0) ? Directions.Clockwise : Directions.Counterclockwise);
 
         // Apply random rotation and position
         float pos = _YPos + Random.Range(-yOffset, yOffset);
 
-        bird.localEulerAngles = new Vector3(bird.localEulerAngles.x, 0, bird.localEulerAngles.z);
+        bird.localEulerAngles = new Vector3(bird.localEulerAngles.x, Random.Range(0f,360f), bird.localEulerAngles.z);
         bird.localPosition = new Vector3(transform.position.x, pos, transform.position.z);
         bird.parent = _Parent;
 

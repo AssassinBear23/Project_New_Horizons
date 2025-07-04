@@ -159,4 +159,10 @@ public class BirdController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         Destroy(transform.parent.gameObject);
     }
+    public void SetDirection(Directions _Direction)
+    {
+        moveDirection = _Direction;
+
+        transform.localEulerAngles = new Vector3(0, 90 * ((moveDirection == Directions.Clockwise) ? -1 : 1), 0); 
+    }
 }

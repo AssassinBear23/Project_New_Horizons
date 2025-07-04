@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -87,11 +87,6 @@ namespace Managers
 
         [Header("Debugging")]
         /// <summary>
-        /// Whether to show the FPS indicator in the UI.
-        /// </summary>
-        [SerializeField] private bool m_showFpsIndicator = false;
-
-        /// <summary>
         /// Reference to the TMP_Text component used for displaying FPS.
         /// </summary>
         [SerializeField] private TMP_Text m_fpsIndicator;
@@ -167,7 +162,7 @@ namespace Managers
         /// </summary>
         private void Update()
         {
-            if (m_showFpsIndicator)
+            if (m_fpsIndicator.enabled)
                 UpdateFpsIndicator();
         }
 
@@ -311,6 +306,7 @@ namespace Managers
             IsPaused = true;
             onGameOver?.Invoke();
         }
+
         public GameObject GetPlayer()
         {
             return m_playerObject;

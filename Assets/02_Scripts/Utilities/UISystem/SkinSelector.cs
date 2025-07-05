@@ -6,13 +6,9 @@ public class SkinSelector : MonoBehaviour
     private int selectedSkin = 0;
     [SerializeField] private List<Transform> skins;
     [SerializeField] private Transform checkMark;
-    private void Awake()
-    {
-        PlayerPrefs.SetInt("SelectedSkin", 0);
-    }
     private void Start()
     {
-        index = PlayerPrefs.GetInt("SelectedSkin");
+        index = PlayerPrefs.GetInt("SelectedSkin", 0);
         selectedSkin = index;
         ShowSkin();
     }

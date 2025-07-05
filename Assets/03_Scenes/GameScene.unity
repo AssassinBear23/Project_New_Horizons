@@ -3176,6 +3176,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1270594122}
+    - target: {fileID: 3111948700875607147, guid: 97395309a60d74947baceba0401e9253, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3716277528664240206, guid: 97395309a60d74947baceba0401e9253, type: 3}
       propertyPath: m_Name
       value: In-game_screen
